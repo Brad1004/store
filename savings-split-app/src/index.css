@@ -1,0 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+    'Segoe UI', 'Malgun Gothic', sans-serif;
+  background: #f4f3fb;
+  color: #262233;
+  -webkit-font-smoothing: antialiased;
+}

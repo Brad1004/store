@@ -1,0 +1,9 @@
+{
+  "short_name": "통장쪼개기",
+  "name": "통장 쪼개기 - 목표 저축 앱",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#5B4FE9",
+  "background_color": "#ffffff"
+}
