@@ -205,6 +205,19 @@ button{cursor:pointer}
 .send{width:40px;height:40px;border-radius:14px;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
 .send:disabled{background:var(--surface-2);color:var(--muted);cursor:default}
 .send svg{width:20px;height:20px}
+.mic{width:40px;height:40px;border-radius:14px;border:0;background:var(--surface-2);color:var(--ink-2);display:grid;place-items:center;flex:none;position:relative}
+.mic svg{width:20px;height:20px}
+.mic.rec{background:var(--danger);color:#fff;animation:recpulse 1.2s ease-in-out infinite}
+@keyframes recpulse{0%,100%{box-shadow:0 0 0 0 rgba(178,59,59,.45)}50%{box-shadow:0 0 0 7px rgba(178,59,59,0)}}
+@media (prefers-reduced-motion:reduce){.mic.rec{animation:none}}
+.lang{border:0;background:none;color:var(--muted);font-size:11px;font-weight:700;padding:0 2px;height:40px;flex:none;letter-spacing:.02em}
+.chip.order{border-color:var(--brass);color:var(--brass)}
+.chips.dm .chip.mention{display:none}
+.ordertag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;border-radius:8px;padding:2px 7px;margin-top:4px;background:var(--warn-bg);color:var(--warn-ink)}
+.ordertag.done{background:var(--accent-soft);color:var(--accent)}
+.ordertag.hold{background:var(--sep-bg);color:var(--ink-2)}
+.msg.mine .col{align-items:flex-end;width:100%;max-width:100%}
+.msg.mine .line{align-self:flex-end}
 
 .toast{position:absolute;left:50%;top:84px;transform:translateX(-50%);max-width:calc(100% - 48px);background:var(--ink);color:var(--surface);font-size:13px;padding:9px 14px;border-radius:12px;z-index:5;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.2)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -254,13 +267,17 @@ button{cursor:pointer}
     <div class="ai-off" id="aiOff" hidden></div>
     <div class="msgs" id="msgs" aria-live="polite"></div>
     <div class="composer">
-      <div class="chips" id="chips" hidden>
-        <button class="chip" data-m="@머스크">@머스크</button>
-        <button class="chip" data-m="@버핏">@버핏</button>
-        <button class="chip" data-m="@잡스">@잡스</button>
+      <div class="chips" id="chips">
+        <button class="chip order" data-m="#지시" data-lead="1" title="본부가 실제로 처리할 업무지시">📌 #지시</button>
+        <button class="chip mention" data-m="@머스크">@머스크</button>
+        <button class="chip mention" data-m="@버핏">@버핏</button>
+        <button class="chip mention" data-m="@잡스">@잡스</button>
       </div>
       <form class="inrow" id="sendForm">
         <label class="sr" for="msgInput">메시지</label>
+        <button class="lang" id="langBtn" type="button" aria-label="음성 입력 언어">KO</button>
+        <button class="mic" id="micBtn" type="button" aria-label="음성으로 입력" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
         <textarea id="msgInput" rows="1" maxlength="2000" placeholder="메시지 입력"></textarea>
         <button class="send" id="sendBtn" type="submit" aria-label="보내기" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg></button>
@@ -294,7 +311,8 @@ const COMMON_RULES = [
   "메신저이므로 짧게 3~6문장으로 답합니다. 필요할 때만 핵심을 Define/Measure/Analyze/Improve/Control 순서로 한 줄씩 간단히 정리합니다.",
   "모르는 사실이나 수치는 지어내지 말고 '확인 필요'라고 말합니다.",
   "[능력의 한계 — 반드시 지킬 것] 당신은 이 채팅창에서 글로 답하는 것만 할 수 있습니다. 영상통화·전화·화면 공유·원격 제어·회의 진행·파일 수정·앱 개발·배포·일정 등록 같은 실제 행동은 할 수 없습니다. 하지 않은 일을 했다거나, 하고 있다거나, 곧 하겠다고 말하지 마세요(예: '통화 요청 보냈습니다', '지금 회의 중입니다', '바로 처리하겠습니다', '이번 주까지 만들겠습니다' 금지).",
-  "회장님이 실제 작업(개발, 문서 작성, 일정 등록 등)을 지시하시면: 지시 내용을 한두 줄로 정리하고, '실제 처리는 SH그룹 본부(Claude Code 대화)에서 진행됩니다. 본부에 \"SH톡 지시 처리해\"라고 말씀해 주시면 반영됩니다'라고 안내합니다.",
+  "회장님이 실제 작업(개발, 문서 작성, 일정 등록 등)을 지시하시면: 지시 내용을 한두 줄로 정리하고, '메시지 맨 앞에 #지시 를 붙여 다시 보내 주시면 SH그룹 본부(Claude Code)가 WIB 07~22시에 1시간마다 확인해 실제로 처리하고 결과를 이 방에 올립니다'라고 안내합니다.",
+  "방의 기록에 '본부 처리' 결과 메시지가 있으면 그것이 실제로 처리된 내용입니다. 그 밖의 처리 여부는 추측하지 마세요.",
   "다른 팀장과 따로 회의하거나 연락할 수 없습니다. 다른 팀장의 의견이 필요하면 회장님께 '@이름'으로 불러 달라고 요청합니다.",
   "답장 본문만 쓰고, 이름 접두어('머스크:' 등)나 인사말 서명은 붙이지 않습니다. 마크다운 제목·표는 쓰지 않습니다."
 ].join("\n");
@@ -318,6 +336,8 @@ function faceNode(key){
 const GROUP_ID = "group";
 const HISTORY_N = 12;
 const ROOM_LIMIT = 200;
+const ORDER_RE = /^\s*#지시/;
+const ORDER_LABEL = {"접수":"접수 · 본부 확인 대기","처리중":"본부 처리 중","완료":"처리 완료","보류":"보류 · 회장님 확인 필요"};
 const MENTION_RE = /@(머스크|버핏|워론|잡스)/g; // 워론: 이전 이름(호환용)
 const NAME_TO_AGENT = {"머스크":"musk","버핏":"warren","워론":"warren","잡스":"jobs"};
 
@@ -635,7 +655,7 @@ function openRoom(id){
   S.room=id; S.roomMsgs=[];
   $("roomName").textContent = r.kind==="group" ? r.name+" (4)" : r.name;
   $("roomSub").textContent = r.sub;
-  $("chips").hidden = r.kind!=="group";
+  $("chips").classList.toggle("dm", r.kind!=="group");
   $("msgs").replaceChildren();
   $("roomScreen").hidden=false; $("mainScreen").setAttribute("inert","");
   updateAiBanner();
@@ -695,8 +715,13 @@ function msgNode(m, first, showTime){
   const row=el("div","msg "+(mine?"mine":"theirs")+(first?" first":""));
   const bubble=el("div","bubble", String(m.text||""));
   const line=el("div","line"); line.append(bubble);
+  let tag=null;
+  if(m.orderStatus){
+    const st=String(m.orderStatus);
+    tag=el("div","ordertag"+(st==="완료"?" done":st==="보류"?" hold":""), "📌 업무지시 · "+(ORDER_LABEL[st]||st));
+  }
   if(showTime) line.append(el("span","time", m._pending?"전송 중":fmtTime(m.createdAt||0)));
-  if(mine){ row.append(line); return row; }
+  if(mine){ const c=el("div","col"); c.append(line); if(tag) c.append(tag); row.append(c); return row; }
   const avc=el("div","avcol");
   if(first) avc.append(m.senderType==="agent" ? agentAvatar(m.agent,"sm") : humanAvatar(m.sender,"sm"));
   const col=el("div","col");
@@ -705,7 +730,7 @@ function msgNode(m, first, showTime){
     if(m.senderType==="agent" && AGENTS[m.agent]) nm.append(el("small",null,AGENTS[m.agent].role));
     col.append(nm);
   }
-  col.append(line); row.append(avc,col); return row;
+  col.append(line); if(tag) col.append(tag); row.append(avc,col); return row;
 }
 function typingNode(p){
   const row=el("div","msg theirs first pending"); row.id="typingRow";
@@ -747,18 +772,58 @@ input.addEventListener("keydown",(e)=>{
 $("sendForm").addEventListener("submit",(e)=>{ e.preventDefault(); send(); });
 $("chips").addEventListener("click",(e)=>{
   const b=e.target.closest(".chip"); if(!b) return;
-  const v=input.value; input.value=(v && !/\s$/.test(v) ? v+" " : v)+b.dataset.m+" ";
+  const v=input.value;
+  if(b.dataset.lead){ if(!ORDER_RE.test(v)) input.value=b.dataset.m+" "+v.replace(/^\s+/,""); }
+  else input.value=(v && !/\s$/.test(v) ? v+" " : v)+b.dataset.m+" ";
   input.focus(); autosize(); updateSend();
 });
 
+/* ---------- Voice input (Web Speech API; falls back to the keyboard mic) ---------- */
+const LANGS=[["KO","ko-KR"],["ID","id-ID"],["EN","en-US"]];
+let langIdx=Math.max(0, LANGS.findIndex(l=>l[1]===lsGet("shtalk.lang","ko-KR")));
+const langBtn=$("langBtn"), micBtn=$("micBtn");
+function showLang(){ langBtn.textContent=LANGS[langIdx][0]; langBtn.setAttribute("aria-label","음성 입력 언어: "+({KO:"한국어",ID:"인도네시아어",EN:"영어"})[LANGS[langIdx][0]]+" (눌러서 변경)"); }
+showLang();
+langBtn.addEventListener("click",()=>{ langIdx=(langIdx+1)%LANGS.length; lsSet("shtalk.lang",LANGS[langIdx][1]); showLang(); if(rec) stopRec(); });
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const FALLBACK="이 화면에서는 음성 입력을 쓸 수 없습니다. 입력창을 누른 뒤 키보드의 🎤 버튼으로 말씀해 주세요.";
+let rec=null, recBase="";
+function micAllowed(){
+  try{ const fp=document.permissionsPolicy||document.featurePolicy; if(fp && typeof fp.allowsFeature==="function") return fp.allowsFeature("microphone"); }catch(e){}
+  return true;
+}
+function stopRec(){ try{ rec&&rec.stop(); }catch(e){} }
+function setRecUi(on){ micBtn.classList.toggle("rec",on); micBtn.setAttribute("aria-pressed",on?"true":"false"); micBtn.setAttribute("aria-label",on?"음성 입력 중지":"음성으로 입력"); }
+micBtn.addEventListener("click",()=>{
+  if(rec){ stopRec(); return; }
+  if(!SR || !micAllowed()){ toast(FALLBACK); return; }
+  let r; try{ r=new SR(); }catch(e){ toast(FALLBACK); return; }
+  rec=r; recBase=input.value && !/\s$/.test(input.value) ? input.value+" " : input.value;
+  r.lang=LANGS[langIdx][1]; r.interimResults=true; r.continuous=false; r.maxAlternatives=1;
+  r.onresult=(e)=>{ let t=""; for(let i=0;i<e.results.length;i++) t+=e.results[i][0].transcript; input.value=(recBase+t).slice(0,2000); autosize(); updateSend(); };
+  r.onerror=(e)=>{
+    const c=e&&e.error;
+    if(c==="not-allowed"||c==="service-not-allowed"||c==="audio-capture") toast(FALLBACK);
+    else if(c==="no-speech") toast("말씀이 들리지 않았습니다. 마이크 버튼을 다시 눌러 주세요.");
+    else if(c==="network") toast("음성 인식 서버에 연결하지 못했습니다. 키보드의 🎤 버튼을 이용해 주세요.");
+  };
+  r.onend=()=>{ if(rec===r) rec=null; setRecUi(false); input.focus(); };
+  try{ r.start(); setRecUi(true); }catch(e){ rec=null; setRecUi(false); toast(FALLBACK); }
+});
+
 async function send(){
+  if(rec) stopRec();
   const text=input.value.trim(); if(!text || !S.store || S.readonly || !S.room) return;
   const room=S.room; const r=roomById(room);
+  const isOrder=ORDER_RE.test(text);
   const msg={room, sender:S.uid, senderType:"human", text, createdAt:Date.now()};
+  if(isOrder) msg.orderStatus="접수";
   input.value=""; autosize(); updateSend();
   const context=S.roomMsgs.slice(-HISTORY_N).concat([msg]);
   try{ await S.store.addMessage(msg); }
   catch(e){ input.value=text; autosize(); updateSend(); toast(writeErrorCopy(e)); return; }
+  // Work orders go to the HQ (Claude Code) routine instead of a chat reply, so no one promises work in chat.
+  if(isOrder){ toast("📌 업무지시가 접수되었습니다. 본부가 WIB 07~22시에 1시간마다 확인해 처리 결과를 이 방에 올립니다."); return; }
   // Only the sender's screen asks the AI, so viewers watching the same room never double-reply.
   let agents=[];
   if(r.kind==="dm") agents=[r.agent];
