@@ -26,7 +26,7 @@
   --brass:#A87A2A;
   --c-owner:#A87A2A;
   --c-musk:#34598F;
-  --c-warren:#8C4A2F;
+  --c-warren:#A3365A;
   --c-jobs:#5A4C8C;
   --c-member:#5E6C78;
   --warn-bg:#FBF1DD;
@@ -46,7 +46,7 @@
     --chat-bg:#0F1519;--sep-bg:rgba(230,235,239,.08);--sep-ink:#A9B4BE;
     --mine:#2A8C78;--mine-ink:#FFFFFF;--theirs:#232B33;--theirs-ink:#E6EBEF;
     --accent:#3AA58E;--accent-soft:#16302A;--accent-ink:#06120F;
-    --brass:#D2A24E;--c-owner:#B98A38;--c-musk:#4F78B5;--c-warren:#B0633F;--c-jobs:#7867B0;--c-member:#6F7D89;
+    --brass:#D2A24E;--c-owner:#B98A38;--c-musk:#4F78B5;--c-warren:#E07A9B;--c-jobs:#7867B0;--c-member:#6F7D89;
     --warn-bg:#3A2E14;--warn-ink:#F0CD86;--ok:#4CC080;--danger:#E07070;
     --shadow:0 30px 60px -20px rgba(0,0,0,.7),0 0 0 1px #20272E;
   }
@@ -59,7 +59,7 @@
   --chat-bg:#0F1519;--sep-bg:rgba(230,235,239,.08);--sep-ink:#A9B4BE;
   --mine:#2A8C78;--mine-ink:#FFFFFF;--theirs:#232B33;--theirs-ink:#E6EBEF;
   --accent:#3AA58E;--accent-soft:#16302A;--accent-ink:#06120F;
-  --brass:#D2A24E;--c-owner:#B98A38;--c-musk:#4F78B5;--c-warren:#B0633F;--c-jobs:#7867B0;--c-member:#6F7D89;
+  --brass:#D2A24E;--c-owner:#B98A38;--c-musk:#4F78B5;--c-warren:#E07A9B;--c-jobs:#7867B0;--c-member:#6F7D89;
   --warn-bg:#3A2E14;--warn-ink:#F0CD86;--ok:#4CC080;--danger:#E07070;
   --shadow:0 30px 60px -20px rgba(0,0,0,.7),0 0 0 1px #20272E;
 }
@@ -131,6 +131,10 @@ button{cursor:pointer}
 .row-item .when{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
 .badge{min-width:18px;height:18px;border-radius:9px;background:var(--danger);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 5px}
 .role{font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:1px 7px;border-radius:6px;white-space:nowrap}
+.who-owner{--tc:var(--c-owner)}.who-musk{--tc:var(--c-musk)}.who-warren{--tc:var(--c-warren)}.who-jobs{--tc:var(--c-jobs)}
+.tname{color:var(--tc);font-weight:700}
+.role.tc{color:var(--tc);background:color-mix(in srgb,var(--tc) 14%,transparent)}
+.msg .name small.tc{color:var(--tc);opacity:.85}
 .me-card{padding:6px 0 10px;border-bottom:1px solid var(--line)}
 
 /* Notices */
@@ -212,6 +216,7 @@ button{cursor:pointer}
 @media (prefers-reduced-motion:reduce){.mic.rec{animation:none}}
 .lang{border:0;background:none;color:var(--muted);font-size:11px;font-weight:700;padding:0 2px;height:40px;flex:none;letter-spacing:.02em}
 .chip.order{border-color:var(--brass);color:var(--brass)}
+.chip.mention{color:var(--tc);border-color:color-mix(in srgb,var(--tc) 45%,transparent)}
 .chips.dm .chip.mention{display:none}
 .ordertag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;border-radius:8px;padding:2px 7px;margin-top:4px;background:var(--warn-bg);color:var(--warn-ink)}
 .ordertag.done{background:var(--accent-soft);color:var(--accent)}
@@ -269,9 +274,9 @@ button{cursor:pointer}
     <div class="composer">
       <div class="chips" id="chips">
         <button class="chip order" data-m="#지시" data-lead="1" title="본부가 실제로 처리할 업무지시">📌 #지시</button>
-        <button class="chip mention" data-m="@머스크">@머스크</button>
-        <button class="chip mention" data-m="@버핏">@버핏</button>
-        <button class="chip mention" data-m="@잡스">@잡스</button>
+        <button class="chip mention who-musk" data-m="@머스크">@머스크</button>
+        <button class="chip mention who-warren" data-m="@버핏">@버핏</button>
+        <button class="chip mention who-jobs" data-m="@잡스">@잡스</button>
       </div>
       <form class="inrow" id="sendForm">
         <label class="sr" for="msgInput">메시지</label>
@@ -556,7 +561,7 @@ function renderFriends(){
   const av=el("div","av lg", myIsOwner?"회":"나"); av.style.background = myIsOwner?"var(--c-owner)":"var(--c-member)";
   const tx=el("div","txt");
   const t1=el("div","t1"); t1.append(el("span",null, myIsOwner?"회장님":(S.profiles[S.uid]&&S.profiles[S.uid].name)||"나"));
-  if(myIsOwner) t1.append(el("span","role","SH그룹 회장"));
+  if(myIsOwner) t1.append(el("span","role tc who-owner","SH그룹 회장"));
   tx.append(t1, el("div","t2", myIsOwner?"사출기 13대, 다음은 플랫폼":"SH그룹 구성원"));
   meRow.append(av,tx); me.append(meRow); p.append(me);
 
@@ -565,7 +570,7 @@ function renderFriends(){
     const a=AGENTS[key];
     const b=el("button","row-item"); b.type="button"; b.setAttribute("aria-label", a.label+a.wa+" 1:1 채팅");
     const tx=el("div","txt"); const t1=el("div","t1");
-    t1.append(el("span",null,a.label), el("span","role",a.role));
+    t1.append(el("span","tname who-"+key,a.label), el("span","role tc who-"+key,a.role));
     tx.append(t1, el("div","t2",a.status));
     b.append(agentAvatar(key), tx);
     b.addEventListener("click",()=>openRoom(dmId(key)));
@@ -592,7 +597,7 @@ function renderChats(){
     const m=S.last[r.id];
     const b=el("button","row-item"); b.type="button";
     const tx=el("div","txt"); const t1=el("div","t1");
-    t1.append(el("span",null,r.name)); if(r.kind==="group") t1.append(el("span","cnt","4"));
+    t1.append(el("span", r.kind==="dm"?"tname who-"+r.agent:null, r.name)); if(r.kind==="group") t1.append(el("span","cnt","4"));
     let prev="대화를 시작해 보세요";
     if(m){ prev = (r.kind==="group" ? speakerName(m)+": " : "") + String(m.text||"").replace(/\s+/g," "); }
     if(S.pending[r.id]) prev=(AGENTS[S.pending[r.id].agent]||{}).label+" 님이 입력 중…";
@@ -654,6 +659,7 @@ function openRoom(id){
   if(S.roomUnsub){ S.roomUnsub(); S.roomUnsub=null; }
   S.room=id; S.roomMsgs=[];
   $("roomName").textContent = r.kind==="group" ? r.name+" (4)" : r.name;
+  $("roomName").className = "n"+(r.kind==="dm" ? " tname who-"+r.agent : "");
   $("roomSub").textContent = r.sub;
   $("chips").classList.toggle("dm", r.kind!=="group");
   $("msgs").replaceChildren();
@@ -726,8 +732,9 @@ function msgNode(m, first, showTime){
   if(first) avc.append(m.senderType==="agent" ? agentAvatar(m.agent,"sm") : humanAvatar(m.sender,"sm"));
   const col=el("div","col");
   if(first){
-    const nm=el("div","name"); nm.append(el("span",null,speakerName(m)));
-    if(m.senderType==="agent" && AGENTS[m.agent]) nm.append(el("small",null,AGENTS[m.agent].role));
+    const who = m.senderType==="agent" && AGENTS[m.agent] ? "who-"+m.agent : (isOwnerId(m.sender) ? "who-owner" : null);
+    const nm=el("div","name"); nm.append(el("span", who?"tname "+who:null, speakerName(m)));
+    if(m.senderType==="agent" && AGENTS[m.agent]) nm.append(el("small","tc who-"+m.agent,AGENTS[m.agent].role));
     col.append(nm);
   }
   col.append(line); if(tag) col.append(tag); row.append(avc,col); return row;
@@ -735,7 +742,7 @@ function msgNode(m, first, showTime){
 function typingNode(p){
   const row=el("div","msg theirs first pending"); row.id="typingRow";
   const avc=el("div","avcol"); avc.append(agentAvatar(p.agent,"sm"));
-  const col=el("div","col"); const nm=el("div","name"); nm.append(el("span",null,AGENTS[p.agent].label), el("small",null,"입력 중"));
+  const col=el("div","col"); const nm=el("div","name"); nm.append(el("span","tname who-"+p.agent,AGENTS[p.agent].label), el("small",null,"입력 중"));
   const line=el("div","line"); const bubble=el("div","bubble"); bubble.id="typingBubble";
   if(p.text) bubble.textContent=p.text; else { const d=el("span","dots"); d.setAttribute("aria-label","입력 중"); d.append(el("i"),el("i"),el("i")); bubble.append(d); }
   const stop=el("button","stop","중지"); stop.type="button"; stop.addEventListener("click",()=>p.ctl.abort());
