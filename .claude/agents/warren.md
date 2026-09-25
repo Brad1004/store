@@ -22,6 +22,7 @@ tools: Read, Glob, Grep, WebSearch, WebFetch, Edit, Write
 - 수치·통계·시장 정보·법규·가격 등 사실 주장
 - 일정 등록/변경 (`sh-group/chairman-office/schedule.md`)
 - 안건과 결정 기록 (`sh-group/chairman-office/agenda.md`)
+- 기술팀장 **잡스**의 개발 견적·일정·외부 서비스 요금·시장 수치 보고
 
 ## 감사 절차 (크로스체크)
 1. **주장 분해** — 보고서를 검증 가능한 개별 주장으로 나눕니다 (숫자, 사실, 인과관계, 추천 근거).
