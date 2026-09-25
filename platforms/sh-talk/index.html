@@ -296,6 +296,8 @@ button{cursor:pointer}
 .person::before{content:"";position:absolute;left:10px;right:10px;top:22px;bottom:0;border-radius:14px 14px 4px 4px;background:var(--monitor);z-index:-1}
 .person img{position:absolute;left:17px;top:0;width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--face-bg);box-shadow:0 0 0 2px var(--room-wall)}
 .person svg{position:absolute;left:0;bottom:0;height:52px}
+.person.empty::before{top:auto;height:44px;bottom:14px;left:32px;right:32px;opacity:.6;border-radius:12px 12px 4px 4px}
+.away{position:absolute;left:50%;top:10px;transform:translateX(-50%);z-index:2;font-size:10.5px;font-weight:700;white-space:nowrap;padding:3px 8px;border-radius:999px;background:var(--surface);color:var(--ink-2);box-shadow:0 1px 3px rgba(0,0,0,.15)}
 .desk{position:absolute;left:34%;right:12%;bottom:6px;height:26px;z-index:2;
   background:linear-gradient(var(--desk-top) 0 6px,var(--desk-front) 6px)}
 .monitor{position:absolute;left:calc(60% - 84px);bottom:32px;width:48px;height:36px;z-index:2}
@@ -704,7 +706,7 @@ function roomStatus(r){
   let prev = r.kind==="dm" ? AGENTS[r.agent].status : "팀장 소집 후 함께 회의합니다";
   if(m) prev=(m.senderType==="agent" ? AGENTS[m.agent].name : speakerName(m))+": "+String(m.text||"").replace(/\s+/g," ");
   if(S.pending[r.id]) prev=(AGENTS[S.pending[r.id].agent]||{}).name+" 팀장이 답하는 중…";
-  if(r.kind==="dm") box.append(el("span","in","재실"));
+  if(r.kind==="dm") box.append(el("span","in"+(S.meeting?" idle":""), S.meeting?"부재":"재실"));
   else box.append(el("span","in"+(S.meeting?"":" idle"), S.meeting?"회의 중":"비어 있음"));
   box.append(el("span","pv",prev));
   if(m) box.append(el("span","when",fmtListWhen(m.createdAt)));
@@ -722,7 +724,10 @@ function officeCard(r){
   const glass=el("div","glass"); glass.setAttribute("aria-hidden","true");
   const plant=el("div","plant"); plant.append(markup(PLANT_SVG));
   if(r.kind==="dm"){
-    const person=el("div","person"); person.append(markup(SUITS[key]), photoImg(key));
+    // While the leaders are in the meeting room, their own offices show an empty chair.
+    const person=el("div","person"+(S.meeting?" empty":""));
+    if(!S.meeting) person.append(markup(SUITS[key]), photoImg(key));
+    else glass.append(el("div","away","대회의실에서 회의 중"));
     const mon=el("div","monitor"); mon.append(markup(MONITOR_SVG));
     glass.append(el("div","shelf"), plant, person, el("div","desk"), mon);
   } else {
@@ -735,7 +740,7 @@ function officeCard(r){
   glass.append(el("div","door"));
   front.append(sign, glass);
   b.append(front, roomStatus(r));
-  const who = r.kind==="dm" ? OFFICE[key].room+", "+AGENTS[key].name+" "+AGENTS[key].title : "대회의실, SH그룹 전체방"+(S.meeting?" (회의 중)":"");
+  const who = r.kind==="dm" ? OFFICE[key].room+", "+AGENTS[key].name+" "+AGENTS[key].title+(S.meeting?" (부재, 대회의실 회의 중)":"") : "대회의실, SH그룹 전체방"+(S.meeting?" (회의 중)":"");
   b.setAttribute("aria-label", who+". 문 열고 들어가기");
   b.addEventListener("click",()=>enterOffice(b, r.id));
   return b;
@@ -846,7 +851,7 @@ function openRoom(id){
   // Every room is shown as a room in the office: the leader's own office, or the 대회의실.
   $("roomName").textContent = r.kind==="group" ? "대회의실 (4)" : OFFICE[r.agent].room;
   $("roomName").className = "n";
-  $("roomSub").textContent = r.kind==="group" ? "SH그룹 전체방 · 회장님 · 머스크 · 버핏 · 잡스" : AGENTS[r.agent].name+" · "+AGENTS[r.agent].title+" · 재실";
+  $("roomSub").textContent = r.kind==="group" ? "SH그룹 전체방 · 회장님 · 머스크 · 버핏 · 잡스" : AGENTS[r.agent].name+" · "+AGENTS[r.agent].title+" · "+(S.meeting?"대회의실 회의 중":"재실");
   $("roomScreen").className = "screen room office who-"+(r.kind==="group"?"group":r.agent);
   $("backBtn").setAttribute("aria-label", S.tab==="office" ? "복도로 나가기" : "채팅 목록으로");
   $("chips").classList.toggle("dm", r.kind!=="group");
