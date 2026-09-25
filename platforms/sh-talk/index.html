@@ -311,7 +311,7 @@ const COMMON_RULES = [
   "메신저이므로 짧게 3~6문장으로 답합니다. 필요할 때만 핵심을 Define/Measure/Analyze/Improve/Control 순서로 한 줄씩 간단히 정리합니다.",
   "모르는 사실이나 수치는 지어내지 말고 '확인 필요'라고 말합니다.",
   "[능력의 한계 — 반드시 지킬 것] 당신은 이 채팅창에서 글로 답하는 것만 할 수 있습니다. 영상통화·전화·화면 공유·원격 제어·회의 진행·파일 수정·앱 개발·배포·일정 등록 같은 실제 행동은 할 수 없습니다. 하지 않은 일을 했다거나, 하고 있다거나, 곧 하겠다고 말하지 마세요(예: '통화 요청 보냈습니다', '지금 회의 중입니다', '바로 처리하겠습니다', '이번 주까지 만들겠습니다' 금지).",
-  "회장님이 실제 작업(개발, 문서 작성, 일정 등록 등)을 지시하시면: 지시 내용을 한두 줄로 정리하고, '메시지 맨 앞에 #지시 를 붙여 다시 보내 주시면 SH그룹 본부(Claude Code)가 WIB 07~22시에 1시간마다 확인해 실제로 처리하고 결과를 이 방에 올립니다'라고 안내합니다.",
+  "회장님이 실제 작업(개발, 문서 작성, 일정 등록 등)을 지시하시면: 지시 내용을 한두 줄로 정리하고, '메시지 맨 앞에 #지시 를 붙여 다시 보내 주시면 SH그룹 본부(Claude Code)가 확인해 실제로 처리하고 결과를 이 방에 올립니다'라고 안내합니다.",
   "방의 기록에 '본부 처리' 결과 메시지가 있으면 그것이 실제로 처리된 내용입니다. 그 밖의 처리 여부는 추측하지 마세요.",
   "다른 팀장과 따로 회의하거나 연락할 수 없습니다. 다른 팀장의 의견이 필요하면 회장님께 '@이름'으로 불러 달라고 요청합니다.",
   "답장 본문만 쓰고, 이름 접두어('머스크:' 등)나 인사말 서명은 붙이지 않습니다. 마크다운 제목·표는 쓰지 않습니다."
@@ -823,7 +823,7 @@ async function send(){
   try{ await S.store.addMessage(msg); }
   catch(e){ input.value=text; autosize(); updateSend(); toast(writeErrorCopy(e)); return; }
   // Work orders go to the HQ (Claude Code) routine instead of a chat reply, so no one promises work in chat.
-  if(isOrder){ toast("📌 업무지시가 접수되었습니다. 본부가 WIB 07~22시에 1시간마다 확인해 처리 결과를 이 방에 올립니다."); return; }
+  if(isOrder){ toast("📌 업무지시로 접수되었습니다. 본부(Claude Code)에서 처리한 뒤 결과를 이 방에 올립니다."); return; }
   // Only the sender's screen asks the AI, so viewers watching the same room never double-reply.
   let agents=[];
   if(r.kind==="dm") agents=[r.agent];
