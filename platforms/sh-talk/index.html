@@ -92,6 +92,7 @@ button{cursor:pointer}
 }
 @media (min-width:900px) and (min-height:720px){ .aside{display:block} }
 
+[hidden]{display:none!important}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--surface)}
 .phone .screen{top:0}
 @media (min-width:620px) and (min-height:720px){ .phone .screen{top:30px} }
@@ -114,7 +115,9 @@ button{cursor:pointer}
 .av.lg{width:58px;height:58px;border-radius:21px;font-size:22px}
 .av.sm{width:38px;height:38px;border-radius:14px;font-size:15px}
 .av.group{background:var(--surface-2);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;place-items:stretch;gap:2px;padding:3px;box-sizing:border-box}
-.av.group span{border-radius:7px;display:grid;place-items:center;font-size:10px;color:#fff;font-weight:700}
+.av.group span{border-radius:7px;display:grid;place-items:center;font-size:10px;color:#fff;font-weight:700;overflow:hidden}
+.av.face{background:var(--face-bg)!important}
+.av svg{width:100%;height:100%;display:block}
 
 /* List rows */
 .row-item{display:flex;align-items:center;gap:13px;width:100%;padding:9px 18px;border:0;background:none;text-align:left}
@@ -211,9 +214,9 @@ button{cursor:pointer}
   <p>SH그룹 구성원과 AI 임원이 한 곳에서 정보를 나누는 사내 메신저</p>
   <ul>
     <li><span class="dot" style="background:var(--c-owner)"></span>회장님</li>
-    <li><span class="dot" style="background:var(--c-musk)"></span>머스크 · 비서실장 겸 전략기획팀장</li>
-    <li><span class="dot" style="background:var(--c-warren)"></span>워론 · 감사팀장 (회장 직속)</li>
-    <li><span class="dot" style="background:var(--c-jobs)"></span>잡스 · 기술팀장</li>
+    <li><span class="dot" style="background:var(--c-musk)"></span>전략기획팀 머스크 · 비서실장 겸 팀장</li>
+    <li><span class="dot" style="background:var(--c-warren)"></span>감사팀 워론 · 팀장 (회장 직속)</li>
+    <li><span class="dot" style="background:var(--c-jobs)"></span>기술팀 잡스 · 팀장</li>
   </ul>
   <div class="note" id="asideNote">전체방에서 @워론, @잡스처럼 부르면 그 임원이 답합니다.</div>
 </aside>
@@ -273,13 +276,13 @@ button{cursor:pointer}
 
 /* ---------- Constants ---------- */
 const AGENTS = {
-  musk:{key:"musk",name:"머스크",title:"비서실장 겸 전략기획팀장",initial:"머",color:"var(--c-musk)",
+  musk:{key:"musk",name:"머스크",label:"전략기획팀 머스크",wa:"와",role:"비서실장 겸 팀장",title:"비서실장 겸 전략기획팀장",initial:"머",color:"var(--c-musk)",
     status:"회장님 일정과 전략, 제가 먼저 챙깁니다",
     persona:"당신은 머스크, SH그룹 비서실장 겸 전략기획팀장입니다. 회장님의 일정·업무 협의, 사업 전략, 각 팀 업무 배분을 맡습니다. 답할 때 사업을 키울 수 있는 대안(B2B/B2C 관점)을 함께 제시하고, 다른 팀장이 맡을 일이면 누구에게 배분할지 말합니다."},
-  warren:{key:"warren",name:"워론",title:"감사팀장 · 회장 직속",initial:"워",color:"var(--c-warren)",
+  warren:{key:"warren",name:"워론",label:"감사팀 워론",wa:"과",role:"팀장 · 회장 직속",title:"감사팀장 · 회장 직속",initial:"워",color:"var(--c-warren)",
     status:"숫자에는 근거를. 독립적으로 봅니다",
     persona:"당신은 워론, SH그룹 감사팀장이며 회장 직속으로 머스크와 독립되어 있습니다. 대화 속 주장·수치·판단을 크로스체크하여 근거 없는 내용(환각)과 잘못된 판단을 지적합니다. 항목마다 ✅(확인됨) ⚠️(주의·근거 부족) ❌(오류) 🚩(환각 의심) 판정 표시를 붙입니다. 확인할 수 없는 것은 확인할 수 없다고 말하고, 확인 방법을 제안합니다."},
-  jobs:{key:"jobs",name:"잡스",title:"기술팀장",initial:"잡",color:"var(--c-jobs)",
+  jobs:{key:"jobs",name:"잡스",label:"기술팀 잡스",wa:"와",role:"팀장",title:"기술팀장",initial:"잡",color:"var(--c-jobs)",
     status:"아이디어를 화면으로 만드는 기술팀",
     persona:"당신은 잡스, SH그룹 기술팀장입니다. Claude Code로 웹·앱·플랫폼(B2B 견적·발주, B2C 쇼핑·예약 등)을 개발합니다. 회장님은 개발자가 아니시므로 기술 용어는 쉬운 말로 풀어 설명하고, 작게 먼저 만들어 시장 반응을 보는 MVP 방식을 권합니다. 모바일 우선, 인도네시아어·영어·한국어 다국어를 기본으로 고려합니다."}
 };
@@ -291,6 +294,16 @@ const COMMON_RULES = [
   "모르는 사실이나 수치는 지어내지 말고 '확인 필요'라고 말합니다.",
   "답장 본문만 쓰고, 이름 접두어('머스크:' 등)나 인사말 서명은 붙이지 않습니다. 마크다운 제목·표는 쓰지 않습니다."
 ].join("\n");
+/* Original illustrated faces (generic characters, not likenesses of real people). Constant markup only. */
+const FACES = {
+  musk:'<svg viewBox="0 0 64 64"><path d="M9 64c2-12 11-18 23-18s21 6 23 18z" fill="#22304D"/><rect x="28" y="37" width="8" height="10" rx="3" fill="#E8BD96"/><path d="M26 46l6 9 6-9z" fill="#F4F6F8"/><path d="M31 48.5h2l1.6 8.5-2.6 3-2.6-3z" fill="#C0453A"/><ellipse cx="20.3" cy="29.5" rx="2.3" ry="3.3" fill="#DDAE86"/><ellipse cx="43.7" cy="29.5" rx="2.3" ry="3.3" fill="#DDAE86"/><ellipse cx="32" cy="28" rx="12" ry="13.8" fill="#E8BD96"/><path d="M20 27c-1.4-10 4.6-15.6 12.4-15.6 8.4 0 13.4 5.6 11.8 15.6-1.2-4.6-3.6-7.4-7.4-8.2-5.4 2.4-11.8 1.6-16.8 8.2z" fill="#2A2019"/><path d="M25.4 25.2h4.8M33.8 25.2h4.8" stroke="#2A2019" stroke-width="1.5" stroke-linecap="round"/><circle cx="27.8" cy="29" r="1.5" fill="#2A2019"/><circle cx="36.2" cy="29" r="1.5" fill="#2A2019"/><path d="M28.2 35.2q3.8 2.8 7.6 0" stroke="#8A4B3A" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>',
+  warren:'<svg viewBox="0 0 64 64"><path d="M9 64c2-12 11-18 23-18s21 6 23 18z" fill="#5B616B"/><rect x="28" y="37" width="8" height="10" rx="3" fill="#F1CDB0"/><path d="M26 46l6 9 6-9z" fill="#F4F6F8"/><path d="M28.6 50.2l3.4 1.6 3.4-1.6v3.6l-3.4-1.6-3.4 1.6z" fill="#2F5C8F"/><ellipse cx="20.3" cy="29.5" rx="2.3" ry="3.3" fill="#E6BC9B"/><ellipse cx="43.7" cy="29.5" rx="2.3" ry="3.3" fill="#E6BC9B"/><ellipse cx="32" cy="28" rx="12" ry="13.8" fill="#F1CDB0"/><path d="M20.2 30c-2.4-9.6 2.6-16.4 11.8-16.4s14.2 6.8 11.8 16.4c-.8-3.4-1.8-5.6-3-6.8.2-3-3.8-5.2-8.8-5.2s-9 2.2-8.8 5.2c-1.2 1.2-2.2 3.4-3 6.8z" fill="#E9E6E0"/><path d="M25.2 24.6q2.4-1 4.8 0M34 24.6q2.4-1 4.8 0" stroke="#B9B4AC" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="27.6" cy="29.2" r="3.9" fill="none" stroke="#A9864F" stroke-width="1.1"/><circle cx="36.4" cy="29.2" r="3.9" fill="none" stroke="#A9864F" stroke-width="1.1"/><path d="M31.5 29h1" stroke="#A9864F" stroke-width="1.1"/><circle cx="27.6" cy="29.4" r="1.3" fill="#2A2019"/><circle cx="36.4" cy="29.4" r="1.3" fill="#2A2019"/><path d="M27 35q5 4 10 0" stroke="#8A4B3A" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M24.8 34.2q-.6 1.4.4 2.6M39.2 34.2q.6 1.4-.4 2.6" stroke="#D9A98A" stroke-width="1" fill="none" stroke-linecap="round"/></svg>',
+  jobs:'<svg viewBox="0 0 64 64"><path d="M8 64c2-13 12-19 24-19s22 6 24 19z" fill="#2F3A56"/><rect x="28" y="37" width="8" height="10" rx="3" fill="#D6A57E"/><path d="M20 47.5c3 5.6 7 7.6 12 7.6s9-2 12-7.6c-3-1.8-7-2.8-12-2.8s-9 1-12 2.8z" fill="#253049"/><path d="M29 53v6M35 53v6" stroke="#E9E6E0" stroke-width="1.3" stroke-linecap="round"/><ellipse cx="20.3" cy="29.5" rx="2.3" ry="3.3" fill="#C99672"/><ellipse cx="43.7" cy="29.5" rx="2.3" ry="3.3" fill="#C99672"/><ellipse cx="32" cy="28" rx="12" ry="13.8" fill="#D6A57E"/><path d="M19.6 27.6c-2.2-9.4 3-16 10.2-16.6l2-3.2 3 3.2c7.4.2 12.4 6.4 11.4 16.4-1.8-4.8-3.8-7-5.8-8l-2 3-3-4-3 3-3-3-3 3-2-3c-2.2 2-3.4 4.4-3.8 9.2z" fill="#4E3321"/><rect x="23.4" y="26.2" width="8.2" height="6" rx="1.6" fill="none" stroke="#1D2433" stroke-width="1.4"/><rect x="32.4" y="26.2" width="8.2" height="6" rx="1.6" fill="none" stroke="#1D2433" stroke-width="1.4"/><path d="M31.6 28.6h.8" stroke="#1D2433" stroke-width="1.4"/><circle cx="27.5" cy="29.3" r="1.3" fill="#1D2433"/><circle cx="36.5" cy="29.3" r="1.3" fill="#1D2433"/><path d="M28.6 35.6q3.4 2.2 6.8 0" stroke="#7E4332" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>'
+};
+function faceNode(key){
+  const t=document.createElement("template"); t.innerHTML=FACES[key]; // constant markup, never user input
+  const svg=t.content.firstChild; svg.setAttribute("aria-hidden","true"); svg.setAttribute("focusable","false"); return svg;
+}
 const GROUP_ID = "group";
 const HISTORY_N = 12;
 const ROOM_LIMIT = 200;
@@ -352,10 +365,10 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.hidden=false; clea
 function dmId(agent){ return "dm-"+agent+(S.uid?"-"+S.uid:""); }
 function rooms(){
   return [
-    {id:GROUP_ID,name:"SH그룹 전체방",kind:"group",sub:"회장님 · 머스크 · 워론 · 잡스"},
-    {id:dmId("musk"),name:"머스크",kind:"dm",agent:"musk",sub:AGENTS.musk.title},
-    {id:dmId("warren"),name:"워론",kind:"dm",agent:"warren",sub:AGENTS.warren.title},
-    {id:dmId("jobs"),name:"잡스",kind:"dm",agent:"jobs",sub:AGENTS.jobs.title}
+    {id:GROUP_ID,name:"SH그룹 전체방",kind:"group",sub:"회장님 · 전략기획팀 머스크 · 감사팀 워론 · 기술팀 잡스"},
+    {id:dmId("musk"),name:AGENTS.musk.label,kind:"dm",agent:"musk",sub:AGENTS.musk.role},
+    {id:dmId("warren"),name:AGENTS.warren.label,kind:"dm",agent:"warren",sub:AGENTS.warren.role},
+    {id:dmId("jobs"),name:AGENTS.jobs.label,kind:"dm",agent:"jobs",sub:AGENTS.jobs.role}
   ];
 }
 function roomById(id){ return rooms().find(r=>r.id===id); }
@@ -371,7 +384,7 @@ async function resolveProfiles(ids){
   if(!need.length || !S.user) return;
   try{ const ps=await S.user.profiles(need); Object.assign(S.profiles, ps||{}); }catch(e){}
 }
-function speakerName(m){ return m.senderType==="agent" ? (AGENTS[m.agent]||{}).name||"임원" : humanName(m.sender); }
+function speakerName(m){ return m.senderType==="agent" ? (AGENTS[m.agent]||{}).label||"임원" : humanName(m.sender); }
 
 /* ---------- Stores ---------- */
 function sortAsc(a){ return a.slice().sort((x,y)=>(x.createdAt||0)-(y.createdAt||0)); }
@@ -483,8 +496,10 @@ document.querySelectorAll(".tabbar button").forEach(b=>b.addEventListener("click
 
 /* ---------- Avatars ---------- */
 function agentAvatar(key, size){
-  const a=AGENTS[key]; const d=el("div","av"+(size?" "+size:""), a?a.initial:"?");
-  d.style.background=a?a.color:"var(--c-member)"; d.setAttribute("aria-hidden","true"); return d;
+  const a=AGENTS[key]; const d=el("div","av"+(size?" "+size:""));
+  d.setAttribute("aria-hidden","true");
+  if(a && FACES[key]){ d.classList.add("face"); d.style.setProperty("--face-bg","color-mix(in srgb, "+a.color+" 30%, #F3EEE6)"); d.append(faceNode(key)); return d; }
+  d.textContent=a?a.initial:"?"; d.style.background=a?a.color:"var(--c-member)"; return d;
 }
 function humanAvatar(id, size){
   const d=el("div","av"+(size?" "+size:"")); d.setAttribute("aria-hidden","true");
@@ -496,7 +511,8 @@ function humanAvatar(id, size){
 }
 function groupAvatar(){
   const d=el("div","av group"); d.setAttribute("aria-hidden","true");
-  [["회","var(--c-owner)"],["머","var(--c-musk)"],["워","var(--c-warren)"],["잡","var(--c-jobs)"]].forEach(([t,c])=>{ const s=el("span",null,t); s.style.background=c; d.append(s); });
+  const o=el("span",null,"회"); o.style.background="var(--c-owner)"; d.append(o);
+  for(const key of ["musk","warren","jobs"]){ const s=el("span"); s.style.background="color-mix(in srgb, "+AGENTS[key].color+" 30%, #F3EEE6)"; s.append(faceNode(key)); d.append(s); }
   return d;
 }
 
@@ -516,9 +532,9 @@ function renderFriends(){
   p.append(el("div","section-label","임원 3"));
   for(const key of ["musk","warren","jobs"]){
     const a=AGENTS[key];
-    const b=el("button","row-item"); b.type="button"; b.setAttribute("aria-label", a.name+"와 1:1 채팅");
+    const b=el("button","row-item"); b.type="button"; b.setAttribute("aria-label", a.label+a.wa+" 1:1 채팅");
     const tx=el("div","txt"); const t1=el("div","t1");
-    t1.append(el("span",null,a.name), el("span","role",a.title));
+    t1.append(el("span",null,a.label), el("span","role",a.role));
     tx.append(t1, el("div","t2",a.status));
     b.append(agentAvatar(key), tx);
     b.addEventListener("click",()=>openRoom(dmId(key)));
@@ -527,7 +543,7 @@ function renderFriends(){
   p.append(el("div","section-label","단체"));
   const g=el("button","row-item"); g.type="button";
   const gt=el("div","txt"); const g1=el("div","t1"); g1.append(el("span",null,"SH그룹 전체방"), el("span","cnt","4"));
-  gt.append(g1, el("div","t2","회장님 · 머스크 · 워론 · 잡스"));
+  gt.append(g1, el("div","t2","회장님 · 전략기획팀 머스크 · 감사팀 워론 · 기술팀 잡스"));
   g.append(groupAvatar(), gt); g.addEventListener("click",()=>openRoom(GROUP_ID)); p.append(g);
 }
 
@@ -548,7 +564,7 @@ function renderChats(){
     t1.append(el("span",null,r.name)); if(r.kind==="group") t1.append(el("span","cnt","4"));
     let prev="대화를 시작해 보세요";
     if(m){ prev = (r.kind==="group" ? speakerName(m)+": " : "") + String(m.text||"").replace(/\s+/g," "); }
-    if(S.pending[r.id]) prev=(AGENTS[S.pending[r.id].agent]||{}).name+" 님이 입력 중…";
+    if(S.pending[r.id]) prev=(AGENTS[S.pending[r.id].agent]||{}).label+" 님이 입력 중…";
     tx.append(t1, el("div","t2",prev));
     const side=el("div","side"); side.append(el("span","when", m?fmtListWhen(m.createdAt):""));
     if(isUnread(r) && r.id!==S.room){ unread++; side.append(el("span","badge","N")); }
@@ -643,7 +659,7 @@ async function renderRoom(forceBottom){
   const list=S.roomMsgs;
   if(!list.length){
     const r=roomById(S.room);
-    frag.append(el("div","sysline", r&&r.kind==="dm" ? r.name+" "+AGENTS[r.agent].title+"와의 1:1 대화입니다." : "SH그룹 전체방입니다. @워론, @잡스처럼 담당 임원을 부를 수 있습니다."));
+    frag.append(el("div","sysline", r&&r.kind==="dm" ? r.name+" "+AGENTS[r.agent].role+"과의 1:1 대화입니다." : "SH그룹 전체방입니다. @워론, @잡스처럼 담당 임원을 부를 수 있습니다."));
   }
   const who=(m)=>m.senderType==="agent" ? "a:"+m.agent : "h:"+m.sender;
   const sameMin=(a,b)=>Math.floor((a.createdAt||0)/60000)===Math.floor((b.createdAt||0)/60000);
@@ -675,7 +691,7 @@ function msgNode(m, first, showTime){
   const col=el("div","col");
   if(first){
     const nm=el("div","name"); nm.append(el("span",null,speakerName(m)));
-    if(m.senderType==="agent" && AGENTS[m.agent]) nm.append(el("small",null,AGENTS[m.agent].title));
+    if(m.senderType==="agent" && AGENTS[m.agent]) nm.append(el("small",null,AGENTS[m.agent].role));
     col.append(nm);
   }
   col.append(line); row.append(avc,col); return row;
@@ -683,7 +699,7 @@ function msgNode(m, first, showTime){
 function typingNode(p){
   const row=el("div","msg theirs first pending"); row.id="typingRow";
   const avc=el("div","avcol"); avc.append(agentAvatar(p.agent,"sm"));
-  const col=el("div","col"); const nm=el("div","name"); nm.append(el("span",null,AGENTS[p.agent].name), el("small",null,"입력 중"));
+  const col=el("div","col"); const nm=el("div","name"); nm.append(el("span",null,AGENTS[p.agent].label), el("small",null,"입력 중"));
   const line=el("div","line"); const bubble=el("div","bubble"); bubble.id="typingBubble";
   if(p.text) bubble.textContent=p.text; else { const d=el("span","dots"); d.setAttribute("aria-label","입력 중"); d.append(el("i"),el("i"),el("i")); bubble.append(d); }
   const stop=el("button","stop","중지"); stop.type="button"; stop.addEventListener("click",()=>p.ctl.abort());
@@ -775,7 +791,7 @@ function buildPrompt(room, agent, transcript){
 }
 function cleanReply(text, agent){
   let t=String(text||"").trim();
-  const n=AGENTS[agent].name;
+  const n="(?:"+AGENTS[agent].label+"|"+AGENTS[agent].name+")";
   t=t.replace(new RegExp("^\\s*(\\[[^\\]]*\\]\\s*)?\\**"+n+"\\**\\s*[:：]\\s*"),"");
   return t.trim();
 }
@@ -802,7 +818,7 @@ async function generateReply(room, agent, transcript){
     if(c==="cancelled"){ finish(); return null; }
     if(c==="rate_limited") toast("AI 임원 답장 요청이 많습니다. 잠시 후 다시 보내 주세요.");
     else if(c==="session_expired") toast("로그인이 만료되었습니다. 다시 로그인한 뒤 보내 주세요.");
-    else if(c==="refused") toast(AGENTS[agent].name+" 팀장이 이 요청에는 답하지 않았습니다. 질문을 바꿔 보내 주세요.");
+    else if(c==="refused") toast(AGENTS[agent].label+" 팀장이 이 요청에는 답하지 않았습니다. 질문을 바꿔 보내 주세요.");
     else if(c==="prompt_too_large") toast("대화가 너무 길어 답장을 만들지 못했습니다.");
     else toast("AI 답장이 중간에 끊겼습니다. 다시 보내 주세요.");
     if(e && e.text && c!=="refused"){ text=cleanReply(e.text,agent); note="\n(답장이 중간에 끊겼습니다)"; }
