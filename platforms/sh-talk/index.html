@@ -34,6 +34,14 @@
   --ok:#2E8B57;
   --danger:#B23B3B;
   --shadow:0 30px 60px -20px rgba(20,30,40,.35),0 8px 20px -8px rgba(20,30,40,.2);
+  /* Office corridor illustration */
+  --wall:#E6E9E7;--ceil:#CDD1D2;--ceil-2:#B9BFC1;--lamp:#FFFFFF;--lamp-glow:rgba(255,255,255,.75);
+  --frame:#1E2328;--sign:#15181B;--sign-ink:#F3F5F6;
+  --glass-tint:rgba(205,228,234,.22);--glass-hi:rgba(255,255,255,.55);
+  --floor:#C39A6C;--floor-2:#B08556;--floor-line:rgba(90,60,30,.22);
+  --room-wall:#F6F7F4;--baseboard:#DADDD8;--desk-top:#CDA06B;--desk-front:#9C7549;
+  --leaf:#4F7F55;--leaf-2:#6A9A64;--pot:#F1F1EC;--monitor:#23282D;--screen:#9FB4BC;
+  --plaque:rgba(255,255,255,.9);--plaque-ink:#18212A;
   --font:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
@@ -49,6 +57,13 @@
     --brass:#D2A24E;--c-owner:#B98A38;--c-musk:#4F78B5;--c-warren:#E07A9B;--c-jobs:#7867B0;--c-member:#6F7D89;
     --warn-bg:#3A2E14;--warn-ink:#F0CD86;--ok:#4CC080;--danger:#E07070;
     --shadow:0 30px 60px -20px rgba(0,0,0,.7),0 0 0 1px #20272E;
+    --wall:#1A2026;--ceil:#262C32;--ceil-2:#20262B;--lamp:#EAF2F4;--lamp-glow:rgba(220,240,245,.35);
+    --frame:#06080A;--sign:#040506;--sign-ink:#E8ECEE;
+    --glass-tint:rgba(110,150,165,.10);--glass-hi:rgba(255,255,255,.09);
+    --floor:#4F3D2C;--floor-2:#45352A;--floor-line:rgba(0,0,0,.35);
+    --room-wall:#252C33;--baseboard:#1D2329;--desk-top:#7A5B3D;--desk-front:#523D29;
+    --leaf:#4C7A52;--leaf-2:#5E8C5E;--pot:#BFC3BF;--monitor:#0C0F12;--screen:#3E5A66;
+    --plaque:rgba(21,26,32,.92);--plaque-ink:#E6EBEF;
   }
 }
 :root[data-theme="dark"]{
@@ -62,6 +77,13 @@
   --brass:#D2A24E;--c-owner:#B98A38;--c-musk:#4F78B5;--c-warren:#E07A9B;--c-jobs:#7867B0;--c-member:#6F7D89;
   --warn-bg:#3A2E14;--warn-ink:#F0CD86;--ok:#4CC080;--danger:#E07070;
   --shadow:0 30px 60px -20px rgba(0,0,0,.7),0 0 0 1px #20272E;
+  --wall:#1A2026;--ceil:#262C32;--ceil-2:#20262B;--lamp:#EAF2F4;--lamp-glow:rgba(220,240,245,.35);
+  --frame:#06080A;--sign:#040506;--sign-ink:#E8ECEE;
+  --glass-tint:rgba(110,150,165,.10);--glass-hi:rgba(255,255,255,.09);
+  --floor:#4F3D2C;--floor-2:#45352A;--floor-line:rgba(0,0,0,.35);
+  --room-wall:#252C33;--baseboard:#1D2329;--desk-top:#7A5B3D;--desk-front:#523D29;
+  --leaf:#4C7A52;--leaf-2:#5E8C5E;--pot:#BFC3BF;--monitor:#0C0F12;--screen:#3E5A66;
+  --plaque:rgba(21,26,32,.92);--plaque-ink:#E6EBEF;
 }
 
 html,body{height:100%}
@@ -224,7 +246,101 @@ button{cursor:pointer}
 .msg.mine .col{align-items:flex-end;width:100%;max-width:100%}
 .msg.mine .line{align-self:flex-end}
 
-.toast{position:absolute;left:50%;top:84px;transform:translateX(-50%);max-width:calc(100% - 48px);background:var(--ink);color:var(--surface);font-size:13px;padding:9px 14px;border-radius:12px;z-index:5;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+/* Office (사무실 복도) */
+.me-strip{display:flex;align-items:center;gap:10px;padding:4px 18px 10px}
+.me-strip .t1{font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px}
+.me-strip .t2{font-size:12px;color:var(--muted)}
+.hall{position:relative;min-height:100%;padding-bottom:18px;box-sizing:border-box;
+  background:
+    repeating-linear-gradient(0deg,var(--floor-line) 0 1px,transparent 1px 22px),
+    repeating-linear-gradient(90deg,transparent 0 118px,var(--floor-line) 118px 119px,transparent 119px 180px),
+    linear-gradient(180deg,var(--floor-2),var(--floor) 40%,var(--floor-2))}
+.ceiling{height:44px;position:relative;overflow:hidden;background:
+    repeating-linear-gradient(90deg,transparent 0 46px,rgba(0,0,0,.06) 46px 48px),
+    linear-gradient(var(--ceil),var(--ceil-2));border-bottom:6px solid var(--wall)}
+.ceiling::before,.ceiling::after{content:"";position:absolute;top:17px;height:5px;border-radius:3px;background:var(--lamp);box-shadow:0 0 14px 4px var(--lamp-glow)}
+.ceiling::before{left:7%;width:36%}
+.ceiling::after{left:57%;width:36%}
+.hall-note{margin:10px 16px 0;padding:6px 11px;border-radius:9px;background:var(--plaque);color:var(--plaque-ink);font-size:12px;display:inline-block}
+.rooms{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;padding:12px 16px 0}
+.oroom{display:block;width:100%;border:0;padding:0;background:none;text-align:left;color:inherit;border-radius:6px}
+.oroom:focus-visible{outline-offset:4px}
+.oroom .front{border:5px solid var(--frame);border-radius:5px;background:var(--frame);overflow:hidden;box-shadow:0 10px 18px -12px rgba(0,0,0,.55)}
+.sign{display:flex;align-items:baseline;gap:8px;background:var(--sign);color:var(--sign-ink);padding:7px 11px 8px}
+.sign b{font-size:15px;font-weight:700;letter-spacing:.02em}
+.sign span{font-size:12.5px;font-weight:600;color:color-mix(in srgb,var(--tc) 50%,#fff)}
+.sign em{margin-left:auto;font-style:normal;font-family:var(--mono);font-size:10.5px;color:color-mix(in srgb,var(--sign-ink) 55%,transparent);letter-spacing:.06em}
+.glass{position:relative;height:128px;background:linear-gradient(180deg,var(--room-wall) 78%,var(--baseboard) 78%);overflow:hidden;perspective:520px}
+.oroom.meet .glass{height:140px}
+.glass::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:
+    linear-gradient(112deg,transparent 30%,var(--glass-hi) 37%,transparent 44%,transparent 66%,var(--glass-hi) 70%,transparent 73%),
+    linear-gradient(90deg,transparent calc(71% - 3px),var(--frame) calc(71% - 3px) 71%,transparent 71%),
+    var(--glass-tint)}
+.door{position:absolute;left:0;top:0;bottom:0;width:32%;z-index:4;border-right:4px solid var(--frame);box-sizing:border-box;
+  background:linear-gradient(112deg,transparent 40%,var(--glass-hi) 52%,transparent 62%),var(--glass-tint);
+  transform-origin:left center;transition:transform .48s cubic-bezier(.3,.7,.3,1)}
+.door::after{content:"";position:absolute;right:7px;top:calc(50% - 16px);width:4px;height:32px;border-radius:2px;background:var(--frame)}
+.oroom.opening .door{transform:rotateY(-80deg)}
+.oroom.opening .front{animation:enterzoom .5s ease-in forwards}
+@keyframes enterzoom{to{transform:scale(1.03)}}
+.shelf{position:absolute;right:10%;top:14px;width:48px;height:70px;border:3px solid var(--desk-front);border-radius:2px;box-sizing:border-box;
+  background:
+    linear-gradient(var(--desk-front),var(--desk-front)) 0 50%/100% 3px no-repeat,
+    linear-gradient(90deg,#6C8CA6 0 7px,transparent 7px 9px,#C9A15B 9px 14px,transparent 14px 16px,#A3574F 16px 22px,transparent 22px) 3px 6px/100% 24px no-repeat,
+    linear-gradient(90deg,#8C9A7C 0 9px,transparent 9px 11px,#5B6B84 11px 16px) 12px 38px/100% 22px no-repeat,
+    color-mix(in srgb,var(--room-wall) 80%,var(--desk-front))}
+.plant{position:absolute;left:12px;bottom:6px;width:34px;height:62px;z-index:1}
+.plant svg,.person svg,.monitor svg{display:block;width:100%;height:100%}
+.person{position:absolute;left:calc(60% - 38px);bottom:12px;width:76px;height:92px;z-index:1}
+.person::before{content:"";position:absolute;left:10px;right:10px;top:22px;bottom:0;border-radius:14px 14px 4px 4px;background:var(--monitor);z-index:-1}
+.person img{position:absolute;left:17px;top:0;width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--face-bg);box-shadow:0 0 0 2px var(--room-wall)}
+.person svg{position:absolute;left:0;bottom:0;height:52px}
+.desk{position:absolute;left:34%;right:12%;bottom:6px;height:26px;z-index:2;
+  background:linear-gradient(var(--desk-top) 0 6px,var(--desk-front) 6px)}
+.monitor{position:absolute;left:calc(60% - 84px);bottom:32px;width:48px;height:36px;z-index:2}
+.oroom.meet .screenw{position:absolute;left:calc(32% + (68% - 96px)/2);top:12px;width:96px;height:40px;border:3px solid var(--monitor);border-radius:3px;background:var(--screen);
+  display:grid;place-items:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--monitor);box-sizing:border-box}
+.mtable{position:absolute;left:38%;right:6%;bottom:12px;height:24px;border-radius:12px 12px 4px 4px;z-index:2;
+  background:linear-gradient(var(--desk-top) 0 7px,var(--desk-front) 7px)}
+.chairs{position:absolute;left:38%;right:6%;bottom:32px;display:flex;justify-content:space-around;z-index:1}
+.chairs span{position:relative;width:26px;height:30px;border-radius:9px 9px 3px 3px;background:var(--monitor)}
+.chairs img{position:absolute;left:-1px;top:-18px;width:28px;height:28px;border-radius:50%;object-fit:cover;background:var(--face-bg)}
+.ostatus{display:flex;align-items:center;gap:8px;margin-top:8px;padding:7px 10px;border-radius:10px;background:var(--plaque);color:var(--plaque-ink);font-size:13px;min-width:0}
+.ostatus .in{display:inline-flex;align-items:center;gap:5px;font-weight:700;font-size:12px;flex:none;color:var(--ok)}
+.ostatus .in::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.ostatus .in.idle{color:var(--muted)}
+.ostatus .pv{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}
+.ostatus .when{font-size:11px;color:var(--muted);flex:none;font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:reduce){.door{transition:none}.oroom.opening .front{animation:none}}
+
+/* Inside an office (room screen themed as the team leader's room) */
+.room.office{background:
+    linear-gradient(90deg,transparent calc(33.3% - 1px),var(--sep-bg) calc(33.3% - 1px) 33.3%,transparent 33.3% calc(66.6% - 1px),var(--sep-bg) calc(66.6% - 1px) 66.6%,transparent 66.6%),
+    linear-gradient(180deg,color-mix(in srgb,var(--tc) 12%,var(--chat-bg)),var(--chat-bg) 45%)}
+.room.office .roombar{background:var(--sign);color:var(--sign-ink)}
+.room.office .roombar .iconbtn{color:var(--sign-ink)}
+.room.office .roombar .iconbtn:hover{background:rgba(255,255,255,.1)}
+.room.office .roomtitle .n{color:var(--sign-ink)}
+.room.office .roomtitle .s{color:color-mix(in srgb,var(--tc) 45%,#fff)}
+.room.who-group{--tc:var(--c-owner)}
+.seats{display:flex;align-items:center;gap:10px;padding:10px 12px 12px;flex:none;background:color-mix(in srgb,var(--sign) 88%,var(--tc))}
+.seatrow{flex:1;min-width:0;position:relative;display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:10px}
+.seatrow::after{content:"";position:absolute;left:4px;right:4px;bottom:0;height:12px;border-radius:8px 8px 3px 3px;background:linear-gradient(var(--desk-top) 0 4px,var(--desk-front) 4px)}
+.seat{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.seat .spot{width:38px;height:38px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1.5px dashed rgba(255,255,255,.28);box-sizing:border-box}
+.seat .spot .av{width:38px;height:38px;border-radius:14px}
+.seat .spot.filled{border:0;background:none}
+.seat .cap{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.62);white-space:nowrap;margin-bottom:3px}
+.seat .spot.filled + .cap{color:color-mix(in srgb,var(--tc) 45%,#fff)}
+.seat.arrive .spot{animation:walkin .7s cubic-bezier(.25,.8,.35,1)}
+@keyframes walkin{0%{transform:translateX(90px);opacity:0}55%{opacity:1}70%{transform:translateX(-4px) translateY(-3px)}100%{transform:none}}
+@media (prefers-reduced-motion:reduce){.seat.arrive .spot{animation:none}}
+.seats .btn{flex:none;padding:8px 12px;font-size:13px}
+.seats .btn.ghost{background:rgba(255,255,255,.12);color:var(--sign-ink)}
+.seats .btn:disabled{opacity:.6;cursor:default}
+
+.toast{position:absolute;left:50%;bottom:140px;transform:translateX(-50%);max-width:calc(100% - 48px);background:var(--ink);color:var(--surface);font-size:13px;padding:9px 14px;border-radius:12px;z-index:5;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.2)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
 
@@ -237,7 +353,7 @@ button{cursor:pointer}
     <li><span class="dot" style="background:var(--c-warren)"></span>감사팀 버핏 · 팀장 (회장 직속)</li>
     <li><span class="dot" style="background:var(--c-jobs)"></span>기술팀 잡스 · 팀장</li>
   </ul>
-  <div class="note" id="asideNote">전체방에서 @버핏, @잡스처럼 부르면 그 임원이 답합니다.</div>
+  <div class="note" id="asideNote">사무실 복도에서 팀장실 문을 열고 들어가 대화합니다. 대회의실에서 팀장을 소집하면 세 팀장이 차례로 답합니다.</div>
 </aside>
 
 <div class="phone" id="phone">
@@ -245,18 +361,18 @@ button{cursor:pointer}
 
   <section class="screen" id="mainScreen">
     <header class="topbar">
-      <h1 id="tabTitle">채팅</h1>
+      <h1 id="tabTitle">SH그룹 사무실</h1>
       <span class="mode" id="mode" data-mode="connecting">연결 중</span>
     </header>
     <div class="panels">
-      <div id="panel-friends" role="tabpanel" hidden></div>
-      <div id="panel-chats" role="tabpanel"></div>
+      <div id="panel-office" role="tabpanel"></div>
+      <div id="panel-chats" role="tabpanel" hidden></div>
       <div id="panel-notices" role="tabpanel" hidden></div>
     </div>
     <nav class="tabbar" role="tablist">
-      <button role="tab" id="tab-friends" data-tab="friends" aria-selected="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>친구</button>
-      <button role="tab" id="tab-chats" data-tab="chats" aria-selected="true">
+      <button role="tab" id="tab-office" data-tab="office" aria-selected="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 20.5h18"/><path d="M6 20.5V4.5h9v16"/><path d="M15 6.5l3 1v13"/><circle cx="12.2" cy="12.8" r=".9" fill="currentColor" stroke="none"/></svg>사무실</button>
+      <button role="tab" id="tab-chats" data-tab="chats" aria-selected="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 4c4.7 0 8.5 3 8.5 6.8s-3.8 6.8-8.5 6.8c-.8 0-1.6-.1-2.3-.3L5.5 19.5l.9-3.6C4.5 14.7 3.5 12.9 3.5 10.8 3.5 7 7.3 4 12 4z"/></svg>채팅<span class="badge" id="chatBadge" hidden></span></button>
       <button role="tab" id="tab-notices" data-tab="notices" aria-selected="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M4 10v4h3l6 4V6L7 10H4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg>공지</button>
@@ -269,6 +385,10 @@ button{cursor:pointer}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
       <div class="roomtitle"><div class="n" id="roomName"></div><div class="s" id="roomSub"></div></div>
     </header>
+    <div class="seats" id="seats" hidden>
+      <div class="seatrow" id="seatRow" aria-label="대회의실 좌석"></div>
+      <button class="btn" id="conveneBtn" type="button">팀장 소집</button>
+    </div>
     <div class="ai-off" id="aiOff" hidden></div>
     <div class="msgs" id="msgs" aria-live="polite"></div>
     <div class="composer">
@@ -309,6 +429,12 @@ const AGENTS = {
     status:"아이디어를 화면으로 만드는 기술팀",
     persona:"당신은 잡스, SH그룹 기술팀장입니다. Claude Code로 웹·앱·플랫폼(B2B 견적·발주, B2C 쇼핑·예약 등)을 개발합니다. 회장님은 개발자가 아니시므로 기술 용어는 쉬운 말로 풀어 설명하고, 작게 먼저 만들어 시장 반응을 보는 MVP 방식을 권합니다. 모바일 우선, 인도네시아어·영어·한국어 다국어를 기본으로 고려합니다."}
 };
+const OFFICE = {
+  musk:{room:"전략기획팀장실",no:"SH-01"},
+  warren:{room:"감사팀장실",no:"SH-02"},
+  jobs:{room:"기술팀장실",no:"SH-03"}
+};
+const MEETING_ORDER = ["musk","warren","jobs"];
 const COMMON_RULES = [
   "당신은 SH그룹 사내 메신저 'SH톡' 안에서 대화하는 AI 임원입니다.",
   "SH그룹 회장님은 인도네시아에 거주하며, 사출 협력사 삼현(사출기 13대)의 대주주입니다. 삼현은 삼진(삼성 리모컨·삼성 TV 내장 스피커 생산)의 사출 협력업체입니다. 회장님은 현재 삼현 경영 일선에서 물러나 있고 대표이사가 운영합니다. SH그룹은 삼현을 비롯해 새 사업(B2B/B2C 플랫폼 등)을 창출하기 위한 미래 기획 조직입니다. 기본 시간대는 WIB(UTC+7)입니다.",
@@ -353,7 +479,10 @@ const S = {
   db:null, user:null, sample:null,
   uid:null, isOwner:false, ownerId:null,
   aiOn:true,
-  tab:"chats",
+  tab:"office",
+  meeting:false,              // 대회의실 회의 모드 (per viewer, localStorage)
+  meetLines:[],               // local-only system lines in 대회의실 (never stored in db)
+  seated:null,                // leaders already seated while 팀장 소집 runs
   room:null,                  // active room id
   roomMsgs:[],
   roomUnsub:null,
@@ -373,6 +502,7 @@ function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.clas
 function lsGet(k, d){ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } }
 function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 let seen = lsGet("shtalk.seen", {});
+S.meeting = lsGet("shtalk.meeting", false)===true;
 function markSeen(room, ts){ if(!room) return; if(!seen[room] || ts>seen[room]){ seen[room]=ts; lsSet("shtalk.seen", seen); } }
 
 /* ---------- Time formatting ---------- */
@@ -518,15 +648,14 @@ function setMode(m){
 }
 
 /* ---------- Tabs ---------- */
-const TAB_TITLES={friends:"친구",chats:"채팅",notices:"공지"};
+const TAB_TITLES={office:"SH그룹 사무실",chats:"채팅",notices:"공지"};
 function setTab(tab){
   S.tab=tab;
-  for(const t of ["friends","chats","notices"]){
+  for(const t of ["office","chats","notices"]){
     $("panel-"+t).hidden = t!==tab;
     $("tab-"+t).setAttribute("aria-selected", String(t===tab));
   }
   $("tabTitle").textContent=TAB_TITLES[tab];
-  lsSet("shtalk.tab", tab);
 }
 document.querySelectorAll(".tabbar button").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
 
@@ -552,35 +681,90 @@ function groupAvatar(){
   return d;
 }
 
-/* ---------- Friends tab ---------- */
-function renderFriends(){
-  const p=$("panel-friends"); p.replaceChildren();
-  const me=el("div","me-card");
-  const meRow=el("div","row-item");
+/* ---------- Office tab (복도와 팀장실) ---------- */
+// Constant markup only (never user input).
+const SUITS = {
+  musk:'<svg viewBox="0 0 76 52" aria-hidden="true"><path d="M2 52c2-19 16-30 36-30s34 11 36 30z" fill="#22304D"/><path d="M30 22.5l8 14 8-14z" fill="#F4F6F8"/><path d="M36 26l2 12 2-12z" fill="#6E4A2E"/></svg>',
+  warren:'<svg viewBox="0 0 76 52" aria-hidden="true"><path d="M2 52c2-19 16-30 36-30s34 11 36 30z" fill="#4E545D"/><path d="M30 22.5l8 14 8-14z" fill="#F4F6F8"/><path d="M36 26l2 12 2-12z" fill="#7D2B45"/></svg>',
+  jobs:'<svg viewBox="0 0 76 52" aria-hidden="true"><path d="M2 52c2-19 16-30 36-30s34 11 36 30z" fill="#1D2126"/><path d="M28 22.5c3 3 6 4 10 4s7-1 10-4z" fill="#2B3036"/></svg>'
+};
+const PLANT_SVG='<svg viewBox="0 0 34 62" aria-hidden="true"><path d="M17 40C15 30 8 26 3 24c6 0 11 4 13 10-1-9-6-16-9-22 6 5 10 13 10 22 1-10 5-18 11-25-3 8-6 16-6 25 2-6 7-10 12-11-5 4-8 10-9 17z" fill="var(--leaf)"/><path d="M17 38c-1-7 1-15 5-21-2 7-3 14-3 21zM16 37c-3-5-7-8-11-9 5 3 8 6 10 10z" fill="var(--leaf-2)"/><path d="M8 40h18l-2.5 22h-13z" fill="var(--pot)"/></svg>';
+const MONITOR_SVG='<svg viewBox="0 0 48 36" aria-hidden="true"><rect x="1" y="1" width="46" height="26" rx="2" fill="var(--monitor)"/><rect x="21" y="27" width="6" height="6" fill="var(--monitor)"/><rect x="14" y="33" width="20" height="3" rx="1" fill="var(--monitor)"/></svg>';
+function markup(html){ const t=document.createElement("template"); t.innerHTML=html; return t.content.firstChild; } // constant markup only
+function photoImg(key){
+  const img=document.createElement("img"); img.alt=""; img.decoding="async";
+  if(PHOTOS[key]) img.src=PHOTOS[key];
+  img.style.setProperty("--face-bg","color-mix(in srgb, "+AGENTS[key].color+" 30%, #F3EEE6)");
+  return img;
+}
+let officeBusy=false;
+function roomStatus(r){
+  const box=el("div","ostatus");
+  const m=S.last[r.id];
+  let prev = r.kind==="dm" ? AGENTS[r.agent].status : "팀장 소집 후 함께 회의합니다";
+  if(m) prev=(m.senderType==="agent" ? AGENTS[m.agent].name : speakerName(m))+": "+String(m.text||"").replace(/\s+/g," ");
+  if(S.pending[r.id]) prev=(AGENTS[S.pending[r.id].agent]||{}).name+" 팀장이 답하는 중…";
+  if(r.kind==="dm") box.append(el("span","in","재실"));
+  else box.append(el("span","in"+(S.meeting?"":" idle"), S.meeting?"회의 중":"비어 있음"));
+  box.append(el("span","pv",prev));
+  if(m) box.append(el("span","when",fmtListWhen(m.createdAt)));
+  if(isUnread(r) && r.id!==S.room) box.append(el("span","badge","N"));
+  return box;
+}
+function officeCard(r){
+  const key=r.kind==="dm"?r.agent:"group";
+  const b=el("button","oroom who-"+(r.kind==="dm"?key:"owner")+(r.kind==="group"?" meet":"")); b.type="button";
+  b.dataset.room=r.id;
+  const front=el("div","front");
+  const sign=el("div","sign");
+  if(r.kind==="dm"){ sign.append(el("b",null,OFFICE[key].room), el("span",null,AGENTS[key].name), el("em",null,OFFICE[key].no)); }
+  else { sign.append(el("b",null,"대회의실"), el("span",null,"SH그룹 전체방"), el("em",null,"SH-10")); }
+  const glass=el("div","glass"); glass.setAttribute("aria-hidden","true");
+  const plant=el("div","plant"); plant.append(markup(PLANT_SVG));
+  if(r.kind==="dm"){
+    const person=el("div","person"); person.append(markup(SUITS[key]), photoImg(key));
+    const mon=el("div","monitor"); mon.append(markup(MONITOR_SVG));
+    glass.append(el("div","shelf"), plant, person, el("div","desk"), mon);
+  } else {
+    const chairs=el("div","chairs");
+    for(const k of ["owner","musk","warren","jobs"]){
+      const c=el("span"); if(S.meeting && k!=="owner") c.append(photoImg(k)); chairs.append(c);
+    }
+    glass.append(el("div","screenw","SH GROUP"), plant, chairs, el("div","mtable"));
+  }
+  glass.append(el("div","door"));
+  front.append(sign, glass);
+  b.append(front, roomStatus(r));
+  const who = r.kind==="dm" ? OFFICE[key].room+", "+AGENTS[key].name+" "+AGENTS[key].title : "대회의실, SH그룹 전체방"+(S.meeting?" (회의 중)":"");
+  b.setAttribute("aria-label", who+". 문 열고 들어가기");
+  b.addEventListener("click",()=>enterOffice(b, r.id));
+  return b;
+}
+function renderOffice(){
+  if(officeBusy) return;
+  const p=$("panel-office"); p.replaceChildren();
   const myIsOwner = S.isOwner || S.mode==="local";
-  const av=el("div","av lg", myIsOwner?"회":"나"); av.style.background = myIsOwner?"var(--c-owner)":"var(--c-member)";
-  const tx=el("div","txt");
-  const t1=el("div","t1"); t1.append(el("span",null, myIsOwner?"회장님":(S.profiles[S.uid]&&S.profiles[S.uid].name)||"나"));
+  const me=el("div","me-strip");
+  const av=el("div","av sm", myIsOwner?"회":"나"); av.style.background = myIsOwner?"var(--c-owner)":"var(--c-member)"; av.setAttribute("aria-hidden","true");
+  const tx=el("div","txt"); const t1=el("div","t1");
+  t1.append(el("span",null, myIsOwner?"회장님":(S.profiles[S.uid]&&S.profiles[S.uid].name)||"나"));
   if(myIsOwner) t1.append(el("span","role tc who-owner","SH그룹 회장"));
   tx.append(t1, el("div","t2", myIsOwner?"사출기 13대, 다음은 플랫폼":"SH그룹 구성원"));
-  meRow.append(av,tx); me.append(meRow); p.append(me);
-
-  p.append(el("div","section-label","임원 3"));
-  for(const key of ["musk","warren","jobs"]){
-    const a=AGENTS[key];
-    const b=el("button","row-item"); b.type="button"; b.setAttribute("aria-label", a.label+a.wa+" 1:1 채팅");
-    const tx=el("div","txt"); const t1=el("div","t1");
-    t1.append(el("span","tname who-"+key,a.label), el("span","role tc who-"+key,a.role));
-    tx.append(t1, el("div","t2",a.status));
-    b.append(agentAvatar(key), tx);
-    b.addEventListener("click",()=>openRoom(dmId(key)));
-    p.append(b);
-  }
-  p.append(el("div","section-label","단체"));
-  const g=el("button","row-item"); g.type="button";
-  const gt=el("div","txt"); const g1=el("div","t1"); g1.append(el("span",null,"SH그룹 전체방"), el("span","cnt","4"));
-  gt.append(g1, el("div","t2","회장님 · 전략기획팀 머스크 · 감사팀 버핏 · 기술팀 잡스"));
-  g.append(groupAvatar(), gt); g.addEventListener("click",()=>openRoom(GROUP_ID)); p.append(g);
+  me.append(av,tx); p.append(me);
+  const hall=el("div","hall");
+  hall.append(el("div","ceiling"));
+  const list=el("div","rooms");
+  for(const key of ["musk","warren","jobs"]) list.append(officeCard(roomById(dmId(key))));
+  list.append(officeCard(roomById(GROUP_ID)));
+  hall.append(list); p.append(hall);
+}
+function enterOffice(btn, id){
+  if(!S.store){ toast("사무실에 연결하는 중입니다. 잠시 후 다시 눌러 주세요."); return; }
+  if(officeBusy) return;
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce){ openRoom(id); return; }
+  officeBusy=true; btn.classList.add("opening");
+  setTimeout(()=>{ openRoom(id); officeBusy=false; setTimeout(()=>{ btn.classList.remove("opening"); renderOffice(); }, 250); }, 500);
 }
 
 /* ---------- Chats tab ---------- */
@@ -609,6 +793,7 @@ function renderChats(){
     p.append(b);
   }
   const cb=$("chatBadge"); cb.hidden=!unread; cb.textContent=String(unread);
+  renderOffice();
 }
 
 /* ---------- Notices tab ---------- */
@@ -658,10 +843,16 @@ function openRoom(id){
   const r=roomById(id); if(!r || !S.store) return;
   if(S.roomUnsub){ S.roomUnsub(); S.roomUnsub=null; }
   S.room=id; S.roomMsgs=[];
-  $("roomName").textContent = r.kind==="group" ? r.name+" (4)" : r.name;
-  $("roomName").className = "n"+(r.kind==="dm" ? " tname who-"+r.agent : "");
-  $("roomSub").textContent = r.sub;
+  // Every room is shown as a room in the office: the leader's own office, or the 대회의실.
+  $("roomName").textContent = r.kind==="group" ? "대회의실 (4)" : OFFICE[r.agent].room;
+  $("roomName").className = "n";
+  $("roomSub").textContent = r.kind==="group" ? "SH그룹 전체방 · 회장님 · 머스크 · 버핏 · 잡스" : AGENTS[r.agent].name+" · "+AGENTS[r.agent].title+" · 재실";
+  $("roomScreen").className = "screen room office who-"+(r.kind==="group"?"group":r.agent);
+  $("backBtn").setAttribute("aria-label", S.tab==="office" ? "복도로 나가기" : "채팅 목록으로");
   $("chips").classList.toggle("dm", r.kind!=="group");
+  $("seats").hidden = r.kind!=="group";
+  if(r.kind==="group") renderSeats(null);
+  updatePlaceholder();
   $("msgs").replaceChildren();
   $("roomScreen").hidden=false; $("mainScreen").setAttribute("inert","");
   updateAiBanner();
@@ -674,6 +865,61 @@ function openRoom(id){
   });
   setTimeout(()=>{ try{ $("msgInput").focus({preventScroll:true}); }catch(e){} }, 50);
 }
+/* ---------- 대회의실: seats and meeting mode ---------- */
+let convening=false;
+function renderSeats(arriving){
+  const row=$("seatRow"); row.replaceChildren();
+  const add=(label, node, key)=>{
+    const seat=el("div","seat"+(key && key===arriving?" arrive":""));
+    const spot=el("div","spot"+(node?" filled":"")); if(node) spot.append(node);
+    const cap=el("span","cap"+(key?" who-"+key:" who-owner"),label);
+    seat.append(spot,cap); row.append(seat);
+  };
+  const myIsOwner = S.isOwner || S.mode==="local";
+  add(myIsOwner?"회장님":"나", humanAvatar(S.uid,"sm"), null);
+  for(const k of MEETING_ORDER){
+    const present = S.meeting || (convening && S.seated && S.seated.includes(k));
+    add(present?AGENTS[k].name:"빈자리", present?agentAvatar(k,"sm"):null, k);
+  }
+  const b=$("conveneBtn");
+  b.disabled=convening;
+  b.textContent = convening ? "소집 중…" : S.meeting ? "회의 종료" : "팀장 소집";
+  b.className = "btn"+(S.meeting&&!convening?" ghost":"");
+  $("seatRow").setAttribute("aria-label", S.meeting ? "대회의실 좌석: 회장님과 팀장 3명 착석" : "대회의실 좌석: 팀장 자리 비어 있음");
+}
+function meetLine(text){
+  S.meetLines.push({_sys:true, room:GROUP_ID, text, createdAt:Date.now()});
+  if(S.room===GROUP_ID) renderRoom(false);
+}
+function setMeeting(on){ S.meeting=on; lsSet("shtalk.meeting", on); updatePlaceholder(); renderOffice(); }
+function updatePlaceholder(){
+  if(S.readonly) return;
+  input.placeholder = S.room===GROUP_ID && S.meeting ? "세 팀장이 차례로 답합니다" : "메시지 입력";
+}
+$("conveneBtn").addEventListener("click", ()=>{
+  if(convening || S.room!==GROUP_ID) return;
+  if(S.meeting){
+    setMeeting(false); renderSeats(null);
+    meetLine("회의를 마쳤습니다. 팀장들이 각자 팀장실로 돌아갔습니다.");
+    return;
+  }
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const step = reduce ? 0 : 750;
+  convening=true; S.seated=[]; renderSeats(null);
+  MEETING_ORDER.forEach((k,i)=>{
+    setTimeout(()=>{
+      if(S.room!==GROUP_ID && !convening) return;
+      S.seated.push(k);
+      const last = i===MEETING_ORDER.length-1;
+      if(last){ convening=false; S.seated=null; setMeeting(true); }
+      renderSeats(k);
+      meetLine(AGENTS[k].name+" 팀장이 입장했습니다.");
+      if(last){
+        meetLine("회의 모드: 메시지를 보내면 머스크 → 버핏 → 잡스 순서로 답합니다. @이름으로 부르면 그 팀장만 답합니다.");
+      }
+    }, step*(i+1));
+  });
+});
 function closeRoom(){
   if(S.roomUnsub){ S.roomUnsub(); S.roomUnsub=null; }
   const last=S.roomMsgs[S.roomMsgs.length-1]; if(last) markSeen(S.room,last.createdAt||0);
@@ -693,10 +939,10 @@ async function renderRoom(forceBottom){
   const box=$("msgs");
   const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 120;
   const frag=document.createDocumentFragment();
-  const list=S.roomMsgs;
+  const list = S.room===GROUP_ID && S.meetLines.length ? sortAsc(S.roomMsgs.concat(S.meetLines)) : S.roomMsgs;
   if(!list.length){
     const r=roomById(S.room);
-    frag.append(el("div","sysline", r&&r.kind==="dm" ? r.name+" "+AGENTS[r.agent].role+"과의 1:1 대화입니다." : "SH그룹 전체방입니다. @버핏, @잡스처럼 담당 임원을 부를 수 있습니다."));
+    frag.append(el("div","sysline", r&&r.kind==="dm" ? OFFICE[r.agent].room+"입니다. "+AGENTS[r.agent].name+" 팀장과 1:1로 대화합니다." : "대회의실(SH그룹 전체방)입니다. @버핏, @잡스처럼 담당 임원을 부르거나, 팀장 소집으로 세 팀장을 함께 부를 수 있습니다."));
   }
   const who=(m)=>m.senderType==="agent" ? "a:"+m.agent : "h:"+m.sender;
   const sameMin=(a,b)=>Math.floor((a.createdAt||0)/60000)===Math.floor((b.createdAt||0)/60000);
@@ -704,6 +950,7 @@ async function renderRoom(forceBottom){
   list.forEach((m,i)=>{
     const dk=dayKey(m.createdAt||0);
     if(dk!==prevDay){ frag.append(el("div","daysep", fmtDay(m.createdAt||0))); prevDay=dk; prev=null; }
+    if(m._sys){ frag.append(el("div","sysline",m.text)); prev=null; return; }
     const next=list[i+1];
     const joinPrev = prev && who(prev)===who(m) && sameMin(prev,m);
     const joinNext = next && who(next)===who(m) && sameMin(m,next) && dayKey(next.createdAt||0)===dk;
@@ -713,7 +960,7 @@ async function renderRoom(forceBottom){
   const pend=S.pending[S.room];
   if(pend) frag.append(typingNode(pend));
   box.replaceChildren(frag);
-  const lastMine = list.length && list[list.length-1].senderType==="human" && list[list.length-1].sender===S.uid;
+  const lastMine = list.length && (list[list.length-1]._sys || (list[list.length-1].senderType==="human" && list[list.length-1].sender===S.uid));
   if(forceBottom || nearBottom || lastMine) box.scrollTop=box.scrollHeight;
 }
 function msgNode(m, first, showTime){
@@ -837,9 +1084,14 @@ async function send(){
   else {
     const seenA=new Set(); let mm; MENTION_RE.lastIndex=0;
     while((mm=MENTION_RE.exec(text))){ const k=NAME_TO_AGENT[mm[1]]; if(!seenA.has(k)){ seenA.add(k); agents.push(k); } }
-    if(!agents.length) agents=["musk"];
+    if(!agents.length) agents = S.meeting ? MEETING_ORDER.slice() : ["musk"];
   }
-  if(S.mode==="local" || !S.sample){ if(S.mode==="local") toast("미리보기에서는 AI 임원이 답하지 않습니다."); return; }
+  if(S.mode==="local" || !S.sample){
+    if(S.mode==="local") toast(r.kind==="group" && S.meeting && agents.length>1
+      ? "미리보기에서는 AI 임원이 답하지 않습니다. 게시된 SH톡에서는 머스크 → 버핏 → 잡스 순서로 답합니다."
+      : "미리보기에서는 AI 임원이 답하지 않습니다.");
+    return;
+  }
   if(!S.aiOn) return;
   runAgents(room, agents, context);
 }
@@ -860,7 +1112,8 @@ function runAgents(room, agents, context){
 }
 function buildPrompt(room, agent, transcript){
   const r=roomById(room); const a=AGENTS[agent];
-  const where = r.kind==="group" ? "SH그룹 전체방 (참여자: 회장님, 머스크, 버핏, 잡스)" : a.name+"와 1:1 대화방";
+  let where = r.kind==="group" ? "SH그룹 전체방 = 대회의실 (참여자: 회장님, 머스크, 버핏, 잡스)" : a.name+"와 1:1 대화방 ("+OFFICE[agent].room+")";
+  if(r.kind==="group" && S.meeting) where += "\n[회의 중] 회장님이 대회의실에 세 팀장을 소집했습니다. 머스크 → 버핏 → 잡스 순서로 한 명씩 이 채팅창에 글로 답하며, 앞 팀장의 답을 볼 수 있습니다. 2~4문장으로 짧게, 앞 팀장과 겹치지 않게 당신 역할의 의견만 말하세요.";
   const lines=transcript.slice(-HISTORY_N).map(m=>{
     let n=speakerName(m);
     if(m.senderType==="human" && !isOwnerId(m.sender)) n="구성원 "+(n==="구성원"?"":n);
@@ -939,8 +1192,8 @@ function startLocal(){
   S.store=makeLocalStore(); setMode("local");
 }
 async function boot(){
-  const t=lsGet("shtalk.tab","chats"); setTab(["friends","chats","notices"].includes(t)?t:"chats");
-  renderFriends(); renderChats(); renderNotices();
+  setTab("office");
+  renderChats(); renderNotices();
   const [db,user,sample]=await Promise.all([safeUse("db"),safeUse("user"),safeUse("sample")]);
   if(!db){ startLocal(); }
   else{
@@ -955,7 +1208,7 @@ async function boot(){
     if(!sample) S.aiOn=false;
     // The owner's id lets every viewer label the owner's messages as 회장님. Only the owner writes it.
     try{
-      db.doc("meta/app").onSnapshot(s=>{ const d=s.exists?s.data():null; const oid=d&&d.ownerId||null; if(oid!==S.ownerId){ S.ownerId=oid; renderChats(); renderFriends(); if(S.room) renderRoom(false); } }, ()=>{});
+      db.doc("meta/app").onSnapshot(s=>{ const d=s.exists?s.data():null; const oid=d&&d.ownerId||null; if(oid!==S.ownerId){ S.ownerId=oid; renderChats(); if(S.room) renderRoom(false); } }, ()=>{});
       if(S.isOwner && S.uid){
         const cur=await db.doc("meta/app").get().catch(()=>null);
         const oid=cur&&cur.exists?(cur.data()||{}).ownerId:null;
@@ -963,7 +1216,7 @@ async function boot(){
       }
     }catch(e){}
   }
-  renderFriends(); renderNotices(); subscribeAll(); updateSend();
+  renderOffice(); renderNotices(); subscribeAll(); updateSend();
 }
 boot();
 })();
