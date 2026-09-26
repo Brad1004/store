@@ -311,7 +311,19 @@ const PHOTOS=[
 ];
 // 분야에 맞는 사진 중에서 Seleb마다 무작위로 하나를 고정 배정 (id 해시)
 const PHOTO_POOL={singer:[0,5],mc:[1,6],comedian:[7,1],creator:[2,9],actor:[4,9,6],athlete:[3,8]};
-function photoFor(s){if(!s)return null;const pool=PHOTO_POOL[s.category]||[0,1,2,3,4,5,6,7,8,9];return PHOTOS[pool[hue(s.id||s.name)%pool.length]];}
+// 겹치지 않게 배정: 먼저 등록한 Seleb부터 분야 사진 중 아직 안 쓴 것 → 없으면 남은 사진 → 10명을 넘으면 그때만 재사용
+let photoMap=new Map(),photoKey="";
+function assignPhotos(){
+  const list=S.selebs.slice().sort((a,b)=>(a.createdAt||0)-(b.createdAt||0)||String(a.id).localeCompare(String(b.id)));
+  const key=list.map(x=>x.id+":"+x.category).join("|");if(key===photoKey)return;photoKey=key;photoMap=new Map();
+  const used=new Set();
+  for(const x of list){const pool=PHOTO_POOL[x.category]||[];const start=hue(x.id);
+    const pick=arr=>{for(let i=0;i<arr.length;i++){const k=arr[(start+i)%arr.length];if(!used.has(k))return k;}return null;};
+    let k=pick(pool);if(k==null)k=pick(PHOTOS.map((_,i)=>i));
+    if(k==null){used.clear();k=pool.length?pool[start%pool.length]:start%PHOTOS.length;}
+    used.add(k);photoMap.set(x.id,k);}
+}
+function photoFor(s){if(!s)return null;assignPhotos();let k=photoMap.get(s.id);if(k==null){const pool=PHOTO_POOL[s.category]||[0];k=pool[hue(s.id||s.name)%pool.length];}return PHOTOS[k];}
 function photoAvatar(s,cls){const a=el("div","av"+(cls?" "+cls:""));a.setAttribute("aria-hidden","true");const src=photoFor(s);
   if(src){const i=el("img");i.src=src;i.alt="";i.decoding="async";a.append(i);a.classList.add("pic");}else{a.textContent=initials(s&&s.name);a.style.background=grad(s&&s.id);}return a;}
 
