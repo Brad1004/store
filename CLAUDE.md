@@ -49,7 +49,7 @@
 | `sh-group/tech/README.md` | 기술팀 헌장, 플랫폼 런칭 절차 |
 | `sh-group/tech/projects.md` | 플랫폼 프로젝트 현황 (잡스 관리) |
 | `sh-group/tech/sh-talk-orders.md` | SH톡 `#지시` 자동 처리 절차 (본부 루틴) |
-| `sh-group/projects/` | 공식 프로젝트별 기획서 (1호: `01-kasbon.md`) |
+| `sh-group/projects/` | 공식 프로젝트별 기획서 (1호: `01-kasbon.md`, 2호: SalamSeleb — 회사 PT Salam Seleb Nusantara, 약칭 **SSN**) |
 | `sh-group/audit/README.md` | 감사팀 헌장 |
 | `sh-group/audit/audit-log.md` | 감사 기록 (버핏 관리) |
 
