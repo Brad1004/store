@@ -54,11 +54,19 @@ h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
 
 /* welcome */
 .welcome{min-height:100%;display:flex;flex-direction:column;background:var(--navy);color:var(--navy-ink);padding:26px 20px calc(26px + env(safe-area-inset-bottom,0px))}
-.welcome .brand{font-size:30px}
+.welcome .brand{font-size:30px;margin-bottom:28px}
 .welcome .mid{margin-top:auto;display:flex;flex-direction:column;gap:10px}
-.welcome h1{font-size:30px;line-height:1.2;font-weight:900}
+.welcome h1{font-size:clamp(24px,7vw,30px);line-height:1.22;font-weight:900;word-break:keep-all}
 .welcome p{margin:0;color:color-mix(in srgb,var(--navy-ink) 76%,transparent);max-width:36ch}
-.demo-strip{display:flex;gap:6px;margin:18px 0 4px;flex-wrap:wrap}
+.demo-strip{display:flex;gap:6px;margin:2px 0 0;flex-wrap:wrap}
+.welcome .stack{display:flex;padding-left:12px;margin-bottom:6px}
+.welcome .stack .fc{position:relative;margin-left:-12px}
+.welcome .stack .fc img,.welcome .stack .fc .ini{width:58px;height:58px;border-radius:50%;object-fit:cover;border:3px solid var(--navy);display:grid;place-items:center;background:var(--mango);color:var(--mango-ink);font-weight:900}
+.welcome .stack .fc em{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);font-style:normal;font-size:11px;font-weight:900;background:var(--mango);color:var(--mango-ink);border-radius:99px;padding:1px 6px;white-space:nowrap;border:2px solid var(--navy)}
+.welcome .eyebrow{font-size:13px;font-weight:800;letter-spacing:.02em;color:var(--mango)}
+.welcome .vals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.welcome .vals div{background:rgba(255,255,255,.08);border-radius:14px;padding:10px 8px;text-align:center;font-size:12.5px;font-weight:700;line-height:1.3;word-break:keep-all}
+.welcome .vals i{display:block;font-style:normal;font-size:20px;margin-bottom:4px}
 .choices{display:flex;flex-direction:column;gap:10px;margin-top:18px}
 .choice{display:flex;align-items:center;gap:14px;text-align:left;border:0;border-radius:18px;padding:16px;cursor:pointer;background:rgba(255,255,255,.08);color:var(--navy-ink)}
 .choice.primary{background:var(--mango);color:var(--mango-ink)}
@@ -177,6 +185,7 @@ h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
 
 /* tab bar, sheets, toast */
 .tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(640px,100%);display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:7}
+.tabbar[hidden]{display:none}
 .tabbar button{border:0;background:none;padding:9px 0 10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11.5px;font-weight:800;color:var(--muted);cursor:pointer}
 .tabbar button[aria-current="page"]{color:color-mix(in srgb,var(--mango) 80%,var(--ink))}
 .tabbar svg{width:22px;height:22px}
@@ -200,7 +209,7 @@ h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
 "use strict";
 /* ---------- i18n (한국어 · Bahasa Indonesia · English) ---------- */
 const L={
- ko:{hoursMin:"{h}시간 {m}분 후",edit:"수정",hello:"우리 동네 가게, 한가한 시간엔 더 싸게",helloSub:"치카랑·치비퉁 동네 카페·식당·미용실을 시간대별 할인으로 예약하세요. 돈은 미리 내지 않고, 가게에서 계산할 때 할인됩니다.",
+ ko:{hoursMin:"{h}시간 {m}분 후",edit:"수정",eyebrow:"치카랑·치비퉁 동네 할인 쿠폰",hello:"우리 동네 작은 가게, 할인 쿠폰으로 함께 살려요",helloSub:"한가한 시간에 동네 카페·와룽·미용실을 예약하면 할인 쿠폰이 나와요. 돈은 미리 내지 않고, 가게에서 계산할 때 바로 할인됩니다.",val1:"손님은 더 싸게",val2:"사장님은 빈자리를 채우고",val3:"동네 상권은 활기차게",
   asCust:"손님으로 시작",asCustSub:"할인 시간을 골라 예약 (B그룹)",asShop:"가게 사장님으로 시작",asShopSub:"가게를 올리고 시간대별 할인 설정 (A그룹)",browse:"가입 없이 둘러보기",
   proto:"시제품",testNote:"사내 비공개 시제품 · 실제 결제 없음",home:"홈",find:"찾기",bookings:"예약",me:"내 정보",myShop:"내 가게",
   nowTitle:"지금 가면 할인이 큰 곳",nowWIB:"지금 (WIB)",noNow:"오늘 남은 할인 시간이 없어요. 내일 할인을 확인해 보세요.",
@@ -230,7 +239,7 @@ const L={
   noDb:"데이터에 연결할 수 없어요. claude.ai에서 열어 주세요.",noWrite:"이 화면에서는 저장할 수 없어요. 앱 소유자에게 '참여자' 권한을 요청하세요.",saveFail:"저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.",
   back:"뒤로",langTitle:"언어",sample:"샘플",sampleNote:"샘플 가게는 가상의 가게라 실제로 방문할 수 없어요.",shopsN:"{n}곳",
   about2:"Tokokita 시제품 v0.1 · SH그룹 기술팀 · 할인 개념 참고: 시간대별 할인 예약 서비스들",peopleN:"{n}명",minutes:"{n}분 후",now:"지금",openFrom:"{a}–{b}"},
- id:{hoursMin:"{h} jam {m} mnt lagi",edit:"Ubah",hello:"Toko sekitar, lebih murah di jam sepi",helloSub:"Pesan kafe, warung, dan salon di Cikarang–Cibitung dengan diskon per jam. Tanpa bayar di muka, diskon langsung saat bayar di toko.",
+ id:{hoursMin:"{h} jam {m} mnt lagi",edit:"Ubah",eyebrow:"Kupon diskon lingkungan Cikarang–Cibitung",hello:"Hidupkan toko kecil di sekitar kita dengan kupon diskon",helloSub:"Pesan kafe, warung, atau salon sekitar di jam sepi dan dapatkan kupon diskon. Tanpa bayar di muka — diskon langsung saat bayar di toko.",val1:"Pelanggan lebih hemat",val2:"Toko terisi di jam sepi",val3:"Usaha sekitar makin ramai",
   asCust:"Mulai sebagai pelanggan",asCustSub:"Pilih jam diskon lalu pesan (Grup B)",asShop:"Mulai sebagai pemilik toko",asShopSub:"Daftarkan toko & atur diskon per jam (Grup A)",browse:"Lihat-lihat tanpa daftar",
   proto:"Prototipe",testNote:"Prototipe internal · tanpa pembayaran sungguhan",home:"Beranda",find:"Cari",bookings:"Pesanan",me:"Saya",myShop:"Toko saya",
   nowTitle:"Diskon terbesar kalau pergi sekarang",nowWIB:"Sekarang (WIB)",noNow:"Tidak ada jam diskon tersisa hari ini. Cek diskon besok.",
@@ -260,7 +269,7 @@ const L={
   noDb:"Data tidak terhubung. Buka di claude.ai.",noWrite:"Tidak bisa menyimpan di tampilan ini. Minta akses 'Kontributor' dari pemilik.",saveFail:"Gagal menyimpan. Coba lagi sebentar.",
   back:"Kembali",langTitle:"Bahasa",sample:"Contoh",sampleNote:"Toko contoh adalah toko fiktif, tidak bisa dikunjungi.",shopsN:"{n} toko",
   about2:"Prototipe Tokokita v0.1 · Tim Teknologi SH Group",peopleN:"{n} orang",minutes:"{n} mnt lagi",now:"Sekarang",openFrom:"{a}–{b}"},
- en:{hoursMin:"in {h} h {m} min",edit:"Edit",hello:"Neighborhood shops, cheaper in quiet hours",helloSub:"Book cafés, warungs and salons around Cikarang–Cibitung with time-based discounts. Nothing to pay upfront — the discount comes off when you pay at the shop.",
+ en:{hoursMin:"in {h} h {m} min",edit:"Edit",eyebrow:"Neighborhood coupons · Cikarang–Cibitung",hello:"Keep our small local shops alive with discount coupons",helloSub:"Book a nearby café, warung or salon in its quiet hours and get a discount coupon. Nothing to pay upfront — the discount comes off when you pay at the shop.",val1:"Customers save",val2:"Shops fill quiet hours",val3:"Local streets stay lively",
   asCust:"Start as a customer",asCustSub:"Pick a discount time and book (Group B)",asShop:"Start as a shop owner",asShopSub:"List your shop and set hourly discounts (Group A)",browse:"Just look around",
   proto:"Prototype",testNote:"Internal prototype · no real payments",home:"Home",find:"Search",bookings:"Bookings",me:"Me",myShop:"My shop",
   nowTitle:"Biggest discounts if you go now",nowWIB:"Now (WIB)",noNow:"No discount times left today. Check tomorrow's deals.",
@@ -409,8 +418,13 @@ function sheetAccount(){sheet(T("acct"),(sh,close)=>{
 /* ---------- welcome ---------- */
 function viewWelcome(){
   const w=el("div","welcome");const br=el("div","brand");const mk=el("span","mk");mk.innerHTML=MARK;const wn=el("span");wn.append(document.createTextNode("Toko"),el("b",null,"kita"));br.append(mk,wn);w.append(br);
-  const m=el("div","mid");const ds=el("div","demo-strip");[["07:30",30],["15:30",20],["23:15",40]].forEach(([t,o])=>{const s=el("div","slot hot");s.style.cursor="default";s.append(el("span","t",t),el("span","o","−"+o+"%"));ds.append(s);});
-  m.append(ds,el("h1",null,T("hello")),el("p",null,T("helloSub")));
+  const m=el("div","mid");
+  const st=el("div","stack");const withPh=S.shops.filter(x=>photoOf(x));
+  const faces=withPh.slice(0,5).map(x=>({src:photoOf(x),off:maxOff(x)}));
+  for(let k=0;faces.length<5&&k<PHOTOS.length;k++)if(!faces.some(f=>f.src===PHOTOS[k]))faces.push({src:PHOTOS[k],off:[30,20,40,25,35][faces.length]});
+  faces.forEach(f=>{const c=el("div","fc");const im=document.createElement("img");im.src=f.src;im.alt="";c.append(im);if(f.off)c.append(el("em",null,"−"+f.off+"%"));st.append(c);});
+  const vals=el("div","vals");[["🎟️","val1"],["🏪","val2"],["🤝","val3"]].forEach(([i,k])=>{const d=el("div");d.append(el("i",null,i),document.createTextNode(T(k)));vals.append(d);});
+  m.append(st,el("div","eyebrow",T("eyebrow")),el("h1",null,T("hello")),el("p",null,T("helloSub")),vals);
   const ch=el("div","choices");const mk2=(cls,ic,a,b,fn)=>{const x=btn("choice"+(cls?" "+cls:""),null,fn);const i=el("span","ic",ic);i.setAttribute("aria-hidden","true");const tx=el("span");tx.append(el("b",null,a),el("small",null,b));x.append(i,tx);return x;};
   const start=r=>{lsSet("tk.seen",true);S.route={v:"home"};login(r);};
   ch.append(mk2("primary","B",T("asCust"),T("asCustSub"),()=>start("cust")),mk2("","A",T("asShop"),T("asShopSub"),()=>start("shop")));
