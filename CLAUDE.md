@@ -62,7 +62,7 @@ SH톡에서는 **1:1 팀장실이든 대회의실이든** 버핏이 아닌 팀�
 | `sh-group/tech/README.md` | 기술팀 헌장, 플랫폼 런칭 절차 |
 | `sh-group/tech/projects.md` | 플랫폼 프로젝트 현황 (잡스 관리) |
 | `sh-group/tech/sh-talk-orders.md` | SH톡 `#지시`·`#결정` 처리 절차 (본부 루틴). **SH톡의 공식 결정은 회장님의 `#결정` 메시지뿐** |
-| `sh-group/projects/` | 공식 프로젝트별 기획서 (1호: `01-kasbon.md`, 2호: SalamSeleb — 회사 PT Salam Seleb Nusantara, 약칭 **SSN**) |
+| `sh-group/projects/` | 공식 프로젝트별 기획서 (1호: `01-kasbon.md`, 2호: SalamSeleb — 회사 PT Salam Seleb Nusantara, 약칭 **SSN**, 3호: `03-tokokita.md` — 동네 가게×손님 시간대별 할인 예약 **Tokokita**) |
 | `platforms/ssn-roadmap/` | SSN 설립·출시 로드맵 페이지 (https://claude.ai/artifact/7jpVYBhsgWDgk1UcUKjxwZ, 할 일 데이터는 페이지 DB `tasks`) |
 | `sh-group/legal/README.md` | 법무팀 헌장 (팀장 윤서진) |
 | `sh-group/audit/README.md` | 감사팀 헌장 |

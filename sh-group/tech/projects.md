@@ -7,12 +7,14 @@
 |---|----------|------|------|------|------|----------|------|
 | 1 | **Kasbon 비즈** | 플랫폼 (웹·앱) | 미정 (B2B/B2C 확인 필요) | `platforms/kasbon/` (예정) | 기획 접수 | — | 회장님 기획, 2026-09-25 1호 프로젝트 선정. 상세 기획 자료 접수 대기 |
 | 2 | **SalamSeleb** 이벤트 플랫폼 (PT Salam Seleb Nusantara, 약칭 SSN) | 플랫폼 (웹앱 우선) | B2C + B2B (이벤트 회사) | `platforms/salamseleb/` (예정) | 사업 검토 | — | 유명인·지역 MC·가수 ↔ 일반인 축하 영상·행사 연결. 2026-09-26 2호 프로젝트 지정, 첫 무대 찌까랑, 1단계 영상 메시지 전용 |
+| 3 | **Tokokita** 동네 가게 × 손님 시간대별 할인 예약 (치카랑·치비퉁) | 앱 (웹앱 MVP) | B2B(가게) + B2C(손님) | MVP v0.1 사내 비공개 | 기획 `sh-group/projects/03-tokokita.md` |
 
 ## 내부 도구
 | 도구 | 용도 | 위치 | 상태 | 배포 URL |
 |------|------|------|------|----------|
 | SSN 로드맵 | 2호 프로젝트 설립·출시 일정 추적 (단계·기한·담당·상태) | `platforms/ssn-roadmap/` | v1 게시 (비공개) | https://claude.ai/artifact/7jpVYBhsgWDgk1UcUKjxwZ |
 | SalamSeleb 앱 시제품 | 2호 SSN 핸드폰 앱 사내 비공개 시제품 (둘러보기·Seleb(A)·팬(B) 등록, 영상 신청, 수락→전달→만족·정산 흐름, 결제 없음, 한국어/인니어) | `platforms/salamseleb-app/` | v0.8.2 게시 (비공개, 샘플 Seleb 17명 + 회장님 Seleb, 예시 사진 18장 모두 다르게, 댄서/마술사/셰프 분야, Seleb 영상 첨부·팬 워터마크 저화질 미리보기·정산 후 원본 다운로드, 팬·Seleb 로그인/로그아웃 전환, 샘플 Seleb 10명, 별점·등급·평점순 정렬·Seleb 답글·예시 프로필 사진·8개 언어: 한국어·인니어·영어·중국어·일본어·독일어·스페인어·아랍어) | https://claude.ai/artifact/BccBepXFvxprvK6dRvE4g8 |
+| Tokokita 앱 MVP | 3호 가게(A)·손님(B) 등록·로그인 전환, 시간대별 할인표, 예약 코드, 사장님 코드 확인·노쇼, 3교대 할인 세트, 별점, 한/인니/영 | `platforms/tokokita-app/` | v0.1 게시 (비공개) | https://claude.ai/artifact/F7uLjuAQiiX9bLKfKdUge3 |
 | SH톡 | 그룹 구성원 정보 공유·대화용 메신저 (휴대폰형, AI 임원 답장, `#지시` 처리 — `sh-talk-orders.md`, 음성 입력, 사무실 복도·팀장실·대회의실 입장 화면, 팀장 답변마다 버핏 자동 감사, 법무팀장실 추가) | `platforms/sh-talk/` | v1 게시 (비공개) | https://claude.ai/artifact/KMj3x3LBCMtvuEw1ep1wkc |
 
 ## 기존 자산 (그룹 출범 전)
