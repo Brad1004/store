@@ -177,6 +177,9 @@ button{cursor:pointer}
 
 /* Room */
 .room{background:var(--chat-bg);animation:slidein .22s ease-out}
+/* The room screen sits above the office plan (whose labels use z-index), and the plan is hidden while a room is open. */
+.screen.room{z-index:10;isolation:isolate}
+#mainScreen[inert]{visibility:hidden}
 @keyframes slidein{from{transform:translateX(24px);opacity:.4}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.room{animation:none}.dots i{animation:none!important}}
 .roombar{display:flex;align-items:center;gap:6px;padding:10px 12px;flex:none;background:var(--chat-bg)}
