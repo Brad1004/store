@@ -12,7 +12,7 @@
 | 도구 | 용도 | 위치 | 상태 | 배포 URL |
 |------|------|------|------|----------|
 | SSN 로드맵 | 2호 프로젝트 설립·출시 일정 추적 (단계·기한·담당·상태) | `platforms/ssn-roadmap/` | v1 게시 (비공개) | https://claude.ai/artifact/7jpVYBhsgWDgk1UcUKjxwZ |
-| SalamSeleb 앱 시제품 | 2호 SSN 핸드폰 앱 사내 비공개 시제품 (둘러보기·Seleb(A)·팬(B) 등록, 영상 신청, 수락→전달→만족·정산 흐름, 결제 없음, 한국어/인니어) | `platforms/salamseleb-app/` | v0.5 게시 (비공개, 별점·등급·평점순 정렬·Seleb 답글·예시 프로필 사진·한국어·인니어·영어·중국어) | https://claude.ai/artifact/BccBepXFvxprvK6dRvE4g8 |
+| SalamSeleb 앱 시제품 | 2호 SSN 핸드폰 앱 사내 비공개 시제품 (둘러보기·Seleb(A)·팬(B) 등록, 영상 신청, 수락→전달→만족·정산 흐름, 결제 없음, 한국어/인니어) | `platforms/salamseleb-app/` | v0.6 게시 (비공개, 별점·등급·평점순 정렬·Seleb 답글·예시 프로필 사진·8개 언어: 한국어·인니어·영어·중국어·일본어·독일어·스페인어·아랍어) | https://claude.ai/artifact/BccBepXFvxprvK6dRvE4g8 |
 | SH톡 | 그룹 구성원 정보 공유·대화용 메신저 (휴대폰형, AI 임원 답장, `#지시` 처리 — `sh-talk-orders.md`, 음성 입력, 사무실 복도·팀장실·대회의실 입장 화면, 팀장 답변마다 버핏 자동 감사, 법무팀장실 추가) | `platforms/sh-talk/` | v1 게시 (비공개) | https://claude.ai/artifact/KMj3x3LBCMtvuEw1ep1wkc |
 
 ## 기존 자산 (그룹 출범 전)

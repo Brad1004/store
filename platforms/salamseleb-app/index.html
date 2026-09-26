@@ -1,7 +1,7 @@
 <title>SalamSeleb</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Noto+Sans+Arabic:wght@400;500;700;800&display=swap">
 <style>
 :root{
   --bg:#F2F5F3; --surface:#FFFFFF; --surface-2:#E8EEEA; --line:#D8E0DB;
@@ -10,7 +10,7 @@
   --deep:#0F3B33; --deep-ink:#F1F7F4; --gold:#D98E1E; --gold-soft:#FBEBD1;
   --ok:#1F8A5B; --ok-soft:#DDF2E7; --warn:#B26A00; --warn-soft:#FBEBD2; --bad:#C0392B; --bad-soft:#F9DEDB;
   --shadow:0 10px 30px -12px rgba(15,59,51,.28);
-  --font:"Plus Jakarta Sans","Noto Sans KR","Noto Sans SC","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --font:"Plus Jakarta Sans","Noto Sans KR","Noto Sans SC","Noto Sans JP","Noto Sans Arabic","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){color-scheme:dark;
@@ -45,6 +45,15 @@ h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
 .top .sp{flex:1}
 .iconbtn{border:0;background:var(--surface);width:38px;height:38px;border-radius:12px;display:grid;place-items:center;cursor:pointer;box-shadow:0 1px 0 var(--line)}
 .langrow{align-items:center}
+.sheet .list{max-height:62vh;overflow-y:auto}
+[dir="rtl"] .iconbtn svg{transform:scaleX(-1)}
+.brand{direction:ltr;unicode-bidi:isolate}
+:root[lang="ja"] body,:root[lang="zh-Hans"] body{word-break:normal;line-break:strict}
+[dir="rtl"] .card .tier{right:auto;left:7px}
+[dir="rtl"] .card .ph .badge{left:auto;right:7px}
+[dir="rtl"] .reply{border-left:0;border-right:3px solid var(--accent);border-radius:10px 0 0 10px}
+[dir="rtl"] .item,[dir="rtl"] .card,[dir="rtl"] .choice{text-align:right}
+[lang="ja"] body,[lang="ja"] button,[lang="ja"] input,[lang="ja"] textarea{font-family:"Plus Jakarta Sans","Noto Sans JP",var(--font)}
 .langrow .flag{font-size:26px;line-height:1;flex:none}
 .langrow[aria-pressed="true"]{background:var(--accent-soft)}
 .langrow .chk{color:var(--accent);font-weight:800;font-size:18px}
@@ -250,7 +259,7 @@ const L={
   f_join:"님이 Seleb으로 합류했어요",f_req:"에게 {o} 영상 신청이 들어왔어요",f_done:"의 {o} 영상이 전달 완료됐어요",
   from:"보낸 사람",to:"받는 사람",asOf:"요청일",sampleNote:"샘플 Seleb은 실제로 응답하지 않아요.",
   noWrite:"이 화면에서는 저장할 수 없어요. 회장님이 SalamSeleb을 공유할 때 '참여자' 권한을 주세요.",noDb:"데이터에 연결할 수 없어요. claude.ai에서 열어 주세요.",
-  back:"뒤로",resultN:"명",sortPrice:"가격 낮은 순",sortNew:"새로운 순",about2:"SalamSeleb 시제품 v0.5 · SH그룹 기술팀 · 프로필 사진은 AI로 만든 예시 이미지이며 실제 인물이 아닙니다",
+  back:"뒤로",resultN:"명",sortPrice:"가격 낮은 순",sortNew:"새로운 순",about2:"SalamSeleb 시제품 v0.6 · SH그룹 기술팀 · 프로필 사진은 AI로 만든 예시 이미지이며 실제 인물이 아닙니다",
   cat_mc:"MC·사회자",cat_singer:"가수",cat_comedian:"코미디언",cat_creator:"크리에이터",cat_actor:"배우",cat_athlete:"운동선수",
   oc_birthday:"생일",oc_wedding:"결혼",oc_baby:"돌잔치·출산",oc_company:"회사 행사",oc_cheer:"응원",oc_other:"기타",
   lg_id:"인도네시아어",lg_en:"영어",lg_ko:"한국어",lg_jv:"자바어",newbie:"신규",noRating:"아직 평가 없음",nReviews:"평가 {n}개",reviewPh:"후기 (선택): 어떤 점이 좋았나요?",sampleReview:"샘플 평가",rateHint:"거래가 끝나면 팬(B그룹)이 별 1~5개로 평가합니다.",sortRating:"평점 높은 순",sortRec:"추천 순",
@@ -284,7 +293,7 @@ const L={
   f_join:" bergabung sebagai Seleb",f_req:" menerima pesanan video {o}",f_done:" mengirim video {o}",
   from:"Dari",to:"Untuk",asOf:"Tanggal pesan",sampleNote:"Seleb contoh tidak membalas pesanan.",
   noWrite:"Tidak bisa menyimpan di tampilan ini. Minta akses 'Kontributor' dari pemilik.",noDb:"Data tidak terhubung. Buka di claude.ai.",
-  back:"Kembali",resultN:"orang",sortPrice:"Harga terendah",sortNew:"Terbaru",about2:"Prototipe SalamSeleb v0.5 · Tim Teknologi SH Group · Foto profil adalah contoh buatan AI, bukan orang sungguhan",
+  back:"Kembali",resultN:"orang",sortPrice:"Harga terendah",sortNew:"Terbaru",about2:"Prototipe SalamSeleb v0.6 · Tim Teknologi SH Group · Foto profil adalah contoh buatan AI, bukan orang sungguhan",
   cat_mc:"MC",cat_singer:"Penyanyi",cat_comedian:"Komedian",cat_creator:"Kreator",cat_actor:"Aktor",cat_athlete:"Atlet",
   oc_birthday:"Ulang tahun",oc_wedding:"Pernikahan",oc_baby:"Syukuran bayi",oc_company:"Acara kantor",oc_cheer:"Semangat",oc_other:"Lainnya",
   lg_id:"Indonesia",lg_en:"Inggris",lg_ko:"Korea",lg_jv:"Jawa",newbie:"Baru",noRating:"Belum ada rating",nReviews:"{n} ulasan",reviewPh:"Ulasan (opsional): apa yang kamu suka?",sampleReview:"Ulasan contoh",rateHint:"Setelah transaksi, fans (Grup B) memberi 1–5 bintang.",sortRating:"Rating tertinggi",sortRec:"Rekomendasi",
@@ -318,7 +327,7 @@ const L={
   f_join:" joined as a Seleb",f_req:" received a {o} video request",f_done:" delivered a {o} video",
   from:"From",to:"For",asOf:"Requested on",sampleNote:"Sample Selebs don't respond to requests.",
   noWrite:"You can't save from this view. Ask the owner for 'Contributor' access.",noDb:"Can't connect to the data. Open this in claude.ai.",
-  back:"Back",resultN:"Selebs",sortPrice:"Lowest price",sortNew:"Newest",about2:"SalamSeleb prototype v0.5 · SH Group Tech Team · Profile photos are AI-generated examples, not real people",
+  back:"Back",resultN:"Selebs",sortPrice:"Lowest price",sortNew:"Newest",about2:"SalamSeleb prototype v0.6 · SH Group Tech Team · Profile photos are AI-generated examples, not real people",
   cat_mc:"MC / Host",cat_singer:"Singer",cat_comedian:"Comedian",cat_creator:"Creator",cat_actor:"Actor",cat_athlete:"Athlete",
   oc_birthday:"Birthday",oc_wedding:"Wedding",oc_baby:"Baby celebration",oc_company:"Company event",oc_cheer:"Encouragement",oc_other:"Other",
   lg_id:"Indonesian",lg_en:"English",lg_ko:"Korean",lg_zh:"Chinese",lg_jv:"Javanese",newbie:"New",noRating:"No ratings yet",nReviews:"{n} reviews",reviewPh:"Review (optional): what did you like?",sampleReview:"Sample review",rateHint:"After each order, fans (Group B) rate the Seleb from 1 to 5 stars.",sortRating:"Highest rated",sortRec:"Recommended",
@@ -352,7 +361,7 @@ const L={
   f_join:" 以明星身份加入",f_req:" 收到了一个{o}视频申请",f_done:" 交付了{o}视频",
   from:"发件人",to:"收件人",asOf:"申请日期",sampleNote:"示例明星不会回复申请。",
   noWrite:"此页面无法保存。请向所有者申请“参与者”权限。",noDb:"无法连接数据，请在 claude.ai 中打开。",
-  back:"返回",resultN:"位",sortPrice:"价格从低到高",sortNew:"最新",about2:"SalamSeleb 原型 v0.5 · SH集团技术团队 · 头像为AI生成的示例图片，并非真实人物",
+  back:"返回",resultN:"位",sortPrice:"价格从低到高",sortNew:"最新",about2:"SalamSeleb 原型 v0.6 · SH集团技术团队 · 头像为AI生成的示例图片，并非真实人物",
   cat_mc:"主持人",cat_singer:"歌手",cat_comedian:"喜剧演员",cat_creator:"创作者",cat_actor:"演员",cat_athlete:"运动员",
   oc_birthday:"生日",oc_wedding:"婚礼",oc_baby:"满月·添丁",oc_company:"公司活动",oc_cheer:"加油鼓励",oc_other:"其他",
   lg_id:"印尼语",lg_en:"英语",lg_ko:"韩语",lg_zh:"中文",lg_jv:"爪哇语",newbie:"新人",noRating:"暂无评分",nReviews:"{n}条评价",reviewPh:"评价（选填）：你喜欢哪一点？",sampleReview:"示例评价",rateHint:"交易完成后，粉丝（B组）会给明星打1到5颗星。",sortRating:"评分最高",sortRec:"推荐",
@@ -361,7 +370,143 @@ const L={
   tierRule_top:"完成15单以上 · 平均4.7以上",tierRule_gold:"完成5单以上 · 平均4.5以上",tierRule_silver:"完成2单以上 · 平均4.0以上",tierRule_rising:"其他所有明星",
   tierNext:"下一阶段：可加入付费订阅以提高曝光。",close:"关闭",
   replyLbl:"明星回复",replyPh:"回复这条评价（感谢等）",replyBtn:"回复",replied:"回复已发布。",
-  justNow:"刚刚",minAgo:"{n}分钟前",hrAgo:"{n}小时前",dayAgo:"{n}天前",dayUnit:"{n}天",respLbl:"回复",saveFail:"保存失败，请稍后再试。",bioPh:"例：在芝卡朗做婚礼主持8年。",recPh:"例：Sari（妈妈）",viewMySeleb:"查看我的明星主页",showWelcome:"重新查看开始页面",langTitle:"选择语言"}
+  justNow:"刚刚",minAgo:"{n}分钟前",hrAgo:"{n}小时前",dayAgo:"{n}天前",dayUnit:"{n}天",respLbl:"回复",saveFail:"保存失败，请稍后再试。",bioPh:"例：在芝卡朗做婚礼主持8年。",recPh:"例：Sari（妈妈）",viewMySeleb:"查看我的明星主页",showWelcome:"重新查看开始页面",langTitle:"选择语言"},
+ ja:{tagline:"大好きなセレブがあなたの特別な日をお祝いします",hello:"セレブとファンが出会う場所",helloSub:"誕生日・結婚式・出産祝い・会社のイベントに、セレブからのお祝い動画を届けます。",
+  asSeleb:"セレブとして始める",asSelebSub:"プロフィールを載せて動画リクエストを受け取る（Aグループ）",asFan:"ファンとして始める",asFanSub:"セレブを選んでお祝い動画を申し込む（Bグループ）",browse:"登録せずにまず見てみる",
+  testNote:"社内限定の試作版 · 実際の支払いはありません",test:"試作版",home:"ホーム",find:"さがす",activity:"アクティビティ",me:"マイページ",
+  heroT:"今週は、誰にお祝い動画を贈りますか？",heroS:"チカランのMC・歌手・クリエイターが待っています。",heroCta:"セレブをさがす",
+  searchPh:"名前やジャンルでさがす",featured:"いま活動中のセレブ",seeAll:"すべて見る",feed:"最近のアクティビティ",all:"すべて",
+  sample:"サンプル",days:"日",video:"動画",reviews:"評価",done:"完了",requestBtn:"お祝い動画を申し込む",
+  about:"紹介",langs:"対応言語",city:"地域",noSeleb:"まだ登録されたセレブがいません。",noFeed:"まだアクティビティがありません。最初の申し込みをしてみましょう！",
+  joinA:"セレブ登録（Aグループ）",joinAS:"プロフィールを載せると、ファンが動画を申し込めます。",joinB:"ファン登録（Bグループ）",joinBS:"登録すると、セレブにお祝い動画を申し込めます。",
+  stageName:"活動名",category:"ジャンル",bio:"自己紹介",price:"動画1本の料金（Rp）",resp:"返答までの日数",nick:"名前（ニックネーム）",
+  consent:"社内テスト専用です。入力した情報はテスト参加者だけが見られ、テスト終了後に削除されます。",register:"登録する",
+  needFan:"申し込むにはファン登録が必要です",needFanS:"名前を入れるだけですぐ申し込めます。見るだけならそのまま続けられます。",goJoinB:"ファン登録する",later:"あとで",
+  reqTitle:"お祝い動画の申し込み",forWhom:"誰のための動画ですか？",forMe:"自分へ",forOther:"ほかの人へ",recipient:"受け取る人の名前",occasion:"どんな日ですか？",
+  note:"セレブに伝えたいこと",notePh:"例：母の60歳の誕生日です。「お母さん大好き」とぜひ言ってください！",wantDate:"受け取りたい日",lang:"動画の言語",
+  total:"お支払い金額",escrow:"お支払いはプラットフォームが預かり、動画を受け取って「満足」を押すとセレブに支払われます。試作版のため、実際の支払いは発生しません。",
+  submitReq:"申し込む（支払いは保留）",sent:"申し込みました。セレブが受け付けたらお知らせします。",
+  myReqs:"送った申し込み",inbox:"届いたリクエスト",noReqs:"まだ申し込みがありません。",noInbox:"まだリクエストが届いていません。",
+  accept:"受け付ける",decline:"断る",deliver:"動画を届けた",deliverPh:"お届けメモ（試作版：動画のアップロードは次の段階）",confirm:"満足 · 精算する",rateIt:"評価をつけてください",
+  s_requested:"申し込み済み",s_accepted:"制作中",s_delivered:"動画が届きました",s_done:"完了",s_declined:"お断り",
+  st1:"申し込み",st2:"受付",st3:"お届け",st4:"精算",
+  guest:"見学中",guestS:"登録しなくても、すべてのセレブとアクティビティを見られます。",mySeleb:"自分のセレブプロフィール",myFan:"自分のファンプロフィール",notYet:"未登録",
+  edit:"編集",registered:"登録しました。",saved:"保存しました。",roleA:"セレブ（Aグループ）",roleB:"ファン（Bグループ）",
+  f_join:"さんがセレブとして参加しました",f_req:"さんに{o}の動画リクエストが届きました",f_done:"さんが{o}の動画を届けました",
+  from:"送り主",to:"宛先",asOf:"申し込み日",sampleNote:"サンプルのセレブは申し込みに返答しません。",
+  noWrite:"この画面では保存できません。所有者に「参加者」権限をもらってください。",noDb:"データに接続できません。claude.ai で開いてください。",
+  back:"戻る",resultN:"人",sortPrice:"安い順",sortNew:"新着順",about2:"SalamSeleb 試作版 v0.6 · SHグループ技術チーム · プロフィール写真はAIで作った例で、実在の人物ではありません",
+  cat_mc:"MC・司会",cat_singer:"歌手",cat_comedian:"お笑い芸人",cat_creator:"クリエイター",cat_actor:"俳優",cat_athlete:"スポーツ選手",
+  oc_birthday:"誕生日",oc_wedding:"結婚式",oc_baby:"出産・お食い初め",oc_company:"会社のイベント",oc_cheer:"応援",oc_other:"その他",
+  lg_id:"インドネシア語",lg_en:"英語",lg_ko:"韓国語",lg_zh:"中国語",lg_jv:"ジャワ語",newbie:"新人",noRating:"まだ評価がありません",nReviews:"評価 {n}件",reviewPh:"レビュー（任意）：よかった点は？",sampleReview:"サンプル評価",rateHint:"取引が終わると、ファン（Bグループ）が星1〜5で評価します。",sortRating:"評価が高い順",sortRec:"おすすめ順",
+  tier_top:"トップ",tier_gold:"ゴールド",tier_silver:"シルバー",tier_rising:"新人",tierTitle:"セレブのランク基準",
+  tierBody:"ランクは完了した動画の数とファンの平均評価で自動的に決まります。ランクが高いほど、ホームとおすすめ順で上に表示されます。",
+  tierRule_top:"完了15件以上 · 平均4.7以上",tierRule_gold:"完了5件以上 · 平均4.5以上",tierRule_silver:"完了2件以上 · 平均4.0以上",tierRule_rising:"そのほかのすべてのセレブ",
+  tierNext:"次の段階では、有料サブスクで表示順位を上げる機能を追加できます。",close:"閉じる",
+  replyLbl:"セレブからの返信",replyPh:"レビューに返信する（お礼など）",replyBtn:"返信する",replied:"返信しました。",
+  justNow:"たった今",minAgo:"{n}分前",hrAgo:"{n}時間前",dayAgo:"{n}日前",dayUnit:"{n}日",respLbl:"返答",saveFail:"保存できませんでした。少し時間をおいてもう一度お試しください。",bioPh:"例：チカランで結婚式MCを8年。場を盛り上げるお祝いの言葉が得意です！",recPh:"例：サリ（母）",viewMySeleb:"自分のセレブページを見る",showWelcome:"スタート画面をもう一度見る",langTitle:"言語を選ぶ"},
+ de:{tagline:"Dein Lieblings-Seleb feiert deinen Tag",hello:"Hier treffen sich Selebs und Fans",helloSub:"Hol dir eine persönliche Videobotschaft von einem Seleb – zum Geburtstag, zur Hochzeit, zur Geburt oder für eine Firmenfeier.",
+  asSeleb:"Als Seleb starten",asSelebSub:"Profil anlegen und Videoanfragen erhalten (Gruppe A)",asFan:"Als Fan starten",asFanSub:"Seleb auswählen und Grußvideo anfragen (Gruppe B)",browse:"Erst mal umsehen, ohne Anmeldung",
+  testNote:"Interner Prototyp · keine echten Zahlungen",test:"Prototyp",home:"Start",find:"Suche",activity:"Aktivität",me:"Ich",
+  heroT:"Wem schickst du diese Woche einen Gruß?",heroS:"Moderatoren, Sänger und Creator aus Cikarang warten schon.",heroCta:"Selebs finden",
+  searchPh:"Nach Name oder Kategorie suchen",featured:"Gerade aktive Selebs",seeAll:"Alle ansehen",feed:"Neueste Aktivität",all:"Alle",
+  sample:"Beispiel",days:"Tage",video:"Video",reviews:"Bewertung",done:"Erledigt",requestBtn:"Grußvideo anfragen",
+  about:"Über mich",langs:"Sprachen",city:"Ort",noSeleb:"Noch keine Selebs registriert.",noFeed:"Noch keine Aktivität. Stell die erste Anfrage!",
+  joinA:"Als Seleb registrieren (Gruppe A)",joinAS:"Leg dein Profil an, damit Fans Videos bei dir anfragen können.",joinB:"Als Fan registrieren (Gruppe B)",joinBS:"Nach der Anmeldung kannst du Grußvideos anfragen.",
+  stageName:"Künstlername",category:"Kategorie",bio:"Über dich",price:"Preis pro Video (Rp)",resp:"Antwortzeit (Tage)",nick:"Name (Spitzname)",
+  consent:"Nur für interne Tests. Deine Angaben sehen nur Testteilnehmer, und sie werden nach dem Test gelöscht.",register:"Registrieren",
+  needFan:"Zum Anfragen bitte als Fan registrieren",needFanS:"Einfach einen Namen eingeben und sofort anfragen. Umsehen kannst du dich weiterhin.",goJoinB:"Als Fan registrieren",later:"Später",
+  reqTitle:"Grußvideo anfragen",forWhom:"Für wen ist das Video?",forMe:"Für mich",forOther:"Für jemand anderen",recipient:"Name der empfangenden Person",occasion:"Zu welchem Anlass?",
+  note:"Deine Nachricht an das Seleb",notePh:"z. B. Meine Mutter wird 60. Bitte sag unbedingt: „Wir lieben dich, Mama!“",wantDate:"Wunschdatum",lang:"Sprache des Videos",
+  total:"Gesamtbetrag",escrow:"Die Plattform verwahrt deine Zahlung und gibt sie erst an das Seleb weiter, wenn du „Zufrieden“ tippst. Dies ist ein Prototyp, es wird nichts wirklich bezahlt.",
+  submitReq:"Anfragen (Zahlung verwahrt)",sent:"Anfrage gesendet. Wir melden uns, sobald das Seleb zusagt.",
+  myReqs:"Meine Anfragen",inbox:"Eingegangene Anfragen",noReqs:"Noch keine Anfragen.",noInbox:"Noch keine Anfragen eingegangen.",
+  accept:"Annehmen",decline:"Ablehnen",deliver:"Video als geliefert markieren",deliverPh:"Liefernotiz (Prototyp: Video-Upload folgt im nächsten Schritt)",confirm:"Zufrieden · Zahlung freigeben",rateIt:"Bitte bewerten",
+  s_requested:"Angefragt",s_accepted:"In Arbeit",s_delivered:"Video da",s_done:"Abgeschlossen",s_declined:"Abgelehnt",
+  st1:"Anfrage",st2:"Zusage",st3:"Lieferung",st4:"Zahlung",
+  guest:"Nur umsehen",guestS:"Auch ohne Anmeldung siehst du alle Selebs und jede Aktivität.",mySeleb:"Mein Seleb-Profil",myFan:"Mein Fan-Profil",notYet:"Noch nicht registriert",
+  edit:"Bearbeiten",registered:"Registriert.",saved:"Gespeichert.",roleA:"Seleb (Gruppe A)",roleB:"Fan (Gruppe B)",
+  f_join:" ist als Seleb dabei",f_req:" hat eine Anfrage für ein Video zum Anlass „{o}“ erhalten",f_done:" hat ein Video zum Anlass „{o}“ geliefert",
+  from:"Von",to:"Für",asOf:"Angefragt am",sampleNote:"Beispiel-Selebs antworten nicht auf Anfragen.",
+  noWrite:"In dieser Ansicht kannst du nicht speichern. Bitte den Besitzer um „Mitwirkende“-Zugriff.",noDb:"Keine Verbindung zu den Daten. Bitte in claude.ai öffnen.",
+  back:"Zurück",resultN:"Selebs",sortPrice:"Günstigste zuerst",sortNew:"Neueste zuerst",about2:"SalamSeleb-Prototyp v0.6 · Technikteam der SH Group · Profilfotos sind KI-generierte Beispiele, keine echten Personen",
+  cat_mc:"Moderation",cat_singer:"Gesang",cat_comedian:"Comedy",cat_creator:"Creator",cat_actor:"Schauspiel",cat_athlete:"Sport",
+  oc_birthday:"Geburtstag",oc_wedding:"Hochzeit",oc_baby:"Geburt",oc_company:"Firmenfeier",oc_cheer:"Ermutigung",oc_other:"Sonstiges",
+  lg_id:"Indonesisch",lg_en:"Englisch",lg_ko:"Koreanisch",lg_zh:"Chinesisch",lg_jv:"Javanisch",newbie:"Neu",noRating:"Noch keine Bewertungen",nReviews:"{n} Bewertungen",reviewPh:"Bewertung (optional): Was hat dir gefallen?",sampleReview:"Beispielbewertung",rateHint:"Nach jedem Auftrag vergeben Fans (Gruppe B) 1 bis 5 Sterne.",sortRating:"Beste Bewertung",sortRec:"Empfohlen",
+  tier_top:"Top",tier_gold:"Gold",tier_silver:"Silber",tier_rising:"Neu",tierTitle:"Seleb-Stufen",
+  tierBody:"Die Stufe ergibt sich automatisch aus der Zahl abgeschlossener Videos und der durchschnittlichen Sternebewertung der Fans. Je höher die Stufe, desto weiter oben erscheint das Seleb auf der Startseite und unter „Empfohlen“.",
+  tierRule_top:"ab 15 abgeschlossen · Schnitt ab 4,7",tierRule_gold:"ab 5 abgeschlossen · Schnitt ab 4,5",tierRule_silver:"ab 2 abgeschlossen · Schnitt ab 4,0",tierRule_rising:"Alle übrigen Selebs",
+  tierNext:"Nächster Schritt: ein bezahltes Abo für mehr Sichtbarkeit.",close:"Schließen",
+  replyLbl:"Antwort des Selebs",replyPh:"Auf die Bewertung antworten (z. B. ein Dankeschön)",replyBtn:"Antworten",replied:"Antwort veröffentlicht.",
+  justNow:"gerade eben",minAgo:"vor {n} Min.",hrAgo:"vor {n} Std.",dayAgo:"vor {n} Tagen",dayUnit:"{n} Tage",respLbl:"Antwort",saveFail:"Speichern fehlgeschlagen. Bitte gleich noch einmal versuchen.",bioPh:"z. B. Seit 8 Jahren Hochzeitsmoderator in Cikarang.",recPh:"z. B. Sari (Mama)",viewMySeleb:"Meine Seleb-Seite ansehen",showWelcome:"Startbildschirm erneut zeigen",langTitle:"Sprache wählen"},
+ es:{tagline:"Tu Seleb favorito celebra tu día",hello:"Donde Selebs y fans se encuentran",helloSub:"Recibe un video de felicitación de un Seleb para cumpleaños, bodas, nacimientos y eventos de empresa.",
+  asSeleb:"Empezar como Seleb",asSelebSub:"Publica tu perfil y recibe solicitudes de video (Grupo A)",asFan:"Empezar como fan",asFanSub:"Elige un Seleb y pide un video de felicitación (Grupo B)",browse:"Echar un vistazo sin registrarme",
+  testNote:"Prototipo interno · sin pagos reales",test:"Prototipo",home:"Inicio",find:"Buscar",activity:"Actividad",me:"Yo",
+  heroT:"¿A quién le mandas un saludo esta semana?",heroS:"Presentadores, cantantes y creadores de Cikarang te esperan.",heroCta:"Buscar Selebs",
+  searchPh:"Buscar por nombre o categoría",featured:"Selebs activos ahora",seeAll:"Ver todo",feed:"Actividad reciente",all:"Todos",
+  sample:"Ejemplo",days:"días",video:"Video",reviews:"Valoración",done:"Hecho",requestBtn:"Pedir video de felicitación",
+  about:"Sobre mí",langs:"Idiomas",city:"Ciudad",noSeleb:"Todavía no hay Selebs registrados.",noFeed:"Aún no hay actividad. ¡Haz la primera solicitud!",
+  joinA:"Registrarme como Seleb (Grupo A)",joinAS:"Publica tu perfil para que los fans puedan pedirte videos.",joinB:"Registrarme como fan (Grupo B)",joinBS:"Al registrarte podrás pedir videos de felicitación.",
+  stageName:"Nombre artístico",category:"Categoría",bio:"Sobre ti",price:"Precio por video (Rp)",resp:"Tiempo de respuesta (días)",nick:"Nombre (apodo)",
+  consent:"Solo para pruebas internas. Tus datos solo los ven los participantes de la prueba y se borrarán al terminarla.",register:"Registrarme",
+  needFan:"Para pedir, regístrate como fan",needFanS:"Solo escribe un nombre y pide al momento. Puedes seguir mirando igualmente.",goJoinB:"Registrarme como fan",later:"Más tarde",
+  reqTitle:"Pedir video de felicitación",forWhom:"¿Para quién es el video?",forMe:"Para mí",forOther:"Para otra persona",recipient:"Nombre de quien lo recibe",occasion:"¿Cuál es la ocasión?",
+  note:"Tu mensaje para el Seleb",notePh:"Ej.: Es el cumpleaños 60 de mi mamá. ¡Por favor dile «Te queremos, mamá»!",wantDate:"Fecha deseada",lang:"Idioma del video",
+  total:"Total a pagar",escrow:"La plataforma guarda tu pago y solo se lo entrega al Seleb cuando pulsas «Satisfecho». Es un prototipo: no se hace ningún pago real.",
+  submitReq:"Pedir (pago retenido)",sent:"Solicitud enviada. Te avisaremos cuando el Seleb la acepte.",
+  myReqs:"Mis solicitudes",inbox:"Solicitudes recibidas",noReqs:"Aún no tienes solicitudes.",noInbox:"Aún no has recibido solicitudes.",
+  accept:"Aceptar",decline:"Rechazar",deliver:"Marcar video entregado",deliverPh:"Nota de entrega (prototipo: la subida de video llega en la siguiente fase)",confirm:"Satisfecho · liberar pago",rateIt:"Deja tu valoración",
+  s_requested:"Solicitado",s_accepted:"En preparación",s_delivered:"Video recibido",s_done:"Completado",s_declined:"Rechazado",
+  st1:"Solicitud",st2:"Aceptado",st3:"Entrega",st4:"Pago",
+  guest:"Mirando",guestS:"Sin registrarte puedes ver todos los Selebs y toda la actividad.",mySeleb:"Mi perfil de Seleb",myFan:"Mi perfil de fan",notYet:"Sin registrar",
+  edit:"Editar",registered:"Registro completado.",saved:"Guardado.",roleA:"Seleb (Grupo A)",roleB:"Fan (Grupo B)",
+  f_join:" se unió como Seleb",f_req:" recibió una solicitud de video · {o}",f_done:" entregó un video · {o}",
+  from:"De",to:"Para",asOf:"Fecha de solicitud",sampleNote:"Los Selebs de ejemplo no responden a solicitudes.",
+  noWrite:"No puedes guardar desde esta vista. Pide al propietario acceso de «Colaborador».",noDb:"No se pudo conectar con los datos. Ábrelo en claude.ai.",
+  back:"Volver",resultN:"Selebs",sortPrice:"Precio más bajo",sortNew:"Más recientes",about2:"Prototipo SalamSeleb v0.6 · Equipo técnico de SH Group · Las fotos de perfil son ejemplos generados con IA, no personas reales",
+  cat_mc:"Presentador",cat_singer:"Cantante",cat_comedian:"Humorista",cat_creator:"Creador",cat_actor:"Actor",cat_athlete:"Deportista",
+  oc_birthday:"Cumpleaños",oc_wedding:"Boda",oc_baby:"Nacimiento",oc_company:"Evento de empresa",oc_cheer:"Ánimo",oc_other:"Otro",
+  lg_id:"Indonesio",lg_en:"Inglés",lg_ko:"Coreano",lg_zh:"Chino",lg_jv:"Javanés",newbie:"Nuevo",noRating:"Sin valoraciones todavía",nReviews:"{n} reseñas",reviewPh:"Reseña (opcional): ¿qué te gustó?",sampleReview:"Reseña de ejemplo",rateHint:"Al terminar cada pedido, los fans (Grupo B) puntúan con 1 a 5 estrellas.",sortRating:"Mejor valorados",sortRec:"Recomendados",
+  tier_top:"Top",tier_gold:"Oro",tier_silver:"Plata",tier_rising:"Nuevo",tierTitle:"Niveles de Seleb",
+  tierBody:"El nivel se calcula automáticamente con los videos completados y la media de estrellas de los fans. Cuanto más alto el nivel, más arriba aparece en Inicio y en Recomendados.",
+  tierRule_top:"15+ completados · media 4,7+",tierRule_gold:"5+ completados · media 4,5+",tierRule_silver:"2+ completados · media 4,0+",tierRule_rising:"El resto de Selebs",
+  tierNext:"Próximo paso: una suscripción de pago para ganar visibilidad.",close:"Cerrar",
+  replyLbl:"Respuesta del Seleb",replyPh:"Responder a esta reseña (un agradecimiento, etc.)",replyBtn:"Responder",replied:"Respuesta publicada.",
+  justNow:"ahora mismo",minAgo:"hace {n} min",hrAgo:"hace {n} h",dayAgo:"hace {n} días",dayUnit:"{n} días",respLbl:"Respuesta",saveFail:"No se pudo guardar. Inténtalo de nuevo en un momento.",bioPh:"Ej.: Presentador de bodas en Cikarang desde hace 8 años.",recPh:"Ej.: Sari (mamá)",viewMySeleb:"Ver mi página de Seleb",showWelcome:"Ver la pantalla de inicio",langTitle:"Elegir idioma"},
+ ar:{tagline:"نجمك المفضل يحتفل بيومك",hello:"حيث يلتقي النجوم بالمعجبين",helloSub:"احصل على فيديو تهنئة من نجم لأعياد الميلاد والأعراس واستقبال المواليد ومناسبات الشركات.",
+  asSeleb:"ابدأ كنجم",asSelebSub:"انشر ملفك واستقبل طلبات الفيديو (المجموعة أ)",asFan:"ابدأ كمعجب",asFanSub:"اختر نجمًا واطلب فيديو تهنئة (المجموعة ب)",browse:"تصفّح أولًا دون تسجيل",
+  testNote:"نموذج أولي داخلي · لا توجد مدفوعات حقيقية",test:"نموذج أولي",home:"الرئيسية",find:"بحث",activity:"النشاط",me:"حسابي",
+  heroT:"لمن سترسل تهنئة هذا الأسبوع؟",heroS:"مقدّمو الحفلات والمطربون وصنّاع المحتوى في تشيكارانغ بانتظارك.",heroCta:"ابحث عن نجم",
+  searchPh:"ابحث بالاسم أو الفئة",featured:"نجوم نشطون الآن",seeAll:"عرض الكل",feed:"أحدث النشاطات",all:"الكل",
+  sample:"مثال",days:"أيام",video:"فيديو",reviews:"التقييم",done:"مكتمل",requestBtn:"اطلب فيديو تهنئة",
+  about:"نبذة",langs:"اللغات",city:"المدينة",noSeleb:"لا يوجد نجوم مسجّلون بعد.",noFeed:"لا يوجد نشاط بعد. كن أول من يرسل طلبًا!",
+  joinA:"التسجيل كنجم (المجموعة أ)",joinAS:"انشر ملفك ليتمكن المعجبون من طلب الفيديوهات.",joinB:"التسجيل كمعجب (المجموعة ب)",joinBS:"بعد التسجيل يمكنك طلب فيديوهات التهنئة.",
+  stageName:"الاسم الفني",category:"الفئة",bio:"نبذة عنك",price:"سعر الفيديو الواحد (Rp)",resp:"مدة الرد (بالأيام)",nick:"الاسم (اسم مستعار)",
+  consent:"للاختبار الداخلي فقط. لا يرى بياناتك إلا المشاركون في الاختبار، وستُحذف بعد انتهائه.",register:"تسجيل",
+  needFan:"سجّل كمعجب لتقديم طلب",needFanS:"اكتب اسمك فقط واطلب فورًا. يمكنك متابعة التصفح في كل الأحوال.",goJoinB:"التسجيل كمعجب",later:"لاحقًا",
+  reqTitle:"طلب فيديو تهنئة",forWhom:"لمن هذا الفيديو؟",forMe:"لي",forOther:"لشخص آخر",recipient:"اسم المستلم",occasion:"ما المناسبة؟",
+  note:"رسالتك إلى النجم",notePh:"مثال: عيد ميلاد أمي الستون. أرجو أن تقول «نحبك يا أمي»!",wantDate:"التاريخ المطلوب",lang:"لغة الفيديو",
+  total:"المبلغ الإجمالي",escrow:"تحتفظ المنصة بالمبلغ ولا تسلّمه للنجم إلا بعد أن تضغط «راضٍ». هذا نموذج أولي، فلا يتم أي دفع حقيقي.",
+  submitReq:"إرسال الطلب (المبلغ محجوز)",sent:"تم إرسال الطلب. سنبلغك عندما يقبله النجم.",
+  myReqs:"طلباتي",inbox:"الطلبات الواردة",noReqs:"لا توجد طلبات بعد.",noInbox:"لم تصلك طلبات بعد.",
+  accept:"قبول",decline:"رفض",deliver:"تم تسليم الفيديو",deliverPh:"ملاحظة التسليم (نموذج أولي: رفع الفيديو في المرحلة التالية)",confirm:"راضٍ · تحويل المبلغ",rateIt:"اترك تقييمك",
+  s_requested:"تم الطلب",s_accepted:"قيد التنفيذ",s_delivered:"وصل الفيديو",s_done:"مكتمل",s_declined:"مرفوض",
+  st1:"الطلب",st2:"القبول",st3:"التسليم",st4:"الدفع",
+  guest:"تتصفّح",guestS:"يمكنك رؤية جميع النجوم وكل النشاطات دون تسجيل.",mySeleb:"ملفي كنجم",myFan:"ملفي كمعجب",notYet:"غير مسجّل بعد",
+  edit:"تعديل",registered:"تم التسجيل.",saved:"تم الحفظ.",roleA:"نجم (المجموعة أ)",roleB:"معجب (المجموعة ب)",
+  f_join:" انضم كنجم",f_req:" تلقّى طلب فيديو لمناسبة {o}",f_done:" سلّم فيديو لمناسبة {o}",
+  from:"من",to:"إلى",asOf:"تاريخ الطلب",sampleNote:"النجوم التجريبيون لا يردّون على الطلبات.",
+  noWrite:"لا يمكن الحفظ من هذه الشاشة. اطلب من المالك صلاحية «مساهم».",noDb:"تعذّر الاتصال بالبيانات. افتح الصفحة في claude.ai.",
+  back:"رجوع",resultN:"نجم",sortPrice:"الأقل سعرًا",sortNew:"الأحدث",about2:"نموذج SalamSeleb الأولي v0.6 · الفريق التقني لمجموعة SH · صور الملفات أمثلة مولّدة بالذكاء الاصطناعي وليست لأشخاص حقيقيين",
+  cat_mc:"مقدّم حفلات",cat_singer:"مطرب",cat_comedian:"كوميدي",cat_creator:"صانع محتوى",cat_actor:"ممثل",cat_athlete:"رياضي",
+  oc_birthday:"عيد ميلاد",oc_wedding:"زفاف",oc_baby:"مولود جديد",oc_company:"مناسبة شركة",oc_cheer:"تشجيع",oc_other:"أخرى",
+  lg_id:"الإندونيسية",lg_en:"الإنجليزية",lg_ko:"الكورية",lg_zh:"الصينية",lg_jv:"الجاوية",newbie:"جديد",noRating:"لا توجد تقييمات بعد",nReviews:"{n} تقييمات",reviewPh:"رأيك (اختياري): ما الذي أعجبك؟",sampleReview:"تقييم تجريبي",rateHint:"بعد كل طلب يقيّم المعجبون (المجموعة ب) النجم من نجمة إلى 5 نجوم.",sortRating:"الأعلى تقييمًا",sortRec:"المقترحون",
+  tier_top:"قمة",tier_gold:"ذهبي",tier_silver:"فضي",tier_rising:"جديد",tierTitle:"مستويات النجوم",
+  tierBody:"يُحدَّد المستوى تلقائيًا حسب عدد الفيديوهات المكتملة ومتوسط تقييم المعجبين. كلما ارتفع المستوى ظهر النجم أعلى في الرئيسية وفي المقترحين.",
+  tierRule_top:"15 مكتملة فأكثر · متوسط 4.7 فأكثر",tierRule_gold:"5 مكتملة فأكثر · متوسط 4.5 فأكثر",tierRule_silver:"2 مكتملة فأكثر · متوسط 4.0 فأكثر",tierRule_rising:"باقي النجوم",
+  tierNext:"الخطوة التالية: اشتراك مدفوع لزيادة الظهور.",close:"إغلاق",
+  replyLbl:"رد النجم",replyPh:"رُدّ على هذا التقييم (شكر وغيره)",replyBtn:"رد",replied:"تم نشر الرد.",
+  justNow:"الآن",minAgo:"قبل {n} دقيقة",hrAgo:"قبل {n} ساعة",dayAgo:"قبل {n} يوم",dayUnit:"{n} أيام",respLbl:"الرد",saveFail:"تعذّر الحفظ. حاول مرة أخرى بعد قليل.",bioPh:"مثال: مقدّم حفلات زفاف في تشيكارانغ منذ 8 سنوات.",recPh:"مثال: ساري (أمي)",viewMySeleb:"عرض صفحتي كنجم",showWelcome:"عرض شاشة البداية مرة أخرى",langTitle:"اختر اللغة"}
 };
 const CATS=["mc","singer","comedian","creator","actor","athlete"];
 const OCCS=["birthday","wedding","baby","company","cheer","other"];
@@ -371,10 +516,16 @@ const LANG_INFO={
   ko:{flag:"🇰🇷",code:"KO",country:"대한민국",native:"한국어",en:"Republic of Korea · Korean",html:"ko"},
   id:{flag:"🇮🇩",code:"ID",country:"Republik Indonesia",native:"Bahasa Indonesia",en:"Republic of Indonesia · Indonesian",html:"id"},
   en:{flag:"🇺🇸",code:"EN",country:"United States of America",native:"English",en:"United States of America · English",html:"en"},
-  zh:{flag:"🇨🇳",code:"CH",country:"中华人民共和国",native:"中文（简体）",en:"People's Republic of China · Chinese",html:"zh-Hans"}
+  zh:{flag:"🇨🇳",code:"CH",country:"中华人民共和国",native:"中文（简体）",en:"People's Republic of China · Chinese",html:"zh-Hans"},
+  ja:{flag:"🇯🇵",code:"JP",country:"日本国",native:"日本語",en:"Japan · Japanese",html:"ja"},
+  de:{flag:"🇩🇪",code:"DE",country:"Bundesrepublik Deutschland",native:"Deutsch",en:"Federal Republic of Germany · German",html:"de"},
+  es:{flag:"🇪🇸",code:"ES",country:"Reino de España",native:"Español",en:"Kingdom of Spain · Spanish",html:"es"},
+  ar:{flag:"🇸🇦",code:"AR",country:"المملكة العربية السعودية",native:"العربية",en:"Kingdom of Saudi Arabia · Arabic",html:"ar",rtl:true}
 };
+const LANG_ORDER=["ko","id","en","zh","ja","de","es","ar"];
+function applyDir(){try{const i=LANG_INFO[lang];document.documentElement.lang=i.html;document.documentElement.dir=i.rtl?"rtl":"ltr";}catch(e){}}
 const STEP={requested:1,accepted:2,delivered:3,done:4,declined:0};
-let lang=lsGet("ss.lang","ko"); if(!L[lang]) lang="ko"; try{document.documentElement.lang={ko:"ko",id:"id",en:"en",zh:"zh-Hans"}[lang];}catch(e){}
+let lang=lsGet("ss.lang","ko"); if(!L[lang]) lang="ko";
 const T=k=>(L[lang][k]!=null?L[lang][k]:(L.ko[k]!=null?L.ko[k]:k));
 
 /* ---------- 시제품용 예시 사진 (회장님 제공, AI 생성 이미지 · 실제 인물 아님) ---------- */
@@ -422,12 +573,12 @@ function avatar(name,seed,cls){const a=el("div","av"+(cls?" "+cls:""),initials(n
 function ago(ts){if(!ts)return "";const d=(Date.now()-ts)/1000;if(d<60)return T("justNow");if(d<3600)return T("minAgo").replace("{n}",Math.floor(d/60));if(d<86400)return T("hrAgo").replace("{n}",Math.floor(d/3600));return T("dayAgo").replace("{n}",Math.floor(d/86400));}
 function today(){try{return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Jakarta"}).format(new Date());}catch(e){return new Date().toISOString().slice(0,10);}}
 function addDays(s,n){const d=new Date(s+"T00:00:00Z");d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
-function setLang(k){lang=k;lsSet("ss.lang",k);document.documentElement.lang=LANG_INFO[k].html;render();}
+function setLang(k){lang=k;lsSet("ss.lang",k);applyDir();render();}
 function sheetLang(){
   const bg=el("div","sheet-bg");const sh=el("div","sheet");sh.setAttribute("role","dialog");sh.setAttribute("aria-modal","true");sh.setAttribute("aria-label",T("langTitle"));
   const close=()=>{bg.remove();document.removeEventListener("keydown",esc);};const esc=e=>{if(e.key==="Escape")close();};
   const l=el("div","list");
-  for(const k of ["ko","id","en","zh"]){const i=LANG_INFO[k];const b=btn("item langrow",null,()=>{close();setLang(k);});b.setAttribute("aria-pressed",String(k===lang));b.setAttribute("lang",i.html);
+  for(const k of LANG_ORDER){const i=LANG_INFO[k];const b=btn("item langrow",null,()=>{close();setLang(k);});b.setAttribute("aria-pressed",String(k===lang));b.setAttribute("lang",i.html);
     const f=el("span","flag",i.flag);f.setAttribute("aria-hidden","true");const tx=el("div","tx");tx.append(el("div","t1",i.country+" · "+i.native),el("div","t3",i.en));
     b.append(f,tx);if(k===lang)b.append(el("span","chk","✓"));l.append(b);}
   sh.append(el("h3",null,"🌐 "+T("langTitle")),l);
@@ -435,6 +586,7 @@ function sheetLang(){
 }
 let toastT; function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2800);}
 
+applyDir();
 /* ---------- state ---------- */
 const S={db:null,user:null,uid:null,canWrite:null,loaded:false,
   selebs:[],fans:[],requests:[],route:lsGet("ss.seen",false)?{v:"home"}:{v:"welcome"},stack:[],
