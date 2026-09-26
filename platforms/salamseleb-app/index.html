@@ -44,6 +44,16 @@ h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
 .brand b{color:var(--accent);font-weight:800}
 .top .sp{flex:1}
 .iconbtn{border:0;background:var(--surface);width:38px;height:38px;border-radius:12px;display:grid;place-items:center;cursor:pointer;box-shadow:0 1px 0 var(--line)}
+.vbox{position:relative;align-self:flex-start;width:min(240px,100%);border-radius:14px;overflow:hidden;background:#000;-webkit-user-select:none;user-select:none}
+.vbox.full{width:100%}
+.vbox video{display:block;width:100%;max-height:420px;background:#000}
+.vbox .wm{position:absolute;inset:0;pointer-events:none;display:grid;place-items:center;overflow:hidden}
+.vbox .wm span{transform:rotate(-24deg);font-weight:800;font-size:15px;letter-spacing:.08em;color:rgba(255,255,255,.34);text-shadow:0 1px 2px rgba(0,0,0,.4);white-space:nowrap;animation:wmdrift 9s linear infinite alternate}
+@keyframes wmdrift{from{transform:translate(-18%,-30%) rotate(-24deg)}to{transform:translate(18%,30%) rotate(-24deg)}}
+@media (prefers-reduced-motion:reduce){.vbox .wm span{animation:none}}
+.vlabel{font-size:12px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px}
+.vlabel.lock{color:var(--warn)}.vlabel.ok{color:var(--ok)}
+.prog{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}.prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
 .langrow{align-items:center}
 .sheet .list{max-height:62vh;overflow-y:auto}
 [dir="rtl"] .iconbtn svg{transform:scaleX(-1)}
@@ -283,7 +293,8 @@ const L={
   tierNext:"다음 단계에서는 유료 구독으로 노출을 더 높이는 기능(회장님 구상)을 붙일 수 있어요.",close:"닫기",
   replyLbl:"Seleb 답글",replyPh:"후기에 답글 달기 (감사 인사 등)",replyBtn:"답글 달기",replied:"답글을 달았어요.",
   justNow:"방금",minAgo:"{n}분 전",hrAgo:"{n}시간 전",dayAgo:"{n}일 전",dayUnit:"{n}일",respLbl:"응답",saveFail:"저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.",bioPh:"예: 찌까랑 결혼식 MC 8년 차. 분위기를 확 띄우는 축하 멘트 전문!",recPh:"예: 사리 (엄마)",viewMySeleb:"내 Seleb 페이지 보기",showWelcome:"시작 화면 다시 보기",langTitle:"언어 선택",lg_zh:"중국어",
-  acct:"계정 · 로그인",mGuest:"둘러보기",mFan:"팬",mSeleb:"Seleb",nowAs:"현재 로그인: {r}",nowGuest:"로그인하지 않고 둘러보는 중",loginAs:"{r} 로그인",logout:"로그아웃",loggedOut:"로그아웃했어요. 이제 둘러보기 모드예요.",loggedIn:"{r} 로그인 완료",acctNote:"로그인은 지금 쓰는 claude.ai 계정으로 됩니다(비밀번호 없음). 한 계정으로 팬과 Seleb을 오갈 수 있어요. 정식 앱에서는 휴대폰 번호·WhatsApp 인증으로 바뀝니다.",switchHint:"언제든 여기서 팬 ↔ Seleb을 바꿀 수 있어요."},
+  acct:"계정 · 로그인",mGuest:"둘러보기",mFan:"팬",mSeleb:"Seleb",nowAs:"현재 로그인: {r}",nowGuest:"로그인하지 않고 둘러보는 중",loginAs:"{r} 로그인",logout:"로그아웃",loggedOut:"로그아웃했어요. 이제 둘러보기 모드예요.",loggedIn:"{r} 로그인 완료",acctNote:"로그인은 지금 쓰는 claude.ai 계정으로 됩니다(비밀번호 없음). 한 계정으로 팬과 Seleb을 오갈 수 있어요. 정식 앱에서는 휴대폰 번호·WhatsApp 인증으로 바뀝니다.",switchHint:"언제든 여기서 팬 ↔ Seleb을 바꿀 수 있어요.",
+  attach:"영상 첨부",attachHint:"60초 이하 영상을 올려 주세요. 팬에게는 작은 워터마크 미리보기만 보이고, 정산이 끝나야 고화질 원본을 받을 수 있어요.",processing:"영상 처리 중… {t}",sendVideo:"이 영상 보내기",repick:"다시 고르기",uploading:"올리는 중…",tooLong:"60초 이하 영상만 올릴 수 있어요.",tooBig:"영상이 너무 커요. 더 짧게 찍어 주세요.",badVideo:"이 영상은 열 수 없어요. MP4 또는 WebM 파일로 올려 주세요.",noUpload:"이 화면에서는 영상을 올릴 수 없어요. 앱 소유자가 '편집자' 권한을 줘야 해요.",previewLbl:"정산 전 미리보기 · 저화질 · 다운로드 불가",fullLbl:"원본 영상 · 정산 완료",download:"영상 다운로드",downloaded:"저장했어요.",sentPreview:"팬에게 보낸 미리보기",wmPreview:"미리보기",lockNote:"만족 확인(정산)을 하면 고화질 원본을 받고 저장할 수 있어요.",msgOpt:"팬에게 한마디 (선택)"},
  id:{tagline:"Seleb favoritmu merayakan harimu",hello:"Tempat Seleb dan fans bertemu",helloSub:"Dapatkan video ucapan dari Seleb untuk ulang tahun, pernikahan, syukuran, dan acara kantor.",
   asSeleb:"Mulai sebagai Seleb",asSelebSub:"Pasang profil dan terima permintaan video (Grup A)",asFan:"Mulai sebagai Fans",asFanSub:"Pilih Seleb dan pesan video ucapan (Grup B)",browse:"Lihat-lihat dulu tanpa daftar",
   testNote:"Prototipe internal · tanpa pembayaran sungguhan",test:"Prototipe",home:"Beranda",find:"Cari",activity:"Aktivitas",me:"Saya",
@@ -318,7 +329,8 @@ const L={
   tierNext:"Tahap berikutnya: langganan berbayar untuk menaikkan posisi.",close:"Tutup",
   replyLbl:"Balasan Seleb",replyPh:"Balas ulasan (ucapan terima kasih, dll.)",replyBtn:"Balas",replied:"Balasan terkirim.",
   justNow:"baru saja",minAgo:"{n} mnt lalu",hrAgo:"{n} jam lalu",dayAgo:"{n} hari lalu",dayUnit:"{n} hari",respLbl:"Respons",saveFail:"Gagal menyimpan. Coba lagi sebentar.",bioPh:"Contoh: MC pernikahan 8 tahun di Cikarang.",recPh:"Contoh: Sari (Ibu)",viewMySeleb:"Lihat halaman Seleb saya",showWelcome:"Lihat layar awal",langTitle:"Pilih bahasa",lg_zh:"Mandarin",
-  acct:"Akun · Masuk",mGuest:"Lihat-lihat",mFan:"Fans",mSeleb:"Seleb",nowAs:"Masuk sebagai: {r}",nowGuest:"Melihat-lihat tanpa masuk",loginAs:"Masuk sebagai {r}",logout:"Keluar",loggedOut:"Kamu sudah keluar. Sekarang mode lihat-lihat.",loggedIn:"Masuk sebagai {r}",acctNote:"Masuk memakai akun claude.ai yang sedang dipakai (tanpa kata sandi). Satu akun bisa berganti antara Fans dan Seleb. Di aplikasi resmi, masuk memakai nomor HP · verifikasi WhatsApp.",switchHint:"Kapan saja bisa ganti Fans ↔ Seleb di sini."},
+  acct:"Akun · Masuk",mGuest:"Lihat-lihat",mFan:"Fans",mSeleb:"Seleb",nowAs:"Masuk sebagai: {r}",nowGuest:"Melihat-lihat tanpa masuk",loginAs:"Masuk sebagai {r}",logout:"Keluar",loggedOut:"Kamu sudah keluar. Sekarang mode lihat-lihat.",loggedIn:"Masuk sebagai {r}",acctNote:"Masuk memakai akun claude.ai yang sedang dipakai (tanpa kata sandi). Satu akun bisa berganti antara Fans dan Seleb. Di aplikasi resmi, masuk memakai nomor HP · verifikasi WhatsApp.",switchHint:"Kapan saja bisa ganti Fans ↔ Seleb di sini.",
+  attach:"Lampirkan video",attachHint:"Unggah video maks. 60 detik. Fans hanya melihat pratinjau kecil ber-watermark; video asli kualitas tinggi baru bisa diterima setelah dana dicairkan.",processing:"Memproses video… {t}",sendVideo:"Kirim video ini",repick:"Pilih ulang",uploading:"Mengunggah…",tooLong:"Hanya video maks. 60 detik.",tooBig:"Video terlalu besar. Rekam lebih singkat.",badVideo:"Video ini tidak bisa dibuka. Unggah file MP4 atau WebM.",noUpload:"Tidak bisa mengunggah video di tampilan ini. Pemilik aplikasi harus memberi akses 'Editor'.",previewLbl:"Pratinjau sebelum pencairan · kualitas rendah · tidak bisa diunduh",fullLbl:"Video asli · pembayaran selesai",download:"Unduh video",downloaded:"Tersimpan.",sentPreview:"Pratinjau yang dikirim ke fans",wmPreview:"PRATINJAU",lockNote:"Setelah kamu menekan Puas (dana dicairkan), video asli kualitas tinggi bisa ditonton dan disimpan.",msgOpt:"Pesan untuk fans (opsional)"},
  en:{tagline:"Your favorite Seleb celebrates your day",hello:"Where Selebs and fans meet",helloSub:"Get a personal video greeting from a Seleb for birthdays, weddings, baby celebrations and company events.",
   asSeleb:"Start as a Seleb",asSelebSub:"Post your profile and receive video requests (Group A)",asFan:"Start as a fan",asFanSub:"Pick a Seleb and request a video greeting (Group B)",browse:"Just look around first",
   testNote:"Internal prototype · no real payments",test:"Prototype",home:"Home",find:"Search",activity:"Activity",me:"Me",
@@ -353,7 +365,8 @@ const L={
   tierNext:"Next step: a paid subscription to boost visibility.",close:"Close",
   replyLbl:"Seleb reply",replyPh:"Reply to this review (a thank-you, etc.)",replyBtn:"Reply",replied:"Reply posted.",
   justNow:"just now",minAgo:"{n} min ago",hrAgo:"{n} hr ago",dayAgo:"{n} days ago",dayUnit:"{n} days",respLbl:"Response",saveFail:"Couldn't save. Please try again in a moment.",bioPh:"e.g. Wedding MC in Cikarang for 8 years.",recPh:"e.g. Sari (Mom)",viewMySeleb:"View my Seleb page",showWelcome:"Show the start screen",langTitle:"Choose language",
-  acct:"Account · Sign in",mGuest:"Browsing",mFan:"Fan",mSeleb:"Seleb",nowAs:"Signed in as: {r}",nowGuest:"Browsing without signing in",loginAs:"Sign in as {r}",logout:"Sign out",loggedOut:"Signed out. You're now browsing.",loggedIn:"Signed in as {r}",acctNote:"You sign in with the claude.ai account you're using now (no password). One account can switch between Fan and Seleb. The real app will use phone number / WhatsApp verification.",switchHint:"Switch between Fan and Seleb here anytime."},
+  acct:"Account · Sign in",mGuest:"Browsing",mFan:"Fan",mSeleb:"Seleb",nowAs:"Signed in as: {r}",nowGuest:"Browsing without signing in",loginAs:"Sign in as {r}",logout:"Sign out",loggedOut:"Signed out. You're now browsing.",loggedIn:"Signed in as {r}",acctNote:"You sign in with the claude.ai account you're using now (no password). One account can switch between Fan and Seleb. The real app will use phone number / WhatsApp verification.",switchHint:"Switch between Fan and Seleb here anytime.",
+  attach:"Attach video",attachHint:"Upload a video of up to 60 seconds. The fan only sees a small watermarked preview; the high-quality original is released after payment.",processing:"Processing video… {t}",sendVideo:"Send this video",repick:"Choose again",uploading:"Uploading…",tooLong:"Only videos up to 60 seconds.",tooBig:"The video is too large. Please record a shorter one.",badVideo:"This video can't be opened. Please upload an MP4 or WebM file.",noUpload:"You can't upload videos from this view. The app owner needs to give you 'Editor' access.",previewLbl:"Preview before payment · low quality · no download",fullLbl:"Original video · paid",download:"Download video",downloaded:"Saved.",sentPreview:"Preview sent to the fan",wmPreview:"PREVIEW",lockNote:"Tap Satisfied (release payment) to get and save the high-quality original.",msgOpt:"A note for the fan (optional)"},
  zh:{tagline:"你喜爱的明星为你的日子送上祝福",hello:"明星与粉丝相遇的地方",helloSub:"生日、婚礼、满月宴、公司活动，都能收到明星的专属祝福视频。",
   asSeleb:"以明星身份开始",asSelebSub:"发布个人资料，接收视频请求（A组）",asFan:"以粉丝身份开始",asFanSub:"挑选明星，申请祝福视频（B组）",browse:"先随便看看，不用注册",
   testNote:"内部原型 · 不产生真实付款",test:"原型",home:"首页",find:"搜索",activity:"动态",me:"我的",
@@ -388,7 +401,8 @@ const L={
   tierNext:"下一阶段：可加入付费订阅以提高曝光。",close:"关闭",
   replyLbl:"明星回复",replyPh:"回复这条评价（感谢等）",replyBtn:"回复",replied:"回复已发布。",
   justNow:"刚刚",minAgo:"{n}分钟前",hrAgo:"{n}小时前",dayAgo:"{n}天前",dayUnit:"{n}天",respLbl:"回复",saveFail:"保存失败，请稍后再试。",bioPh:"例：在芝卡朗做婚礼主持8年。",recPh:"例：Sari（妈妈）",viewMySeleb:"查看我的明星主页",showWelcome:"重新查看开始页面",langTitle:"选择语言",
-  acct:"账户 · 登录",mGuest:"浏览",mFan:"粉丝",mSeleb:"明星",nowAs:"当前登录：{r}",nowGuest:"未登录，正在浏览",loginAs:"以{r}身份登录",logout:"退出登录",loggedOut:"已退出登录，现在是浏览模式。",loggedIn:"已以{r}身份登录",acctNote:"使用当前的 claude.ai 账户登录（无需密码）。同一账户可在粉丝和明星之间切换。正式版将改为手机号 / WhatsApp 验证。",switchHint:"随时可以在这里切换粉丝 ↔ 明星。"},
+  acct:"账户 · 登录",mGuest:"浏览",mFan:"粉丝",mSeleb:"明星",nowAs:"当前登录：{r}",nowGuest:"未登录，正在浏览",loginAs:"以{r}身份登录",logout:"退出登录",loggedOut:"已退出登录，现在是浏览模式。",loggedIn:"已以{r}身份登录",acctNote:"使用当前的 claude.ai 账户登录（无需密码）。同一账户可在粉丝和明星之间切换。正式版将改为手机号 / WhatsApp 验证。",switchHint:"随时可以在这里切换粉丝 ↔ 明星。",
+  attach:"上传视频",attachHint:"请上传60秒以内的视频。粉丝只能看到带水印的小尺寸预览，结算完成后才能收到高清原片。",processing:"正在处理视频… {t}",sendVideo:"发送这个视频",repick:"重新选择",uploading:"正在上传…",tooLong:"只能上传60秒以内的视频。",tooBig:"视频太大，请拍得短一些。",badVideo:"无法打开此视频，请上传 MP4 或 WebM 文件。",noUpload:"此页面无法上传视频，需要应用所有者授予“编辑者”权限。",previewLbl:"结算前预览 · 低画质 · 不可下载",fullLbl:"原片 · 已结算",download:"下载视频",downloaded:"已保存。",sentPreview:"已发送给粉丝的预览",wmPreview:"预览",lockNote:"点击“满意”（结算）后即可观看并保存高清原片。",msgOpt:"给粉丝留言（选填）"},
  ja:{tagline:"大好きなセレブがあなたの特別な日をお祝いします",hello:"セレブとファンが出会う場所",helloSub:"誕生日・結婚式・出産祝い・会社のイベントに、セレブからのお祝い動画を届けます。",
   asSeleb:"セレブとして始める",asSelebSub:"プロフィールを載せて動画リクエストを受け取る（Aグループ）",asFan:"ファンとして始める",asFanSub:"セレブを選んでお祝い動画を申し込む（Bグループ）",browse:"登録せずにまず見てみる",
   testNote:"社内限定の試作版 · 実際の支払いはありません",test:"試作版",home:"ホーム",find:"さがす",activity:"アクティビティ",me:"マイページ",
@@ -423,7 +437,8 @@ const L={
   tierNext:"次の段階では、有料サブスクで表示順位を上げる機能を追加できます。",close:"閉じる",
   replyLbl:"セレブからの返信",replyPh:"レビューに返信する（お礼など）",replyBtn:"返信する",replied:"返信しました。",
   justNow:"たった今",minAgo:"{n}分前",hrAgo:"{n}時間前",dayAgo:"{n}日前",dayUnit:"{n}日",respLbl:"返答",saveFail:"保存できませんでした。少し時間をおいてもう一度お試しください。",bioPh:"例：チカランで結婚式MCを8年。場を盛り上げるお祝いの言葉が得意です！",recPh:"例：サリ（母）",viewMySeleb:"自分のセレブページを見る",showWelcome:"スタート画面をもう一度見る",langTitle:"言語を選ぶ",
-  acct:"アカウント · ログイン",mGuest:"見学",mFan:"ファン",mSeleb:"セレブ",nowAs:"ログイン中：{r}",nowGuest:"ログインせずに見学中",loginAs:"{r}としてログイン",logout:"ログアウト",loggedOut:"ログアウトしました。見学モードです。",loggedIn:"{r}としてログインしました",acctNote:"いま使っている claude.ai アカウントでログインします（パスワード不要）。1つのアカウントでファンとセレブを切り替えられます。正式版では電話番号・WhatsApp認証になります。",switchHint:"ここでいつでもファン ↔ セレブを切り替えられます。"},
+  acct:"アカウント · ログイン",mGuest:"見学",mFan:"ファン",mSeleb:"セレブ",nowAs:"ログイン中：{r}",nowGuest:"ログインせずに見学中",loginAs:"{r}としてログイン",logout:"ログアウト",loggedOut:"ログアウトしました。見学モードです。",loggedIn:"{r}としてログインしました",acctNote:"いま使っている claude.ai アカウントでログインします（パスワード不要）。1つのアカウントでファンとセレブを切り替えられます。正式版では電話番号・WhatsApp認証になります。",switchHint:"ここでいつでもファン ↔ セレブを切り替えられます。",
+  attach:"動画を添付",attachHint:"60秒以内の動画をアップロードしてください。ファンにはウォーターマーク入りの小さなプレビューだけが表示され、精算後に高画質の元動画が届きます。",processing:"動画を処理中… {t}",sendVideo:"この動画を送る",repick:"選び直す",uploading:"アップロード中…",tooLong:"60秒以内の動画のみアップロードできます。",tooBig:"動画が大きすぎます。短めに撮り直してください。",badVideo:"この動画は開けません。MP4 または WebM ファイルをアップロードしてください。",noUpload:"この画面では動画をアップロードできません。アプリの所有者から「編集者」権限をもらってください。",previewLbl:"精算前プレビュー · 低画質 · ダウンロード不可",fullLbl:"元動画 · 精算済み",download:"動画をダウンロード",downloaded:"保存しました。",sentPreview:"ファンに送ったプレビュー",wmPreview:"プレビュー",lockNote:"「満足」（精算）を押すと、高画質の元動画を見て保存できます。",msgOpt:"ファンへのひとこと（任意）"},
  de:{tagline:"Dein Lieblings-Seleb feiert deinen Tag",hello:"Hier treffen sich Selebs und Fans",helloSub:"Hol dir eine persönliche Videobotschaft von einem Seleb – zum Geburtstag, zur Hochzeit, zur Geburt oder für eine Firmenfeier.",
   asSeleb:"Als Seleb starten",asSelebSub:"Profil anlegen und Videoanfragen erhalten (Gruppe A)",asFan:"Als Fan starten",asFanSub:"Seleb auswählen und Grußvideo anfragen (Gruppe B)",browse:"Erst mal umsehen, ohne Anmeldung",
   testNote:"Interner Prototyp · keine echten Zahlungen",test:"Prototyp",home:"Start",find:"Suche",activity:"Aktivität",me:"Ich",
@@ -458,7 +473,8 @@ const L={
   tierNext:"Nächster Schritt: ein bezahltes Abo für mehr Sichtbarkeit.",close:"Schließen",
   replyLbl:"Antwort des Selebs",replyPh:"Auf die Bewertung antworten (z. B. ein Dankeschön)",replyBtn:"Antworten",replied:"Antwort veröffentlicht.",
   justNow:"gerade eben",minAgo:"vor {n} Min.",hrAgo:"vor {n} Std.",dayAgo:"vor {n} Tagen",dayUnit:"{n} Tage",respLbl:"Antwort",saveFail:"Speichern fehlgeschlagen. Bitte gleich noch einmal versuchen.",bioPh:"z. B. Seit 8 Jahren Hochzeitsmoderator in Cikarang.",recPh:"z. B. Sari (Mama)",viewMySeleb:"Meine Seleb-Seite ansehen",showWelcome:"Startbildschirm erneut zeigen",langTitle:"Sprache wählen",
-  acct:"Konto · Anmelden",mGuest:"Umsehen",mFan:"Fan",mSeleb:"Seleb",nowAs:"Angemeldet als: {r}",nowGuest:"Ohne Anmeldung am Umsehen",loginAs:"Als {r} anmelden",logout:"Abmelden",loggedOut:"Abgemeldet. Du siehst dich jetzt nur um.",loggedIn:"Als {r} angemeldet",acctNote:"Die Anmeldung läuft über dein aktuelles claude.ai-Konto (ohne Passwort). Ein Konto kann zwischen Fan und Seleb wechseln. Die echte App nutzt Handynummer / WhatsApp-Bestätigung.",switchHint:"Hier jederzeit zwischen Fan und Seleb wechseln."},
+  acct:"Konto · Anmelden",mGuest:"Umsehen",mFan:"Fan",mSeleb:"Seleb",nowAs:"Angemeldet als: {r}",nowGuest:"Ohne Anmeldung am Umsehen",loginAs:"Als {r} anmelden",logout:"Abmelden",loggedOut:"Abgemeldet. Du siehst dich jetzt nur um.",loggedIn:"Als {r} angemeldet",acctNote:"Die Anmeldung läuft über dein aktuelles claude.ai-Konto (ohne Passwort). Ein Konto kann zwischen Fan und Seleb wechseln. Die echte App nutzt Handynummer / WhatsApp-Bestätigung.",switchHint:"Hier jederzeit zwischen Fan und Seleb wechseln.",
+  attach:"Video anhängen",attachHint:"Lade ein Video mit höchstens 60 Sekunden hoch. Der Fan sieht nur eine kleine Vorschau mit Wasserzeichen; das Original in hoher Qualität gibt es erst nach der Zahlung.",processing:"Video wird verarbeitet … {t}",sendVideo:"Dieses Video senden",repick:"Neu auswählen",uploading:"Wird hochgeladen …",tooLong:"Nur Videos bis 60 Sekunden.",tooBig:"Das Video ist zu groß. Bitte kürzer aufnehmen.",badVideo:"Dieses Video lässt sich nicht öffnen. Bitte eine MP4- oder WebM-Datei hochladen.",noUpload:"In dieser Ansicht kannst du keine Videos hochladen. Der Besitzer der App muss dir „Bearbeiten“-Zugriff geben.",previewLbl:"Vorschau vor der Zahlung · niedrige Qualität · kein Download",fullLbl:"Originalvideo · bezahlt",download:"Video herunterladen",downloaded:"Gespeichert.",sentPreview:"An den Fan gesendete Vorschau",wmPreview:"VORSCHAU",lockNote:"Tippe auf „Zufrieden“ (Zahlung freigeben), um das Original in hoher Qualität anzusehen und zu speichern.",msgOpt:"Nachricht an den Fan (optional)"},
  es:{tagline:"Tu Seleb favorito celebra tu día",hello:"Donde Selebs y fans se encuentran",helloSub:"Recibe un video de felicitación de un Seleb para cumpleaños, bodas, nacimientos y eventos de empresa.",
   asSeleb:"Empezar como Seleb",asSelebSub:"Publica tu perfil y recibe solicitudes de video (Grupo A)",asFan:"Empezar como fan",asFanSub:"Elige un Seleb y pide un video de felicitación (Grupo B)",browse:"Echar un vistazo sin registrarme",
   testNote:"Prototipo interno · sin pagos reales",test:"Prototipo",home:"Inicio",find:"Buscar",activity:"Actividad",me:"Yo",
@@ -493,7 +509,8 @@ const L={
   tierNext:"Próximo paso: una suscripción de pago para ganar visibilidad.",close:"Cerrar",
   replyLbl:"Respuesta del Seleb",replyPh:"Responder a esta reseña (un agradecimiento, etc.)",replyBtn:"Responder",replied:"Respuesta publicada.",
   justNow:"ahora mismo",minAgo:"hace {n} min",hrAgo:"hace {n} h",dayAgo:"hace {n} días",dayUnit:"{n} días",respLbl:"Respuesta",saveFail:"No se pudo guardar. Inténtalo de nuevo en un momento.",bioPh:"Ej.: Presentador de bodas en Cikarang desde hace 8 años.",recPh:"Ej.: Sari (mamá)",viewMySeleb:"Ver mi página de Seleb",showWelcome:"Ver la pantalla de inicio",langTitle:"Elegir idioma",
-  acct:"Cuenta · Iniciar sesión",mGuest:"Mirando",mFan:"Fan",mSeleb:"Seleb",nowAs:"Sesión iniciada como: {r}",nowGuest:"Mirando sin iniciar sesión",loginAs:"Entrar como {r}",logout:"Cerrar sesión",loggedOut:"Sesión cerrada. Ahora solo estás mirando.",loggedIn:"Sesión iniciada como {r}",acctNote:"Inicias sesión con la cuenta de claude.ai que usas ahora (sin contraseña). Una cuenta puede cambiar entre Fan y Seleb. La app real usará número de teléfono / verificación por WhatsApp.",switchHint:"Cambia entre Fan y Seleb aquí cuando quieras."},
+  acct:"Cuenta · Iniciar sesión",mGuest:"Mirando",mFan:"Fan",mSeleb:"Seleb",nowAs:"Sesión iniciada como: {r}",nowGuest:"Mirando sin iniciar sesión",loginAs:"Entrar como {r}",logout:"Cerrar sesión",loggedOut:"Sesión cerrada. Ahora solo estás mirando.",loggedIn:"Sesión iniciada como {r}",acctNote:"Inicias sesión con la cuenta de claude.ai que usas ahora (sin contraseña). Una cuenta puede cambiar entre Fan y Seleb. La app real usará número de teléfono / verificación por WhatsApp.",switchHint:"Cambia entre Fan y Seleb aquí cuando quieras.",
+  attach:"Adjuntar video",attachHint:"Sube un video de hasta 60 segundos. El fan solo ve una vista previa pequeña con marca de agua; el original en alta calidad se entrega tras el pago.",processing:"Procesando video… {t}",sendVideo:"Enviar este video",repick:"Elegir otro",uploading:"Subiendo…",tooLong:"Solo videos de hasta 60 segundos.",tooBig:"El video es demasiado grande. Grábalo más corto.",badVideo:"No se puede abrir este video. Sube un archivo MP4 o WebM.",noUpload:"No puedes subir videos desde esta vista. El propietario de la app debe darte acceso de «Editor».",previewLbl:"Vista previa antes del pago · baja calidad · sin descarga",fullLbl:"Video original · pagado",download:"Descargar video",downloaded:"Guardado.",sentPreview:"Vista previa enviada al fan",wmPreview:"VISTA PREVIA",lockNote:"Pulsa «Satisfecho» (liberar pago) para ver y guardar el original en alta calidad.",msgOpt:"Un mensaje para el fan (opcional)"},
  ar:{tagline:"نجمك المفضل يحتفل بيومك",hello:"حيث يلتقي النجوم بالمعجبين",helloSub:"احصل على فيديو تهنئة من نجم لأعياد الميلاد والأعراس واستقبال المواليد ومناسبات الشركات.",
   asSeleb:"ابدأ كنجم",asSelebSub:"انشر ملفك واستقبل طلبات الفيديو (المجموعة أ)",asFan:"ابدأ كمعجب",asFanSub:"اختر نجمًا واطلب فيديو تهنئة (المجموعة ب)",browse:"تصفّح أولًا دون تسجيل",
   testNote:"نموذج أولي داخلي · لا توجد مدفوعات حقيقية",test:"نموذج أولي",home:"الرئيسية",find:"بحث",activity:"النشاط",me:"حسابي",
@@ -528,7 +545,8 @@ const L={
   tierNext:"الخطوة التالية: اشتراك مدفوع لزيادة الظهور.",close:"إغلاق",
   replyLbl:"رد النجم",replyPh:"رُدّ على هذا التقييم (شكر وغيره)",replyBtn:"رد",replied:"تم نشر الرد.",
   justNow:"الآن",minAgo:"قبل {n} دقيقة",hrAgo:"قبل {n} ساعة",dayAgo:"قبل {n} يوم",dayUnit:"{n} أيام",respLbl:"الرد",saveFail:"تعذّر الحفظ. حاول مرة أخرى بعد قليل.",bioPh:"مثال: مقدّم حفلات زفاف في تشيكارانغ منذ 8 سنوات.",recPh:"مثال: ساري (أمي)",viewMySeleb:"عرض صفحتي كنجم",showWelcome:"عرض شاشة البداية مرة أخرى",langTitle:"اختر اللغة",
-  acct:"الحساب · تسجيل الدخول",mGuest:"تصفّح",mFan:"معجب",mSeleb:"نجم",nowAs:"مسجّل الدخول كـ: {r}",nowGuest:"تتصفّح دون تسجيل الدخول",loginAs:"الدخول كـ{r}",logout:"تسجيل الخروج",loggedOut:"تم تسجيل الخروج. أنت الآن في وضع التصفّح.",loggedIn:"تم الدخول كـ{r}",acctNote:"يتم الدخول بحساب claude.ai الذي تستخدمه الآن (دون كلمة مرور). يمكن للحساب الواحد التبديل بين معجب ونجم. سيستخدم التطبيق الرسمي رقم الهاتف / التحقق عبر واتساب.",switchHint:"يمكنك التبديل بين معجب ونجم من هنا في أي وقت."}
+  acct:"الحساب · تسجيل الدخول",mGuest:"تصفّح",mFan:"معجب",mSeleb:"نجم",nowAs:"مسجّل الدخول كـ: {r}",nowGuest:"تتصفّح دون تسجيل الدخول",loginAs:"الدخول كـ{r}",logout:"تسجيل الخروج",loggedOut:"تم تسجيل الخروج. أنت الآن في وضع التصفّح.",loggedIn:"تم الدخول كـ{r}",acctNote:"يتم الدخول بحساب claude.ai الذي تستخدمه الآن (دون كلمة مرور). يمكن للحساب الواحد التبديل بين معجب ونجم. سيستخدم التطبيق الرسمي رقم الهاتف / التحقق عبر واتساب.",switchHint:"يمكنك التبديل بين معجب ونجم من هنا في أي وقت.",
+  attach:"إرفاق فيديو",attachHint:"ارفع فيديو مدته 60 ثانية أو أقل. لا يرى المعجب إلا معاينة صغيرة عليها علامة مائية، ويحصل على الأصل عالي الجودة بعد الدفع.",processing:"جارٍ معالجة الفيديو… {t}",sendVideo:"إرسال هذا الفيديو",repick:"اختيار آخر",uploading:"جارٍ الرفع…",tooLong:"الفيديو يجب ألا يتجاوز 60 ثانية.",tooBig:"الفيديو كبير جدًا. صوّر مقطعًا أقصر.",badVideo:"تعذّر فتح هذا الفيديو. ارفع ملف MP4 أو WebM.",noUpload:"لا يمكن رفع الفيديو من هذه الشاشة. يجب أن يمنحك مالك التطبيق صلاحية «محرّر».",previewLbl:"معاينة قبل الدفع · جودة منخفضة · لا يمكن التنزيل",fullLbl:"الفيديو الأصلي · تم الدفع",download:"تنزيل الفيديو",downloaded:"تم الحفظ.",sentPreview:"المعاينة المرسلة إلى المعجب",wmPreview:"معاينة",lockNote:"اضغط «راضٍ» (تحويل المبلغ) لمشاهدة الأصل عالي الجودة وحفظه.",msgOpt:"رسالة إلى المعجب (اختياري)"}
 };
 const CATS=["mc","singer","comedian","creator","actor","athlete"];
 const OCCS=["birthday","wedding","baby","company","cheer","other"];
@@ -930,6 +948,81 @@ function replyForm(r){
   return f;
 }
 
+/* ---------- 영상: 첨부·미리보기·다운로드 ---------- */
+// 올릴 때 한 번 재생하면서 두 가지를 동시에 만든다:
+//  ① 미리보기(긴 변 320px, 저화질, 팬 이름·주문번호 워터마크를 화면에 새김) → 정산 전 팬에게 보이는 유일한 영상
+//  ② 원본(긴 변 1280px, 고화질) → 정산 완료 후에만 재생·다운로드 버튼이 나타남
+const MAX_SEC=60, MAX_BYTES=20*1024*1024;
+function pickMime(){const c=["video/webm;codecs=vp9,opus","video/webm;codecs=vp8,opus","video/webm","video/mp4;codecs=avc1,mp4a","video/mp4"];
+  if(typeof MediaRecorder==="undefined")return null;for(const m of c){try{if(MediaRecorder.isTypeSupported(m))return m;}catch(e){}}return null;}
+function baseType(m){return /mp4/.test(m||"")?"video/mp4":"video/webm";}
+async function makeRenditions(file,wmText,onProg){
+  const mime=pickMime();if(!mime)throw {code:"no_recorder"};
+  const url=URL.createObjectURL(file);const v=document.createElement("video");v.src=url;v.playsInline=true;v.preload="auto";v.crossOrigin="anonymous";
+  await new Promise((ok,no)=>{v.onloadedmetadata=ok;v.onerror=()=>no({code:"bad_video"});});
+  if(!isFinite(v.duration)){ // 길이 정보가 없는 WebM: 끝으로 한 번 보내 길이를 알아낸 뒤 처음으로
+    await new Promise(ok=>{const t=setTimeout(ok,4000);v.addEventListener("durationchange",function f(){if(isFinite(v.duration)){v.removeEventListener("durationchange",f);clearTimeout(t);ok();}});v.currentTime=1e101;});
+    await new Promise(ok=>{v.addEventListener("seeked",ok,{once:true});v.currentTime=0;});}
+  if(!isFinite(v.duration)||v.duration>MAX_SEC+0.5)throw {code:isFinite(v.duration)?"too_long":"bad_video"};
+  const W=v.videoWidth||640,H=v.videoHeight||360;const ev=n=>Math.max(2,Math.round(n/2)*2);
+  const s1=Math.min(1,1280/Math.max(W,H)),s2=320/Math.max(W,H);
+  const c1=document.createElement("canvas"),c2=document.createElement("canvas");c1.width=ev(W*s1);c1.height=ev(H*s1);c2.width=ev(W*s2);c2.height=ev(H*s2);
+  const x1=c1.getContext("2d"),x2=c2.getContext("2d");
+  let audio=[];try{const AC=window.AudioContext||window.webkitAudioContext;const ac=new AC();await ac.resume();const src=ac.createMediaElementSource(v);const dst=ac.createMediaStreamDestination();src.connect(dst);audio=dst.stream.getAudioTracks();}catch(e){}
+  const mk=(c,fps,vb,ab)=>{const st=new MediaStream([...c.captureStream(fps).getVideoTracks(),...audio.map(t=>t.clone())]);const r=new MediaRecorder(st,{mimeType:mime,videoBitsPerSecond:vb,audioBitsPerSecond:ab});const ch=[];r.ondataavailable=e=>{if(e.data&&e.data.size)ch.push(e.data);};return {r,ch,done:new Promise(ok=>{r.onstop=()=>ok(new Blob(ch,{type:baseType(mime)}));})};};
+  const A=mk(c1,30,2000000,96000),B=mk(c2,20,280000,48000);
+  const wm=()=>{x2.save();x2.globalAlpha=.42;x2.fillStyle="#fff";x2.strokeStyle="rgba(0,0,0,.45)";x2.lineWidth=2;x2.font="700 "+Math.round(c2.width/16)+"px sans-serif";x2.textAlign="center";
+    x2.translate(c2.width/2,c2.height/2);x2.rotate(-0.42);const step=Math.round(c2.height/4);for(let y=-c2.height;y<=c2.height;y+=step){x2.strokeText(wmText,0,y);x2.fillText(wmText,0,y);}x2.restore();};
+  let run=true;const draw=()=>{if(!run)return;try{x1.drawImage(v,0,0,c1.width,c1.height);x2.drawImage(v,0,0,c2.width,c2.height);wm();}catch(e){}onProg&&onProg(v.currentTime,v.duration);
+    if(v.requestVideoFrameCallback)v.requestVideoFrameCallback(draw);else requestAnimationFrame(draw);};
+  A.r.start(1000);B.r.start(1000);
+  try{await v.play();}catch(e){v.muted=true;await v.play();}
+  draw();
+  await new Promise(ok=>{v.onended=ok;});run=false;A.r.stop();B.r.stop();
+  const [full,prev]=await Promise.all([A.done,B.done]);URL.revokeObjectURL(url);
+  if(full.size>MAX_BYTES)throw {code:"too_big"};
+  return {full,prev,type:baseType(mime),dur:Math.round(v.duration)};
+}
+// MediaRecorder로 만든 WebM은 길이 정보가 비어 있을 수 있어, 한 번 끝으로 보냈다가 되돌린다
+function fixDuration(v){v.addEventListener("loadedmetadata",()=>{if(v.duration===Infinity){v.currentTime=1e101;v.addEventListener("timeupdate",function f(){v.removeEventListener("timeupdate",f);v.currentTime=0;});}});}
+function videoBox(id,{full,wm}){const box=el("div","vbox"+(full?" full":""));const v=el("video");v.src="/_blob/"+id;v.controls=true;v.playsInline=true;v.preload="metadata";
+  v.setAttribute("controlsList","nodownload noplaybackrate noremoteplayback");v.disablePictureInPicture=true;v.addEventListener("contextmenu",e=>e.preventDefault());fixDuration(v);box.append(v);
+  if(wm){const o=el("div","wm");o.append(el("span",null,wm));box.append(o);}box.addEventListener("contextmenu",e=>e.preventDefault());return box;}
+async function saveVideo(r,b){const dl=S.downloads;if(!dl){toast(T("saveFail"));return;}b.disabled=true;
+  try{const res=await fetch("/_blob/"+r.fullId);const blob=await res.blob();const ext=/mp4/.test(r.videoType||blob.type)?"mp4":"webm";
+    await dl.save({filename:"SalamSeleb-"+(r.selebName||"video").replace(/[^\p{L}\p{N}_-]+/gu,"_")+"-"+r.id.slice(-5)+"."+ext,data:blob});toast(T("downloaded"));}
+  catch(e){if(!(e&&e.code==="declined"))toast(T("saveFail"));}finally{b.disabled=false;}}
+function sheetUpload(r){
+  const bg=el("div","sheet-bg");const sh=el("div","sheet");sh.setAttribute("role","dialog");sh.setAttribute("aria-modal","true");sh.setAttribute("aria-label",T("attach"));
+  let busy=false;const close=()=>{if(busy)return;S.busy=false;bg.remove();document.removeEventListener("keydown",esc);S.flush&&S.flush();};const esc=e=>{if(e.key==="Escape")close();};
+  S.busy=true;
+  const body=el("div");body.style.cssText="display:flex;flex-direction:column;gap:10px";
+  const fi=el("input");fi.type="file";fi.accept="video/mp4,video/webm,video/quicktime,video/*";fi.id="vf-"+r.id;fi.className="input";
+  const lab=el("label","field");lab.htmlFor=fi.id;lab.append(el("span",null,T("attach")),fi,el("small",null,T("attachHint")));
+  const note=el("textarea","input");note.id="vn-"+r.id;note.maxLength=300;note.placeholder=T("msgOpt");note.style.minHeight="56px";
+  const nl=el("label","sr",T("msgOpt"));nl.htmlFor=note.id;
+  const stat=el("div","vlabel");const bar=el("div","prog");const bi=el("i");bar.append(bi);bar.hidden=true;
+  const prevWrap=el("div");const acts=el("div","row2");
+  const send=btn("btn block",T("sendVideo"));send.disabled=true;
+  let out=null;
+  fi.addEventListener("change",async()=>{const f=fi.files&&fi.files[0];if(!f)return;out=null;send.disabled=true;prevWrap.replaceChildren();bar.hidden=false;busy=true;
+    try{out=await makeRenditions(f,"SalamSeleb · "+T("wmPreview")+" · "+(r.fanName||"")+" #"+r.id.slice(-5),(t,d)=>{bi.style.width=Math.min(100,t/d*100)+"%";stat.textContent=T("processing").replace("{t}",Math.floor(t)+" / "+Math.round(d)+"s");});
+      stat.textContent="✓ "+out.dur+"s";const pv=el("video");pv.src=URL.createObjectURL(out.prev);pv.controls=true;pv.playsInline=true;fixDuration(pv);const b2=el("div","vbox");b2.append(pv);prevWrap.append(b2);send.disabled=false;}
+    catch(e){const c=e&&e.code;stat.textContent=T(c==="too_long"?"tooLong":c==="too_big"?"tooBig":"badVideo");
+      if(c==="no_recorder"&&f.size<=MAX_BYTES&&/mp4|webm/.test(f.type)){out={full:f,prev:f,type:f.type.split(";")[0],dur:0,raw:true};stat.textContent="✓";send.disabled=false;}}
+    finally{busy=false;bar.hidden=true;}});
+  send.addEventListener("click",async()=>{if(!out)return;const as=S.assets;if(!as){toast(T("noUpload"));return;}busy=true;send.disabled=true;stat.textContent=T("uploading");
+    try{const a=await as.upload(out.full,{type:out.type});const b=out.raw?a:await as.upload(out.prev,{type:out.type});
+      await S.db.doc("requests/"+r.id).update({status:"delivered",fullId:a.id,previewId:b.id,videoType:out.type,videoSec:out.dur,deliveryNote:note.value.trim(),deliveredAt:Date.now(),updatedAt:Date.now()});
+      busy=false;close();toast(T("s_delivered"));}
+    catch(e){busy=false;send.disabled=false;const c=e&&e.code;stat.textContent=c==="too_large"?T("tooBig"):c==="not_granted"?T("noUpload"):T("saveFail");}});
+  acts.append(btn("btn ghost",T("close"),close));
+  body.append(lab,stat,bar,prevWrap,nl,note,send,acts);
+  if(!S.assets)body.prepend(el("div","escrow",T("noUpload")));
+  sh.append(el("h3",null,"🎬 "+T("attach")),body);
+  bg.addEventListener("click",e=>{if(e.target===bg)close();});document.addEventListener("keydown",esc);bg.append(sh);document.body.append(bg);fi.focus();
+}
+
 /* ---------- Activity ---------- */
 function viewActivity(){
   const g=el("div","gutter");const mode=asSeleb()?"seleb":asFan()?"fan":null;
@@ -951,12 +1044,19 @@ function reqCard(r,side){
   c.append(hd);
   if(r.status!=="declined"){const steps=el("div","steps");const n=STEP[r.status]||0;for(let i=1;i<=4;i++){const x=el("i",i<=n?"on":null);steps.append(x);}const lb=el("div","steplbl");["st1","st2","st3","st4"].forEach(k=>lb.append(el("span",null,T(k))));c.append(steps,lb);}
   c.append(el("div","msg",r.note||""));
+  if(r.previewId||r.fullId){
+    const paid=r.status==="done";
+    if(paid&&r.fullId){c.append(el("div","vlabel ok","✓ "+T("fullLbl")),videoBox(r.fullId,{full:true}));
+      if(side==="fan"&&S.downloads){const d=btn("btn sm dark","⬇ "+T("download"));d.addEventListener("click",()=>saveVideo(r,d));c.append(d);}}
+    else{c.append(el("div","vlabel lock","🔒 "+(side==="seleb"?T("sentPreview")+" · ":"")+T("previewLbl")),videoBox(r.previewId||r.fullId,{wm:"SalamSeleb · "+T("wmPreview")}));
+      if(side==="fan")c.append(el("small",null,T("lockNote")));}
+  }
   if(r.deliveryNote)c.append(el("div","msg","🎬 "+r.deliveryNote));
   const meta=el("small");meta.style.color="var(--muted)";meta.textContent=T("wantDate")+" "+(r.date||"—")+" · "+T("lang")+" "+T("lg_"+r.lang)+" · "+ago(r.createdAt);c.append(meta);
   const act=el("div","row2");
   const upd=async(patch,msg)=>{if(!guardWrite())return;try{await S.db.doc("requests/"+r.id).update(Object.assign(patch,{updatedAt:Date.now()}));if(msg)toast(msg);}catch(e){toast(writeErr(e));}};
   if(side==="seleb"&&r.status==="requested"){act.append(btn("btn sm",T("accept"),()=>upd({status:"accepted"},T("s_accepted"))),btn("btn sm ghost",T("decline"),()=>upd({status:"declined"},T("s_declined"))));}
-  if(side==="seleb"&&r.status==="accepted"){const ta=el("textarea","input");ta.id="dn-"+r.id;ta.placeholder=T("deliverPh");ta.maxLength=300;ta.style.minHeight="60px";const l=el("label","sr",T("deliverPh"));l.htmlFor=ta.id;c.append(l,ta);act.append(btn("btn sm",T("deliver"),()=>upd({status:"delivered",deliveryNote:ta.value.trim()||"🎬"},T("s_delivered"))));}
+  if(side==="seleb"&&r.status==="accepted"){act.append(btn("btn sm","🎬 "+T("attach"),()=>sheetUpload(r)));}
   if(side==="fan"&&r.status==="delivered"){let rating=5;const rt=el("div","rate");rt.setAttribute("role","radiogroup");rt.setAttribute("aria-label",T("rateIt"));
     const paint=()=>[...rt.children].forEach((b,i)=>{b.classList.toggle("on",i<rating);b.setAttribute("aria-checked",String(i+1===rating));});
     for(let i=1;i<=5;i++){const b=btn(null,"★",()=>{rating=i;paint();});b.setAttribute("role","radio");b.setAttribute("aria-label",i+"");rt.append(b);}paint();
@@ -996,13 +1096,14 @@ function viewMe(){
 render();
 (async function boot(){
   const c=window.claude;
-  try{if(c&&typeof c.use==="function"){[S.db,S.user]=await Promise.all([c.use("db"),c.use("user")]);}}catch(e){}
+  try{if(c&&typeof c.use==="function"){[S.db,S.user,S.assets,S.downloads]=await Promise.all([c.use("db"),c.use("user"),c.use("assets"),c.use("downloads")]);}}catch(e){}
   if(S.user){try{S.uid=await S.user.id();}catch(e){}try{const w=await S.user.can("data.write");if(w===false)S.canWrite=false;}catch(e){}}
   if(!S.db){S.loaded=true;render();toast(T("noDb"));return;}
   // Live updates must not rebuild a form the viewer is typing in.
   const typing=()=>{const a=document.activeElement;return !!(a&&$("app").contains(a)&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName));};
   let got=0,dirty=false;const done=()=>{got++;if(got>=3)S.loaded=true;
-    if(["joinA","joinB","request"].includes(S.route.v)||typing()){dirty=true;renderTabbar();}else render();};
+    if(S.busy||["joinA","joinB","request"].includes(S.route.v)||typing()){dirty=true;renderTabbar();}else render();};
+  S.flush=()=>{if(dirty&&!typing()){dirty=false;render();}};
   document.addEventListener("focusout",()=>setTimeout(()=>{if(dirty&&!typing()&&!["joinA","joinB","request"].includes(S.route.v)){dirty=false;render();}},0));
   const sub=(path,key)=>S.db.collection(path).onSnapshot(snap=>{S[key]=snap.docs.map(d=>Object.assign({id:d.id},d.data()));done();},()=>{done();});
   sub("selebs","selebs");sub("fans","fans");sub("requests","requests");
