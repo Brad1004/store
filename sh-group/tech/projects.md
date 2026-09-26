@@ -11,6 +11,7 @@
 ## 내부 도구
 | 도구 | 용도 | 위치 | 상태 | 배포 URL |
 |------|------|------|------|----------|
+| SSN 로드맵 | 2호 프로젝트 설립·출시 일정 추적 (단계·기한·담당·상태) | `platforms/ssn-roadmap/` | v1 게시 (비공개) | https://claude.ai/artifact/7jpVYBhsgWDgk1UcUKjxwZ |
 | SH톡 | 그룹 구성원 정보 공유·대화용 메신저 (휴대폰형, AI 임원 답장, `#지시` 처리 — `sh-talk-orders.md`, 음성 입력, 사무실 복도·팀장실·대회의실 입장 화면) | `platforms/sh-talk/` | v1 게시 (비공개) | https://claude.ai/artifact/KMj3x3LBCMtvuEw1ep1wkc |
 
 ## 기존 자산 (그룹 출범 전)
