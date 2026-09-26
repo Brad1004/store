@@ -90,6 +90,47 @@ h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
 :root[data-theme="dark"] .chip[aria-pressed="true"]{background:var(--mango);color:var(--mango-ink);border-color:var(--mango)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chip[aria-pressed="true"]{background:var(--mango);color:var(--mango-ink);border-color:var(--mango)}}
 
+/* shop gallery: left = main dish, right = menu / interior */
+.gal{position:relative;margin-top:4px;border-radius:22px;overflow:hidden;aspect-ratio:16/9;max-height:300px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--surface-2)}
+.gal.one{grid-template-columns:1fr}
+.gal button{border:0;padding:0;margin:0;background:var(--surface-2);cursor:pointer;position:relative;min-width:0;min-height:0;overflow:hidden;display:block;width:100%;height:100%}
+.gal img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+.gal button:hover img{transform:scale(1.04)}
+.gal button:focus-visible{outline:3px solid var(--mango);outline-offset:-3px}
+.gal .side{display:grid;gap:4px;min-height:0}
+.gal .side.n1{grid-template-rows:1fr}.gal .side.n2{grid-template-rows:1fr 1fr}
+.gal .side.n3,.gal .side.n4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}.gal .side.n3 button:first-child{grid-column:1/-1}
+.gal .more{position:absolute;inset:0;display:grid;place-items:center;align-content:center;background:rgba(12,18,40,.58);color:#fff;font-weight:900;font-size:20px;line-height:1.1;text-align:center}
+.gal .more small{display:block;font-size:12px;font-weight:700}
+.gal .topoff{position:absolute;left:12px;bottom:12px;box-shadow:var(--shadow);pointer-events:none}
+.gal .count{position:absolute;right:10px;bottom:10px;background:rgba(12,18,40,.72);color:#fff;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:800;pointer-events:none}
+@media (max-width:420px){.gal{aspect-ratio:4/3}}
+@media (prefers-reduced-motion:reduce){.gal img{transition:none}.gal button:hover img{transform:none}}
+/* photo viewer */
+.pv{position:fixed;inset:0;z-index:40;background:#0B1024;color:#fff;display:flex;flex-direction:column;padding:calc(10px + env(safe-area-inset-top,0px)) 0 calc(10px + env(safe-area-inset-bottom,0px))}
+.pv .bar{display:flex;align-items:center;gap:10px;padding:0 14px 8px}.pv .bar b{flex:1;font-size:15px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pv .bar span{font-size:13px;opacity:.8;font-variant-numeric:tabular-nums}
+.pv .x{border:0;background:rgba(255,255,255,.12);color:#fff;width:40px;height:40px;border-radius:12px;font-size:22px;cursor:pointer}
+.pv .stage{flex:1;min-height:0;position:relative;display:grid;place-items:center;touch-action:pan-y}
+.pv .stage{padding:0 8px}.pv .stage img{width:100%;height:100%;max-width:720px;object-fit:contain;display:block;user-select:none}
+.pv .nav{position:absolute;top:50%;transform:translateY(-50%);border:0;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:22px;cursor:pointer}
+.pv .nav.l{left:10px}.pv .nav.r{right:10px}.pv .nav:disabled{opacity:.25;cursor:default}
+.pv .cap{text-align:center;font-size:12.5px;opacity:.8;padding:6px 14px 0}
+.pv .thumbs{display:flex;gap:6px;overflow-x:auto;padding:10px 14px 0}
+.pv .thumbs button{flex:none;width:58px;height:58px;border-radius:10px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;opacity:.6;background:none}
+.pv .thumbs button[aria-current="true"]{border-color:var(--mango);opacity:1}
+.pv .thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+/* owner photo editor */
+.phed{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.phed .tile{position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:var(--surface-2)}
+.phed .tile img{width:100%;height:100%;object-fit:cover;display:block}
+.phed .tile .rm{position:absolute;top:4px;right:4px;border:0;width:26px;height:26px;border-radius:50%;background:rgba(12,18,40,.7);color:#fff;font-size:16px;line-height:1;cursor:pointer}
+.phed .tile .tg{position:absolute;left:4px;bottom:4px;background:var(--mango);color:var(--mango-ink);font-size:10.5px;font-weight:900;border-radius:99px;padding:2px 7px}
+.phed .add{aspect-ratio:1/1;border-radius:12px;border:2px dashed var(--line);display:grid;place-items:center;text-align:center;font-weight:800;font-size:12.5px;color:var(--ink-2);cursor:pointer;padding:6px;background:var(--surface)}
+.phed .add:focus-within{outline:3px solid var(--mango)}
+.phed .add input{position:absolute;width:1px;height:1px;opacity:0}
+.phbox .sub{font-size:13px;font-weight:800;margin-top:4px}
+
 /* now banner */
 .now{border-radius:22px;background:var(--navy);color:var(--navy-ink);padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
 .now .clock{display:flex;align-items:baseline;gap:8px;font-size:13px;color:color-mix(in srgb,var(--navy-ink) 70%,transparent)}
@@ -219,7 +260,7 @@ const L={
   cat_cafe:"카페",cat_eatery:"식당·와룽",cat_bakery:"빵집·디저트",cat_salon:"미용실",cat_barber:"이발소",
   seats:"{n}석",left:"남은 자리 {n}",full:"마감",past:"지남",upTo:"최대",today:"오늘",tomorrow:"내일",
   tag_s3:"야간조 퇴근",tag_s1:"1조 퇴근",tag_s2:"2조 퇴근",tag_quiet:"한가한 시간",tag_none:"",
-  hours:"영업시간",address:"주소",mapView:"Google 지도에서 보기",mapDir:"길찾기",mapNote:"Google 지도 앱이나 새 탭에서 열립니다.",mapsLink:"Google 지도 링크 (선택)",mapsHint:"Google 지도에서 가게를 찾아 \u2018공유 → 링크 복사\u2019한 주소를 붙여 넣으면 손님이 정확한 위치로 찾아옵니다. 비워 두면 가게 이름과 주소로 검색합니다.",wa:"WhatsApp",about:"소개",reviews:"평점",noRating:"아직 평가 없음",nReviews:"평가 {n}개",
+  hours:"영업시간",address:"주소",photoN:"사진 {i}/{n}",morePh:"더보기",mainPh:"대표 음식",mainTag:"대표",phTitle:"가게 사진",phHint:"대표 음식 1장은 왼쪽 큰 사진으로, 메뉴·가게 내부 사진은 오른쪽에 보여요. 사진이 많으면 \u2018더보기\u2019로 모두 볼 수 있어요.",morePics:"메뉴·가게 내부 사진 (최대 {m}장)",addMain:"+ 대표 사진",changePh:"사진 바꾸기",addPics:"+ 사진 추가 ({n}/{m})",remove:"삭제",phFail:"사진을 불러오지 못했어요. 다른 사진으로 해 주세요.",mapView:"Google 지도에서 보기",mapDir:"길찾기",mapNote:"Google 지도 앱이나 새 탭에서 열립니다.",mapsLink:"Google 지도 링크 (선택)",mapsHint:"Google 지도에서 가게를 찾아 \u2018공유 → 링크 복사\u2019한 주소를 붙여 넣으면 손님이 정확한 위치로 찾아옵니다. 비워 두면 가게 이름과 주소로 검색합니다.",wa:"WhatsApp",about:"소개",reviews:"평점",noRating:"아직 평가 없음",nReviews:"평가 {n}개",
   pickSlot:"시간을 골라 주세요",party:"인원",bookBtn:"{t} 예약 · {o}% 할인",howTitle:"이렇게 할인돼요",
   how:"① 원하는 시간을 골라 예약 → ② 예약 코드를 받음 → ③ 가게에서 계산할 때 코드를 보여 주면 그 자리에서 할인. 미리 돈을 내지 않아요.",
   fine:"할인은 매장 정가 기준 음식·서비스 금액에 적용됩니다. 주류·담배·일부 세일 상품은 가게 사정에 따라 제외될 수 있어요.",
@@ -249,7 +290,7 @@ const L={
   cat_cafe:"Kafe",cat_eatery:"Warung·Resto",cat_bakery:"Roti·Dessert",cat_salon:"Salon",cat_barber:"Pangkas rambut",
   seats:"{n} kursi",left:"Sisa {n}",full:"Penuh",past:"Lewat",upTo:"s.d.",today:"Hari ini",tomorrow:"Besok",
   tag_s3:"Pulang shift malam",tag_s1:"Pulang shift 1",tag_s2:"Pulang shift 2",tag_quiet:"Jam sepi",tag_none:"",
-  hours:"Jam buka",address:"Alamat",mapView:"Lihat di Google Maps",mapDir:"Petunjuk arah",mapNote:"Terbuka di aplikasi Google Maps atau tab baru.",mapsLink:"Link Google Maps (opsional)",mapsHint:"Cari toko Anda di Google Maps, pilih \u2018Bagikan → Salin link\u2019, lalu tempel di sini agar pelanggan menemukan lokasi yang tepat. Jika kosong, dicari dari nama dan alamat toko.",wa:"WhatsApp",about:"Tentang",reviews:"Rating",noRating:"Belum ada rating",nReviews:"{n} ulasan",
+  hours:"Jam buka",address:"Alamat",photoN:"Foto {i}/{n}",morePh:"Lihat semua",mainPh:"Menu andalan",mainTag:"Utama",phTitle:"Foto toko",phHint:"1 foto menu andalan tampil besar di kiri, foto menu lain dan interior di kanan. Jika banyak, pelanggan bisa \u2018Lihat semua\u2019.",morePics:"Foto menu & interior (maks. {m})",addMain:"+ Foto utama",changePh:"Ganti foto",addPics:"+ Tambah foto ({n}/{m})",remove:"Hapus",phFail:"Foto tidak bisa dimuat. Coba foto lain.",mapView:"Lihat di Google Maps",mapDir:"Petunjuk arah",mapNote:"Terbuka di aplikasi Google Maps atau tab baru.",mapsLink:"Link Google Maps (opsional)",mapsHint:"Cari toko Anda di Google Maps, pilih \u2018Bagikan → Salin link\u2019, lalu tempel di sini agar pelanggan menemukan lokasi yang tepat. Jika kosong, dicari dari nama dan alamat toko.",wa:"WhatsApp",about:"Tentang",reviews:"Rating",noRating:"Belum ada rating",nReviews:"{n} ulasan",
   pickSlot:"Pilih jamnya dulu",party:"Jumlah orang",bookBtn:"Pesan {t} · diskon {o}%",howTitle:"Cara dapat diskon",
   how:"① Pilih jam lalu pesan → ② Dapat kode pesanan → ③ Tunjukkan kode saat bayar di toko, diskon langsung dipotong. Tanpa bayar di muka.",
   fine:"Diskon berlaku untuk harga normal makanan/layanan di toko. Rokok, minuman beralkohol, dan produk promo tertentu bisa dikecualikan.",
@@ -279,7 +320,7 @@ const L={
   cat_cafe:"Café",cat_eatery:"Warung·Eatery",cat_bakery:"Bakery·Dessert",cat_salon:"Hair salon",cat_barber:"Barber",
   seats:"{n} seats",left:"{n} left",full:"Full",past:"Past",upTo:"up to",today:"Today",tomorrow:"Tomorrow",
   tag_s3:"Night shift out",tag_s1:"Shift 1 out",tag_s2:"Shift 2 out",tag_quiet:"Quiet hour",tag_none:"",
-  hours:"Hours",address:"Address",mapView:"View on Google Maps",mapDir:"Directions",mapNote:"Opens in the Google Maps app or a new tab.",mapsLink:"Google Maps link (optional)",mapsHint:"Find your shop on Google Maps, tap \u2018Share → Copy link\u2019 and paste it here so customers reach the exact spot. Left empty, we search by shop name and address.",wa:"WhatsApp",about:"About",reviews:"Rating",noRating:"No ratings yet",nReviews:"{n} reviews",
+  hours:"Hours",address:"Address",photoN:"Photo {i} of {n}",morePh:"See all",mainPh:"Signature dish",mainTag:"Main",phTitle:"Shop photos",phHint:"Your signature dish shows large on the left; other menu items and your interior show on the right. With many photos, customers tap \u2018See all\u2019.",morePics:"Menu & interior photos (up to {m})",addMain:"+ Main photo",changePh:"Change photo",addPics:"+ Add photos ({n}/{m})",remove:"Remove",phFail:"Couldn\u2019t load that photo. Try another one.",mapView:"View on Google Maps",mapDir:"Directions",mapNote:"Opens in the Google Maps app or a new tab.",mapsLink:"Google Maps link (optional)",mapsHint:"Find your shop on Google Maps, tap \u2018Share → Copy link\u2019 and paste it here so customers reach the exact spot. Left empty, we search by shop name and address.",wa:"WhatsApp",about:"About",reviews:"Rating",noRating:"No ratings yet",nReviews:"{n} reviews",
   pickSlot:"Pick a time first",party:"Party size",bookBtn:"Book {t} · {o}% off",howTitle:"How the discount works",
   how:"① Pick a time and book → ② Get a booking code → ③ Show the code when you pay at the shop and the discount comes off right there. Nothing to pay upfront.",
   fine:"The discount applies to the shop's regular menu or service price. Tobacco, alcohol and some promo items may be excluded.",
@@ -343,7 +384,45 @@ function assignPhotos(){const list=S.shops.slice().sort((a,b)=>(a.createdAt||0)-
   const key=list.map(x=>x.id+":"+x.cat+":"+(x.photo??"")).join("|");if(key===pkey)return;pkey=key;pmap=new Map();const used=new Set();
   for(const x of list)if(Number.isInteger(x.photo)&&PHOTOS[x.photo]){used.add(x.photo);pmap.set(x.id,x.photo);}
   for(const x of list){if(pmap.has(x.id)||x.photo===-1)continue;const k=(PHOTO_POOL[x.cat]||[]).find(i=>!used.has(i));if(k!=null){used.add(k);pmap.set(x.id,k);}}}
-function photoOf(shop){if(!shop||!shop.id)return null;assignPhotos();const k=pmap.get(shop.id);return k==null?null:PHOTOS[k];}
+function photoOf(shop){if(!shop||!shop.id)return null;if(okImg(shop.cover))return shop.cover;assignPhotos();const k=pmap.get(shop.id);return k==null?null:PHOTOS[k];}
+
+function okImg(u){return typeof u==="string"&&/^data:image\/(jpeg|png|webp);base64,/.test(u);}
+// 가게 사진첩: 사장님이 올린 사진(shopPhotos/<uid>), 없으면 샘플 가게는 예시 사진
+const GAL_MAX=6,GCACHE=new Map(),GLOAD=new Set();
+const SAMPLE_GAL={eatery:[0,3,5,6,7,8,9,10,11],cafe:[1,2,4,12,13,14,15]};
+function loadGallery(id){if(!S.db||GLOAD.has(id))return;GLOAD.add(id);
+  S.db.doc("shopPhotos/"+id).get().then(sn=>{const d=sn.exists?sn.data():null;GCACHE.set(id,((d&&Array.isArray(d.items))?d.items:[]).filter(okImg).slice(0,GAL_MAX));
+    if(S.route.v==="shop"&&S.route.id===id&&!typing()&&!document.querySelector(".pv"))render();}).catch(()=>GCACHE.set(id,[]));}
+function galleryOf(s){const own=GCACHE.get(s.id);if(!GCACHE.has(s.id))loadGallery(s.id);if(own&&own.length)return own;
+  if(!s.sample)return [];assignPhotos();const main=pmap.get(s.id);const fam=s.cat==="cafe"||s.cat==="bakery"?"cafe":"eatery";if(main==null)return [];
+  const pool=SAMPLE_GAL[fam].filter(i=>i!==main);const idx=S.shops.filter(x=>x.sample).sort((a,b)=>String(a.id).localeCompare(String(b.id))).findIndex(x=>x.id===s.id);
+  const n=[5,2,4,1,6,3,4,2][Math.max(0,idx)%8];const out=[];for(let k=0;k<n&&k<pool.length;k++)out.push(PHOTOS[pool[(idx*3+k)%pool.length]]);return [...new Set(out)];}
+function gallery(s,main){let pics=galleryOf(s);if(!main){main=pics[0];pics=pics.slice(1);}const all=[main,...pics];const g=el("div","gal"+(pics.length?"":" one"));
+  const tile=(src,i,extra)=>{const b=btn(null,null,()=>viewer(s.name,all,i));const im=el("img");im.src=src;im.alt="";im.decoding="async";b.append(im);
+    b.setAttribute("aria-label",T("photoN",{i:i+1,n:all.length}));if(extra)b.append(extra);return b;};
+  g.append(tile(main,0));
+  if(pics.length){const shown=pics.slice(0,4);const side=el("div","side n"+shown.length);
+    shown.forEach((src,k)=>{let ov=null;if(k===3&&pics.length>4){ov=el("span","more");ov.append(document.createTextNode("+"+(pics.length-3)),el("small",null,T("morePh")));}side.append(tile(src,k+1,ov));});g.append(side);}
+  const mo=el("span","topoff");mo.append(el("small",null,T("upTo")),el("b",null,"−"+maxOff(s)+"%"));g.append(mo);
+  if(all.length>1)g.append(el("span","count","📷 "+all.length));return g;}
+function viewer(title,pics,start){let i=start||0;const pv=el("div","pv");pv.setAttribute("role","dialog");pv.setAttribute("aria-modal","true");pv.setAttribute("aria-label",title);
+  const bar=el("div","bar");const cnt=el("span");const x=btn("x","×",()=>close());x.setAttribute("aria-label",T("close"));bar.append(el("b",null,title),cnt,x);
+  const stage=el("div","stage");const im=el("img");im.alt="";const l=btn("nav l","‹",()=>go(i-1)),r=btn("nav r","›",()=>go(i+1));l.setAttribute("aria-label","‹");r.setAttribute("aria-label","›");stage.append(im,l,r);
+  const cap=el("div","cap");const th=el("div","thumbs");
+  pics.forEach((src,k)=>{const b=btn(null,null,()=>go(k));const t=el("img");t.src=src;t.alt="";b.append(t);b.setAttribute("aria-label",T("photoN",{i:k+1,n:pics.length}));th.append(b);});
+  const go=k=>{i=Math.max(0,Math.min(pics.length-1,k));im.src=pics[i];cnt.textContent=(i+1)+" / "+pics.length;cap.textContent=i===0?T("mainPh"):"";l.disabled=i===0;r.disabled=i===pics.length-1;
+    [...th.children].forEach((b,k2)=>b.setAttribute("aria-current",String(k2===i)));const c=th.children[i];if(c&&c.scrollIntoView)c.scrollIntoView({block:"nearest",inline:"center"});};
+  let sx=null;stage.addEventListener("touchstart",e=>{sx=e.touches[0].clientX;},{passive:true});stage.addEventListener("touchend",e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>40)go(i+(dx<0?1:-1));});
+  const key=e=>{if(e.key==="Escape")close();else if(e.key==="ArrowRight")go(i+1);else if(e.key==="ArrowLeft")go(i-1);};
+  const close=()=>{pv.remove();document.removeEventListener("keydown",key);document.body.style.overflow="";};
+  document.addEventListener("keydown",key);pv.append(bar,stage,cap);if(pics.length>1)pv.append(th);else{l.hidden=r.hidden=true;}
+  document.body.append(pv);document.body.style.overflow="hidden";go(i);x.focus();}
+// 사진 줄이기: 긴 변 maxSide, dataURL 길이 maxChars 이하가 될 때까지 품질·크기를 낮춤
+function shrinkImg(file,maxSide,maxChars){return new Promise((res,rej)=>{const u=URL.createObjectURL(file);const im=new Image();
+  im.onload=()=>{URL.revokeObjectURL(u);let side=maxSide;for(let round=0;round<6;round++){const k=Math.min(1,side/Math.max(im.naturalWidth,im.naturalHeight));const cv=document.createElement("canvas");cv.width=Math.max(1,Math.round(im.naturalWidth*k));cv.height=Math.max(1,Math.round(im.naturalHeight*k));
+    const cx=cv.getContext("2d");cx.fillStyle="#fff";cx.fillRect(0,0,cv.width,cv.height);cx.drawImage(im,0,0,cv.width,cv.height);
+    for(const q of [.78,.68,.58,.48]){const d=cv.toDataURL("image/jpeg",q);if(d.length<=maxChars){res(d);return;}}side=Math.round(side*.8);}rej(new Error("big"));};
+  im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error("bad"));};im.src=u;});}
 
 /* ---------- helpers ---------- */
 function lsGet(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}}
@@ -487,7 +566,7 @@ function viewShop(id){
   const s=S.shops.find(x=>x.id===id);const g=el("div","gutter");if(!s){g.append(el("div","empty",S.loaded?"—":"…"));return g;}
   const st=shopStats(id);const pr=el("div","prof");const tx=el("div");const h=el("h1",null,s.name);if(s.sample)h.append(el("span","samp",T("sample")));
   tx.append(h,el("div","meta",T("cat_"+s.cat)+" · "+s.area),el("div","stars",st.count?"★ "+st.rating.toFixed(1)+" · "+T("nReviews",{n:st.count}):"☆ "+T("noRating")));
-  const ph=photoOf(s);if(ph){const bn=el("div","banner");const i=el("img");i.src=ph;i.alt="";bn.append(i);const mo=el("span","topoff");mo.append(el("small",null,T("upTo")),el("b",null,"−"+maxOff(s)+"%"));bn.append(mo);g.append(bn);pr.append(tx);}else pr.append(cover(s,true),tx);g.append(pr);
+  const ph=photoOf(s);if(ph||galleryOf(s).length){g.append(gallery(s,ph));pr.append(tx);}else pr.append(cover(s,true),tx);g.append(pr);
   let date=S.route.date||today(),sel=null,party=2;
   const sec=el("section","section");const hd=el("div","shead");hd.append(el("h2",null,T("slotsTitle")));
   const dt=el("div","daytabs");const stripBox=el("div");const bookBar=el("div","sticky");
@@ -582,6 +661,17 @@ function viewJoinShop(){
   const h1=inp("s-open",(cur.hours||"07:00–23:30").split("–")[0],{type:"time"});const h2=inp("s-close",(cur.hours||"07:00–23:30").split("–")[1],{type:"time"});
   const hw=el("div","row2");hw.append(h1,el("span",null,"–"),h2);h1.style.flex=h2.style.flex="1";
   const ab=el("textarea","input");ab.id="s-about";ab.maxLength=300;ab.value=cur.about||"";ab.placeholder=T("aboutPh");
+  let cov=okImg(cur.cover)?cur.cover:"",pics=(GCACHE.get(S.uid)||[]).slice(),picsDirty=false;if(cur.name&&!GCACHE.has(S.uid))loadGallery(S.uid);
+  const phb=el("div","box phbox");const phMain=el("div","phed"),phMore=el("div","phed");
+  const pick=(label,multi,onFiles)=>{const l=el("label","add");const fi=el("input");fi.type="file";fi.accept="image/*";fi.multiple=!!multi;fi.id=multi?"s-pics":"s-cover";
+    fi.addEventListener("change",async()=>{const fs=[...fi.files];fi.value="";if(fs.length)await onFiles(fs);});l.append(fi,document.createTextNode(label));return l;};
+  const drawPh=()=>{phMain.replaceChildren();phMore.replaceChildren();
+    if(cov){const t=el("div","tile");const im=el("img");im.src=cov;im.alt="";const rm=btn("rm","×",()=>{cov="";drawPh();});rm.setAttribute("aria-label",T("remove"));t.append(im,el("span","tg",T("mainTag")),rm);phMain.append(t);}
+    phMain.append(pick(cov?T("changePh"):T("addMain"),false,async fs=>{try{cov=await shrinkImg(fs[0],720,70000);drawPh();}catch(e){toast(T("phFail"));}}));
+    pics.forEach((src,k)=>{const t=el("div","tile");const im=el("img");im.src=src;im.alt="";const rm=btn("rm","×",()=>{pics.splice(k,1);picsDirty=true;drawPh();});rm.setAttribute("aria-label",T("remove")+" "+(k+1));t.append(im,rm);phMore.append(t);});
+    if(pics.length<GAL_MAX)phMore.append(pick(T("addPics",{n:pics.length,m:GAL_MAX}),true,async fs=>{for(const f0 of fs.slice(0,GAL_MAX-pics.length)){try{pics.push(await shrinkImg(f0,560,36000));picsDirty=true;}catch(e){toast(T("phFail"));}}drawPh();}));};
+  phb.append(el("b",null,T("phTitle")),el("small",null,T("phHint")),el("div","sub",T("mainPh")),phMain,el("div","sub",T("morePics",{m:GAL_MAX})),phMore);drawPh();
+  if(cur.name&&!GCACHE.has(S.uid)){const wait=setInterval(()=>{if(GCACHE.has(S.uid)){clearInterval(wait);if(!picsDirty){pics=(GCACHE.get(S.uid)||[]).slice();drawPh();}}},300);setTimeout(()=>clearInterval(wait),10000);}
   let slots=(cur.slots&&cur.slots.length?cur.slots:PRESET).map(x=>Object.assign({},x));
   const sb2=el("div","box");const rows=el("div");rows.style.cssText="display:flex;flex-direction:column;gap:6px";
   const drawRows=()=>{rows.replaceChildren();const hd=el("div","slothead");[T("colTime"),T("colOff"),T("colSeats"),""].forEach(x=>hd.append(el("span",null,x)));rows.append(hd);
@@ -591,11 +681,12 @@ function viewJoinShop(){
       const xb=btn("x","×",()=>{slots.splice(i,1);drawRows();});xb.setAttribute("aria-label","remove "+(i+1));r.append(t,o,se,xb);rows.append(r);});};
   drawRows();const acts=el("div","row2");acts.append(btn("btn sm ghost",T("addSlot"),()=>{slots.push({t:"12:00",off:10,seats:6,tag:"none"});drawRows();}),btn("btn sm ghost",T("preset"),()=>{slots=PRESET.map(x=>Object.assign({},x));drawRows();}));
   sb2.append(el("b",null,T("slotsTitle")),el("small",null,T("slotsHint")),rows,acts);
-  f.append(field(T("shopName"),nm),field(T("cat"),ct),field(T("area"),ar),field(T("address"),ad),field(T("mapsLink"),mp),el("div","fine",T("mapsHint")),field(T("wa"),wa),field(T("hours"),hw),field(T("about"),ab),sb2);
+  f.append(field(T("shopName"),nm),field(T("cat"),ct),field(T("area"),ar),field(T("address"),ad),field(T("mapsLink"),mp),el("div","fine",T("mapsHint")),field(T("wa"),wa),field(T("hours"),hw),field(T("about"),ab),phb,sb2);
   if(!cur.name)f.append(consent());const sb=el("button","btn block",cur.name?T("save"):T("register"));sb.type="submit";f.append(sb);
   f.addEventListener("submit",async e=>{e.preventDefault();if(!guard())return;if(!nm.value.trim()){nm.focus();return;}
     const clean=slots.filter(x=>/^\d\d:\d\d$/.test(x.t)).map(x=>({t:x.t,off:Math.min(70,Math.max(0,+x.off||0)),seats:Math.max(1,+x.seats||1),tag:x.tag||"none"}));sb.disabled=true;
-    try{await S.db.doc("shops/"+S.uid).set({name:nm.value.trim(),cat:ct.value,area:ar.value,address:ad.value.trim(),maps:okMaps(mp.value)?mp.value.trim():"",wa:wa.value.trim(),hours:h1.value+"–"+h2.value,about:ab.value.trim(),slots:clean,uid:S.uid,createdAt:cur.createdAt||Date.now(),updatedAt:Date.now()});
+    try{await S.db.doc("shops/"+S.uid).set({name:nm.value.trim(),cat:ct.value,area:ar.value,address:ad.value.trim(),maps:okMaps(mp.value)?mp.value.trim():"",wa:wa.value.trim(),hours:h1.value+"–"+h2.value,about:ab.value.trim(),cover:cov,slots:clean,uid:S.uid,createdAt:cur.createdAt||Date.now(),updatedAt:Date.now()});
+      if(picsDirty){await S.db.doc("shopPhotos/"+S.uid).set({items:pics,updatedAt:Date.now()});GCACHE.set(S.uid,pics.slice());}
       S.as="shop";lsSet("tk.as","shop");toast(cur.name?T("saved"):T("registered"));S.stack=[];tab("bookings");}catch(err){toast(werr(err));sb.disabled=false;}});
   g.append(f);return g;
 }
