@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useStore, uid } from '../store';
 import { toKey, addDays, todayKey, WEEKDAYS } from '../dates';
 import Modal from '../components/Modal';
+import { useConfirm } from '../components/Dialog';
 import { StatsIcon, PlusIcon } from '../components/Icons';
 
 const ACTIVITY_COLORS = ['#fdd0c0', '#d6ccff', '#c8ecd4', '#fff0b8', '#cfe6ff', '#ffd6e8'];
@@ -19,6 +20,7 @@ export default function FocusView() {
   const [, tick] = useState(0);
   const [editing, setEditing] = useState(null); // activity or 'new'
   const [showStats, setShowStats] = useState(false);
+  const confirm = useConfirm();
 
   useEffect(() => {
     if (timer.status !== 'running') return;
@@ -34,14 +36,18 @@ export default function FocusView() {
   const setTimer = (value) => dispatch({ type: 'set', key: 'timer', value });
 
   const start = () => {
-    if (typeof Notification !== 'undefined' && Notification.permission === 'default') Notification.requestPermission();
+    try {
+      if (typeof Notification !== 'undefined' && Notification.permission === 'default') Notification.requestPermission().catch(() => {});
+    } catch {
+      /* notifications unavailable */
+    }
     setTimer({ status: 'running', endAt: Date.now() + left * 1000 });
   };
   const pause = () => setTimer({ status: 'paused', remaining: left, endAt: null });
   const reset = () => setTimer({ status: 'idle', remaining: duration, endAt: null });
 
-  const choose = (a) => {
-    if (timer.status === 'running' && !window.confirm('Stop the current focus session?')) return;
+  const choose = async (a) => {
+    if (timer.status === 'running' && !(await confirm('Stop the current focus session?', { confirmLabel: 'Stop' }))) return;
     const same = timer.activityId === a?.id;
     const mins = a ? a.minutes : settings.focusMinutes;
     setTimer({ activityId: same ? null : a?.id ?? null, status: 'idle', endAt: null, remaining: (same ? settings.focusMinutes : mins) * 60 });

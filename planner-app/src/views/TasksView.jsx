@@ -5,6 +5,7 @@ import TaskRow from '../components/TaskRow';
 import Fab from '../components/Fab';
 import { TaskEditor } from '../components/Editors';
 import { TrashIcon } from '../components/Icons';
+import { useConfirm } from '../components/Dialog';
 
 const SORTS = [
   { id: 'due', label: 'Due Date' },
@@ -14,6 +15,7 @@ const SORTS = [
 
 export default function TasksView() {
   const { state, dispatch } = useStore();
+  const confirm = useConfirm();
   const [listId, setListId] = useState('inbox');
   const [sort, setSort] = useState('due');
   const [showDone, setShowDone] = useState(false);
@@ -73,8 +75,8 @@ export default function TasksView() {
     setListId(id);
   };
 
-  const deleteProject = (p) => {
-    if (!window.confirm(`Delete project "${p.name}"? Its tasks move to Inbox.`)) return;
+  const deleteProject = async (p) => {
+    if (!(await confirm(`Delete project "${p.name}"? Its tasks move to Inbox.`, { confirmLabel: 'Delete', danger: true }))) return;
     state.tasks
       .filter((t) => t.projectId === p.id)
       .forEach((t) => dispatch({ type: 'save', coll: 'tasks', item: { ...t, projectId: null } }));
@@ -82,9 +84,9 @@ export default function TasksView() {
     setListId('inbox');
   };
 
-  const clearDone = () => {
+  const clearDone = async () => {
     const done = current.items.filter((t) => t.done);
-    if (!done.length || !window.confirm(`Delete ${done.length} completed task(s)?`)) return;
+    if (!done.length || !(await confirm(`Delete ${done.length} completed task(s)?`, { confirmLabel: 'Delete', danger: true }))) return;
     done.forEach((t) => dispatch({ type: 'remove', coll: 'tasks', id: t.id }));
   };
 

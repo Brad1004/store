@@ -24,7 +24,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 input, select, textarea { font: inherit; color: inherit; }
 
 /* ---------- shell ---------- */
-.app { display: flex; height: 100dvh; overflow: hidden; }
+.app { display: flex; height: 100%; overflow: hidden; }
 .main { flex: 1; min-width: 0; overflow-y: auto; position: relative; }
 .page { padding: 20px 24px 110px; max-width: 1400px; margin: 0 auto; min-height: 100%; }
 
@@ -341,3 +341,9 @@ input, select, textarea { font: inherit; color: inherit; }
   .month-strip { padding-right: 0; }
   .field-row { flex-wrap: wrap; }
 }
+
+/* ---------- dialog ---------- */
+.dialog-msg { margin: 4px 0 8px; font-size: 17px; line-height: 1.5; color: var(--ink-2); }
+.btn.danger-solid { background: var(--red); color: #fff; }
+.backup-field { margin-top: 14px; }
+.backup-field textarea { font-family: ui-monospace, monospace; font-size: 12px; }

@@ -2,12 +2,14 @@ import { useMemo, useState } from 'react';
 import { useStore, uid } from '../store';
 import { MONTHS, MONTHS_LONG, WEEKDAYS_LONG } from '../dates';
 import Fab from '../components/Fab';
+import { useConfirm } from '../components/Dialog';
 import { BackIcon, TrashIcon } from '../components/Icons';
 
 const firstLine = (s) => s.split('\n').find((l) => l.trim()) || '';
 
 export default function NotesView({ initialId }) {
   const { state, dispatch } = useStore();
+  const confirm = useConfirm();
   const sorted = useMemo(() => [...state.notes].sort((a, b) => b.updatedAt - a.updatedAt), [state.notes]);
   const [selectedId, setSelectedId] = useState(initialId || sorted[0]?.id || null);
   const [mobileOpen, setMobileOpen] = useState(Boolean(initialId));
@@ -33,8 +35,8 @@ export default function NotesView({ initialId }) {
 
   const update = (patch) => dispatch({ type: 'save', coll: 'notes', item: { ...note, ...patch, updatedAt: Date.now() } });
 
-  const remove = () => {
-    if (!window.confirm('Delete this note?')) return;
+  const remove = async () => {
+    if (!(await confirm('Delete this note?', { confirmLabel: 'Delete', danger: true }))) return;
     dispatch({ type: 'remove', coll: 'notes', id: note.id });
     setSelectedId(sorted.find((n) => n.id !== note.id)?.id || null);
     setMobileOpen(false);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StoreProvider, useStore } from './store';
 import Sidebar from './components/Sidebar';
+import { DialogProvider } from './components/Dialog';
 import CalendarView from './views/CalendarView';
 import TasksView from './views/TasksView';
 import NotesView from './views/NotesView';
@@ -40,8 +41,12 @@ function FocusWatcher() {
       dispatch({ type: 'completeFocus', activityId: timer.activityId, minutes });
       dispatch({ type: 'set', key: 'timer', value: { status: 'idle', endAt: null, remaining: minutes * 60 } });
       if (settings.sound) beep();
-      if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-        new Notification('Focus complete 🍅', { body: `${activity ? activity.name : 'Quick Focus'} · ${minutes} min` });
+      try {
+        if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+          new Notification('Focus complete 🍅', { body: `${activity ? activity.name : 'Quick Focus'} · ${minutes} min` });
+        }
+      } catch {
+        /* notifications unavailable */
       }
     }, 500);
     return () => clearInterval(id);
@@ -78,7 +83,9 @@ function Shell() {
 export default function App() {
   return (
     <StoreProvider>
-      <Shell />
+      <DialogProvider>
+        <Shell />
+      </DialogProvider>
     </StoreProvider>
   );
 }
