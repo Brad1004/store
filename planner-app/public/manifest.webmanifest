@@ -1,0 +1,9 @@
+{
+  "name": "Planner MVP",
+  "short_name": "Planner",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f4fd",
+  "theme_color": "#7c5cff",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
