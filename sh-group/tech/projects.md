@@ -7,7 +7,7 @@
 |---|----------|------|------|------|------|----------|------|
 | 1 | **Kasbon 비즈** | 플랫폼 (웹·앱) | 미정 (B2B/B2C 확인 필요) | `platforms/kasbon/` (예정) | 기획 접수 | — | 회장님 기획, 2026-09-25 1호 프로젝트 선정. 상세 기획 자료 접수 대기 |
 | 2 | **SalamSeleb** 이벤트 플랫폼 (PT Salam Seleb Nusantara, 약칭 SSN) | 플랫폼 (웹앱 우선) | B2C + B2B (이벤트 회사) | `platforms/salamseleb/` (예정) | 사업 검토 | — | 유명인·지역 MC·가수 ↔ 일반인 축하 영상·행사 연결. 2026-09-26 2호 프로젝트 지정, 첫 무대 찌까랑, 1단계 영상 메시지 전용 |
-| 3 | **Tokokita** 동네 가게 × 손님 시간대별 할인 예약 (치카랑·치비퉁) | 앱 (웹앱 MVP) | B2B(가게) + B2C(손님) | MVP v0.1 사내 비공개 | 기획 `sh-group/projects/03-tokokita.md` |
+| 3 | **Tokokita** 동네 가게 × 손님 시간대별 할인 예약 | 앱 (웹앱 MVP) | B2B(가게) + B2C(손님) | `platforms/tokokita-app/` | MVP v0.1 사내 비공개 | https://claude.ai/artifact/F7uLjuAQiiX9bLKfKdUge3 | 치카랑·치비퉁 동네 카페·와룽·미용실. 2026-09-26 3호 지정. 선불 없는 현장 할인, 3교대 시간 할인. 기획 `sh-group/projects/03-tokokita.md` |
 
 ## 내부 도구
 | 도구 | 용도 | 위치 | 상태 | 배포 URL |
