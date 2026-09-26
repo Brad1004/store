@@ -387,16 +387,12 @@ function assignPhotos(){const list=S.shops.slice().sort((a,b)=>(a.createdAt||0)-
 function photoOf(shop){if(!shop||!shop.id)return null;if(okImg(shop.cover))return shop.cover;assignPhotos();const k=pmap.get(shop.id);return k==null?null:PHOTOS[k];}
 
 function okImg(u){return typeof u==="string"&&/^data:image\/(jpeg|png|webp);base64,/.test(u);}
-// 가게 사진첩: 사장님이 올린 사진(shopPhotos/<uid>), 없으면 샘플 가게는 예시 사진
+// 가게 사진첩: 사장님이 올린 사진(shopPhotos/<uid>). 샘플 가게 사진첩도 같은 곳에 저장
 const GAL_MAX=6,GCACHE=new Map(),GLOAD=new Set();
-const SAMPLE_GAL={eatery:[0,3,5,6,7,8,9,10,11],cafe:[1,2,4,12,13,14,15]};
 function loadGallery(id){if(!S.db||GLOAD.has(id))return;GLOAD.add(id);
   S.db.doc("shopPhotos/"+id).get().then(sn=>{const d=sn.exists?sn.data():null;GCACHE.set(id,((d&&Array.isArray(d.items))?d.items:[]).filter(okImg).slice(0,GAL_MAX));
     if(S.route.v==="shop"&&S.route.id===id&&!typing()&&!document.querySelector(".pv"))render();}).catch(()=>GCACHE.set(id,[]));}
-function galleryOf(s){const own=GCACHE.get(s.id);if(!GCACHE.has(s.id))loadGallery(s.id);if(own&&own.length)return own;
-  if(!s.sample)return [];assignPhotos();const main=pmap.get(s.id);const fam=s.cat==="cafe"||s.cat==="bakery"?"cafe":"eatery";if(main==null)return [];
-  const pool=SAMPLE_GAL[fam].filter(i=>i!==main);const idx=S.shops.filter(x=>x.sample).sort((a,b)=>String(a.id).localeCompare(String(b.id))).findIndex(x=>x.id===s.id);
-  const n=[5,2,4,1,6,3,4,2][Math.max(0,idx)%8];const out=[];for(let k=0;k<n&&k<pool.length;k++)out.push(PHOTOS[pool[(idx*3+k)%pool.length]]);return [...new Set(out)];}
+function galleryOf(s){if(!GCACHE.has(s.id))loadGallery(s.id);return GCACHE.get(s.id)||[];}
 function gallery(s,main){let pics=galleryOf(s);if(!main){main=pics[0];pics=pics.slice(1);}const all=[main,...pics];const g=el("div","gal"+(pics.length?"":" one"));
   const tile=(src,i,extra)=>{const b=btn(null,null,()=>viewer(s.name,all,i));const im=el("img");im.src=src;im.alt="";im.decoding="async";b.append(im);
     b.setAttribute("aria-label",T("photoN",{i:i+1,n:all.length}));if(extra)b.append(extra);return b;};
