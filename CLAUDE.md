@@ -48,7 +48,7 @@
 | `sh-group/chairman-office/agenda.md` | 회장님–머스크 협의 안건 및 결정 기록 |
 | `sh-group/tech/README.md` | 기술팀 헌장, 플랫폼 런칭 절차 |
 | `sh-group/tech/projects.md` | 플랫폼 프로젝트 현황 (잡스 관리) |
-| `sh-group/tech/sh-talk-orders.md` | SH톡 `#지시` 자동 처리 절차 (본부 루틴) |
+| `sh-group/tech/sh-talk-orders.md` | SH톡 `#지시`·`#결정` 처리 절차 (본부 루틴). **SH톡의 공식 결정은 회장님의 `#결정` 메시지뿐** |
 | `sh-group/projects/` | 공식 프로젝트별 기획서 (1호: `01-kasbon.md`, 2호: SalamSeleb — 회사 PT Salam Seleb Nusantara, 약칭 **SSN**) |
 | `platforms/ssn-roadmap/` | SSN 설립·출시 로드맵 페이지 (https://claude.ai/artifact/7jpVYBhsgWDgk1UcUKjxwZ, 할 일 데이터는 페이지 DB `tasks`) |
 | `sh-group/audit/README.md` | 감사팀 헌장 |
