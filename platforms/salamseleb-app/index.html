@@ -547,9 +547,11 @@ const PHOTO_POOL={singer:[0,5],mc:[1,6],comedian:[7,1],creator:[2,9],actor:[4,9,
 let photoMap=new Map(),photoKey="";
 function assignPhotos(){
   const list=S.selebs.slice().sort((a,b)=>(a.createdAt||0)-(b.createdAt||0)||String(a.id).localeCompare(String(b.id)));
-  const key=list.map(x=>x.id+":"+x.category).join("|");if(key===photoKey)return;photoKey=key;photoMap=new Map();
+  const key=list.map(x=>x.id+":"+x.category+":"+(x.photo??"")).join("|");if(key===photoKey)return;photoKey=key;photoMap=new Map();
   const used=new Set();
-  for(const x of list){const pool=PHOTO_POOL[x.category]||[];const start=hue(x.id);
+  // 사진을 직접 지정한 Seleb(photo 번호)은 그 사진을 먼저 차지
+  for(const x of list){if(Number.isInteger(x.photo)&&PHOTOS[x.photo]){used.add(x.photo);photoMap.set(x.id,x.photo);}}
+  for(const x of list){if(photoMap.has(x.id))continue;const pool=PHOTO_POOL[x.category]||[];const start=hue(x.id);
     const pick=arr=>{for(let i=0;i<arr.length;i++){const k=arr[(start+i)%arr.length];if(!used.has(k))return k;}return null;};
     let k=pick(pool);if(k==null)k=pick(PHOTOS.map((_,i)=>i));
     if(k==null){used.clear();k=pool.length?pool[start%pool.length]:start%PHOTOS.length;}
