@@ -96,6 +96,12 @@ h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
 .badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;border-radius:99px;padding:2px 8px;background:rgba(0,0,0,.35);color:#fff}
 .badge.sample{background:var(--warn-soft);color:var(--warn)}
 .stars{color:var(--gold);font-weight:700;font-size:12.5px}
+.srow{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.srow b{color:var(--ink);font-weight:800}
+.st5{position:relative;display:inline-block;line-height:1;letter-spacing:1px;color:var(--line);font-size:13px}
+.st5 i{position:absolute;left:0;top:0;overflow:hidden;white-space:nowrap;color:var(--gold);font-style:normal}
+.srow.lg{font-size:14px}.srow.lg .st5{font-size:22px;letter-spacing:2px}
+.newtag{font-size:11.5px;font-weight:700;color:var(--ok);background:var(--ok-soft);border-radius:99px;padding:1px 8px}
 
 .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;flex:none;font-size:15px}
 .av.lg{width:92px;height:92px;font-size:34px;border-radius:28px}
@@ -233,7 +239,7 @@ const L={
   back:"뒤로",resultN:"명",sortPrice:"가격 낮은 순",sortNew:"새로운 순",about2:"SalamSeleb 시제품 v0.1 · SH그룹 기술팀",
   cat_mc:"MC·사회자",cat_singer:"가수",cat_comedian:"코미디언",cat_creator:"크리에이터",cat_actor:"배우",cat_athlete:"운동선수",
   oc_birthday:"생일",oc_wedding:"결혼",oc_baby:"돌잔치·출산",oc_company:"회사 행사",oc_cheer:"응원",oc_other:"기타",
-  lg_id:"인도네시아어",lg_en:"영어",lg_ko:"한국어",lg_jv:"자바어"},
+  lg_id:"인도네시아어",lg_en:"영어",lg_ko:"한국어",lg_jv:"자바어",newbie:"신규",noRating:"아직 평가 없음",nReviews:"평가 {n}개",reviewPh:"후기 (선택): 어떤 점이 좋았나요?",sampleReview:"샘플 평가",rateHint:"거래가 끝나면 팬(B그룹)이 별 1~5개로 평가합니다."},
  id:{tagline:"Seleb favoritmu merayakan harimu",hello:"Tempat Seleb dan fans bertemu",helloSub:"Dapatkan video ucapan dari Seleb untuk ulang tahun, pernikahan, syukuran, dan acara kantor.",
   asSeleb:"Mulai sebagai Seleb",asSelebSub:"Pasang profil dan terima permintaan video (Grup A)",asFan:"Mulai sebagai Fans",asFanSub:"Pilih Seleb dan pesan video ucapan (Grup B)",browse:"Lihat-lihat dulu tanpa daftar",
   testNote:"Prototipe internal · tanpa pembayaran sungguhan",test:"Prototipe",home:"Beranda",find:"Cari",activity:"Aktivitas",me:"Saya",
@@ -261,7 +267,7 @@ const L={
   back:"Kembali",resultN:"orang",sortPrice:"Harga terendah",sortNew:"Terbaru",about2:"Prototipe SalamSeleb v0.1 · Tim Teknologi SH Group",
   cat_mc:"MC",cat_singer:"Penyanyi",cat_comedian:"Komedian",cat_creator:"Kreator",cat_actor:"Aktor",cat_athlete:"Atlet",
   oc_birthday:"Ulang tahun",oc_wedding:"Pernikahan",oc_baby:"Syukuran bayi",oc_company:"Acara kantor",oc_cheer:"Semangat",oc_other:"Lainnya",
-  lg_id:"Indonesia",lg_en:"Inggris",lg_ko:"Korea",lg_jv:"Jawa"}
+  lg_id:"Indonesia",lg_en:"Inggris",lg_ko:"Korea",lg_jv:"Jawa",newbie:"Baru",noRating:"Belum ada rating",nReviews:"{n} ulasan",reviewPh:"Ulasan (opsional): apa yang kamu suka?",sampleReview:"Ulasan contoh",rateHint:"Setelah transaksi, fans (Grup B) memberi 1–5 bintang."}
 };
 const CATS=["mc","singer","comedian","creator","actor","athlete"];
 const OCCS=["birthday","wedding","baby","company","cheer","other"];
@@ -292,7 +298,13 @@ const S={db:null,user:null,uid:null,canWrite:null,loaded:false,
   cat:"all",sort:"new",q:"",actTab:null,pending:null};
 const mySeleb=()=>S.selebs.find(s=>s.id===S.uid&&S.uid);
 const myFan=()=>S.fans.find(f=>f.id===S.uid&&S.uid);
-function selebStats(id){const done=S.requests.filter(r=>r.selebUid===id&&r.status==="done");const rated=done.filter(r=>r.rating);return {done:done.length,rating:rated.length?(rated.reduce((a,r)=>a+r.rating,0)/rated.length):null};}
+function selebStats(id){const done=S.requests.filter(r=>r.selebUid===id&&r.status==="done");const rated=done.filter(r=>r.rating);return {done:done.length,count:rated.length,rating:rated.length?(rated.reduce((a,r)=>a+r.rating,0)/rated.length):null};}
+// B그룹 평가를 별 1~5개로 표시 (평균은 반 개 단위까지 채움)
+function starRow(st,big){const w=el("span","srow"+(big?" lg":""));
+  if(!st.count){w.append(el("span","newtag",T("newbie")),document.createTextNode(big?T("noRating"):""));w.setAttribute("aria-label",T("noRating"));return w;}
+  const s5=el("span","st5","★★★★★");const f=el("i",null,"★★★★★");f.style.width=(Math.round(st.rating*2)/2/5*100)+"%";s5.append(f);s5.setAttribute("aria-hidden","true");
+  w.append(s5,el("b",null,st.rating.toFixed(1)),document.createTextNode(big?"· "+T("nReviews").replace("{n}",st.count):"("+st.count+")"));
+  w.setAttribute("aria-label","★ "+st.rating.toFixed(1)+" / 5, "+T("nReviews").replace("{n}",st.count));return w;}
 
 function go(v,params,replace){if(!replace&&S.route.v!=="welcome")S.stack.push(S.route);S.route=Object.assign({v},params||{});render();window.scrollTo(0,0);}
 function back(){S.route=S.stack.pop()||{v:"home"};render();}
@@ -356,8 +368,7 @@ function selebCard(s){
   if(s.sample){const b=el("span","badge sample",T("sample"));ph.append(b);}
   const st=selebStats(s.id);
   const nm=el("b",null,s.name);const sub=el("small",null,T("cat_"+s.category)+" · "+(s.city||""));
-  const pr=el("div");pr.style.cssText="display:flex;justify-content:space-between;align-items:center;gap:6px";pr.append(el("span","price",rp(s.price)));if(st.rating)pr.append(el("span","stars","★ "+st.rating.toFixed(1)));
-  c.append(ph,nm,sub,pr);c.setAttribute("aria-label",s.name+", "+T("cat_"+s.category)+", "+rp(s.price));return c;
+  c.append(ph,nm,starRow(st),sub,el("span","price",rp(s.price)));c.setAttribute("aria-label",s.name+", "+T("cat_"+s.category)+", "+rp(s.price));return c;
 }
 function feedItems(){
   const items=[];
@@ -374,7 +385,7 @@ function feedList(){
     const d=el("span","dot "+f.kind,f.kind==="join"?"+":f.kind==="req"?"♪":"★");d.setAttribute("aria-hidden","true");
     const tx=el("div","tx");let line;
     if(f.kind==="join")line=name+T("f_join");
-    else{const o=T("oc_"+(f.r.occasion||"other"));line=name+T(f.kind==="req"?"f_req":"f_done").replace("{o}",o);}
+    else{const o=T("oc_"+(f.r.occasion||"other"));line=name+T(f.kind==="req"?"f_req":"f_done").replace("{o}",o);if(f.kind==="done"&&f.r.rating)line+=" · "+"★".repeat(f.r.rating);}
     tx.append(el("div","t2",line),el("div","t3",ago(f.ts)));b.append(d,tx);list.append(b);
   }
   return list;
@@ -426,6 +437,7 @@ function viewSeleb(id){
   const p=el("div","prof");const a=avatar(s.name,s.id,"lg");p.append(a);
   const h=el("h1",null,s.name);p.append(h);
   const sub=el("div","sub",T("cat_"+s.category)+" · "+(s.city||""));p.append(sub);
+  p.append(starRow(st,true));
   if(s.sample)p.append(el("span","badge sample",T("sample")));
   const facts=el("div","facts");
   const f=(v,k)=>{const d=el("div","fact");d.append(el("b",null,v),el("small",null,k));return d;};
@@ -436,8 +448,13 @@ function viewSeleb(id){
   sec2.append(el("div","bio",(s.langs||["id"]).map(l=>T("lg_"+l)).join(" · ")));
   const reviews=S.requests.filter(r=>r.selebUid===id&&r.status==="done"&&r.rating);
   g.append(p,facts,sec,sec2);
-  if(reviews.length){const s3=el("section","section");const h3=el("div","shead");h3.append(el("h2",null,T("reviews")+" · "+reviews.length));const l=el("div","list");
-    reviews.slice(0,5).forEach(r=>{const it=el("div","item");it.style.cursor="default";const tx=el("div","tx");tx.append(el("div","stars","★".repeat(r.rating)),el("div","t2 review",T("oc_"+r.occasion)+" · "+ago(r.updatedAt)));it.append(tx);l.append(it);});s3.append(h3,l);g.append(s3);}
+  {const s3=el("section","section");const h3=el("div","shead");h3.append(el("h2",null,T("reviews")+(reviews.length?" · "+reviews.length:"")));const l=el("div","list");
+    if(!reviews.length)l.append(el("div","empty",T("noRating")+" · "+T("rateHint")));
+    reviews.slice().sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).slice(0,10).forEach(r=>{const it=el("div","item");it.style.cursor="default";const tx=el("div","tx");
+      const top=el("div");top.style.cssText="display:flex;gap:8px;align-items:center;flex-wrap:wrap";top.append(el("span","stars","★".repeat(r.rating)+"☆".repeat(5-r.rating)),el("span","t3",(r.fanName||"—")+" · "+T("oc_"+r.occasion)+" · "+ago(r.updatedAt)));
+      if(r.sample)top.append(el("span","badge sample",T("sampleReview")));
+      tx.append(top);if(r.review)tx.append(el("div","t2 review",r.review));it.append(tx);l.append(it);});
+    s3.append(h3,l);g.append(s3);}
   if(s.sample)g.append(el("div","foot",T("sampleNote")));
   const spacer=el("div");spacer.style.height="84px";g.append(spacer);
   const bar=el("div","sticky");
@@ -571,8 +588,9 @@ function reqCard(r,side){
   if(side==="fan"&&r.status==="delivered"){let rating=5;const rt=el("div","rate");rt.setAttribute("role","radiogroup");rt.setAttribute("aria-label",T("rateIt"));
     const paint=()=>[...rt.children].forEach((b,i)=>{b.classList.toggle("on",i<rating);b.setAttribute("aria-checked",String(i+1===rating));});
     for(let i=1;i<=5;i++){const b=btn(null,"★",()=>{rating=i;paint();});b.setAttribute("role","radio");b.setAttribute("aria-label",i+"");rt.append(b);}paint();
-    c.append(el("small",null,T("rateIt")),rt);act.append(btn("btn sm",T("confirm"),()=>upd({status:"done",rating},T("s_done"))));}
-  if(r.status==="done"&&r.rating)c.append(el("div","stars","★".repeat(r.rating)));
+    const rv=el("textarea","input");rv.id="rv-"+r.id;rv.placeholder=T("reviewPh");rv.maxLength=200;rv.style.minHeight="56px";const rl=el("label","sr",T("reviewPh"));rl.htmlFor=rv.id;
+    c.append(el("small",null,T("rateIt")),rt,rl,rv);act.append(btn("btn sm",T("confirm"),()=>upd({status:"done",rating,review:rv.value.trim()},T("s_done"))));}
+  if(r.status==="done"&&r.rating){c.append(el("div","stars","★".repeat(r.rating)+"☆".repeat(5-r.rating)));if(r.review)c.append(el("div","msg","“"+r.review+"”"));}
   if(act.children.length)c.append(act);
   return c;
 }
