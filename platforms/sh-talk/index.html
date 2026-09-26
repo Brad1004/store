@@ -17,7 +17,7 @@
   --sep-bg:rgba(24,33,42,.10);
   --sep-ink:#4A5763;
   --mine:#1E6B5C;
-  --own-bg:#D3F0DC;--own-ink:#10321F;--own-band:rgba(120,200,145,.20);
+  --own-bg:#8FDC9E;--own-ink:#0B2A16;--own-band:rgba(70,185,100,.20);
   --mine-ink:#FFFFFF;
   --theirs:#FFFFFF;
   --theirs-ink:#18212A;
@@ -51,7 +51,7 @@
     --surface:#151A20;--surface-2:#1C232A;--line:#262E36;
     --ink:#E6EBEF;--ink-2:#B3BEC8;--muted:#84909B;
     --chat-bg:#0F1519;--sep-bg:rgba(230,235,239,.08);--sep-ink:#A9B4BE;
-    --mine:#2A8C78;--mine-ink:#FFFFFF;--own-bg:#2F5A3E;--own-ink:#E6F6EA;--own-band:rgba(90,190,120,.12);--theirs:#232B33;--theirs-ink:#E6EBEF;
+    --mine:#2A8C78;--mine-ink:#FFFFFF;--own-bg:#2E8B4E;--own-ink:#FFFFFF;--own-band:rgba(70,185,100,.16);--theirs:#232B33;--theirs-ink:#E6EBEF;
     --accent:#3AA58E;--accent-soft:#16302A;--accent-ink:#06120F;
     --brass:#D2A24E;--c-owner:#B98A38;--c-musk:#4F78B5;--c-warren:#E07A9B;--c-jobs:#7867B0;--c-legal:#4FA58C;--c-member:#6F7D89;
     --warn-bg:#3A2E14;--warn-ink:#F0CD86;--ok:#4CC080;--danger:#E07070;
@@ -68,7 +68,7 @@
   --surface:#151A20;--surface-2:#1C232A;--line:#262E36;
   --ink:#E6EBEF;--ink-2:#B3BEC8;--muted:#84909B;
   --chat-bg:#0F1519;--sep-bg:rgba(230,235,239,.08);--sep-ink:#A9B4BE;
-  --mine:#2A8C78;--mine-ink:#FFFFFF;--own-bg:#2F5A3E;--own-ink:#E6F6EA;--own-band:rgba(90,190,120,.12);--theirs:#232B33;--theirs-ink:#E6EBEF;
+  --mine:#2A8C78;--mine-ink:#FFFFFF;--own-bg:#2E8B4E;--own-ink:#FFFFFF;--own-band:rgba(70,185,100,.16);--theirs:#232B33;--theirs-ink:#E6EBEF;
   --accent:#3AA58E;--accent-soft:#16302A;--accent-ink:#06120F;
   --brass:#D2A24E;--c-owner:#B98A38;--c-musk:#4F78B5;--c-warren:#E07A9B;--c-jobs:#7867B0;--c-legal:#4FA58C;--c-member:#6F7D89;
   --warn-bg:#3A2E14;--warn-ink:#F0CD86;--ok:#4CC080;--danger:#E07070;
@@ -210,7 +210,8 @@ button{cursor:pointer}
 /* 회장님 메시지: 연한 초록 바탕으로 팀장 대화와 구분 */
 .msg.owner{background:var(--own-band);margin-inline:-12px;padding:3px 12px;border-radius:0}
 .msg.owner + .msg.owner{margin-top:0}
-.msg.owner .bubble{background:var(--own-bg)!important;color:var(--own-ink)!important}
+.msg.owner .bubble,.msg.mine .bubble{background:var(--own-bg)!important;color:var(--own-ink)!important}
+.msg.mine .time,.msg.owner .time{color:var(--ink-2)}
 .msg.mine .line{flex-direction:row-reverse;max-width:82%}
 .msg.mine .bubble{background:var(--mine);color:var(--mine-ink);border-top-right-radius:6px}
 .msg.mine:not(.first) .bubble{border-top-right-radius:16px}
