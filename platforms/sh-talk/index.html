@@ -395,7 +395,7 @@ button{cursor:pointer}
     <li><span class="dot" style="background:var(--c-musk)"></span>전략기획팀 머스크 · 비서실장 겸 팀장</li>
     <li><span class="dot" style="background:var(--c-warren)"></span>감사팀 버핏 · 팀장 (회장 직속)</li>
     <li><span class="dot" style="background:var(--c-jobs)"></span>기술팀 잡스 · 팀장</li>
-    <li><span class="dot" style="background:var(--c-legal)"></span>법무팀 정도윤 · 팀장</li>
+    <li><span class="dot" style="background:var(--c-legal)"></span>법무팀 강현석 · 팀장</li>
   </ul>
   <div class="note" id="asideNote">사무실 평면도에서 팀장실을 눌러 문을 열고 들어가 대화합니다. 대회의실에서 팀장을 소집하면 팀장들이 차례로 답하고, 버핏이 마지막에 감사합니다.</div>
 </aside>
@@ -442,7 +442,7 @@ button{cursor:pointer}
         <button class="chip mention who-musk" data-m="@머스크">@머스크</button>
         <button class="chip mention who-warren" data-m="@버핏">@버핏</button>
         <button class="chip mention who-jobs" data-m="@잡스">@잡스</button>
-        <button class="chip mention who-legal" data-m="@정도윤">@정도윤</button>
+        <button class="chip mention who-legal" data-m="@강현석">@강현석</button>
       </div>
       <form class="inrow" id="sendForm">
         <label class="sr" for="msgInput">메시지</label>
@@ -474,9 +474,9 @@ const AGENTS = {
   jobs:{key:"jobs",name:"잡스",label:"기술팀 잡스",wa:"와",role:"팀장",title:"기술팀장",initial:"잡",color:"var(--c-jobs)",
     status:"아이디어를 화면으로 만드는 기술팀",
     persona:"당신은 잡스, SH그룹 기술팀장입니다. Claude Code로 웹·앱·플랫폼(B2B 견적·발주, B2C 쇼핑·예약 등)을 개발합니다. 회장님은 개발자가 아니시므로 기술 용어는 쉬운 말로 풀어 설명하고, 작게 먼저 만들어 시장 반응을 보는 MVP 방식을 권합니다. 모바일 우선, 인도네시아어·영어·한국어 다국어를 기본으로 고려합니다."},
-  legal:{key:"legal",name:"정도윤",label:"법무팀 정도윤",wa:"과",role:"팀장",title:"법무팀장",initial:"정",color:"var(--c-legal)",
+  legal:{key:"legal",name:"강현석",label:"법무팀 강현석",wa:"과",role:"팀장",title:"법무팀장 · 국제법·통상",initial:"강",color:"var(--c-legal)",
     status:"법은 사업의 브레이크가 아니라 안전벨트입니다",
-    persona:"당신은 정도윤, SH그룹 법무팀장입니다. 한국인이며 한국·인도네시아 기업법무를 전문으로 합니다. 인도네시아 회사 설립·투자(PMDN/PMA, OSS·KBLI 인허가), 노동, 개인정보, 전자거래·플랫폼, 소비자보호, 금융(OJK) 규제, 상표, 계약서 검토, 한국 관련 법무를 맡습니다. 근거가 되는 법령 이름을 밝히되, 조문 번호·최신 개정 여부·시행 여부가 확실하지 않으면 '확인 필요'라고 말하고 지어내지 않습니다. 당신의 답은 일반적인 법률 정보이며, 서명·설립·신고·소송 같은 실행 전에는 인도네시아 현지 변호사(advokat)나 공증인(notaris)의 확인이 필요하다고 안내합니다. 위험만 말하지 말고, 사업을 합법적으로 키울 수 있는 대안을 함께 제시합니다."}
+    persona:"당신은 강현석, SH그룹 법무팀장입니다. 한국인 시니어 변호사 페르소나로, 국제법·국제통상 경력이 깁니다(유엔 근무, 한국 김앤장 법률사무소, 유럽 대형 로펌 파견 — SH그룹 AI 조직의 가상 인물 설정). 무역법·국제통상(FTA·원산지), 관세·통관, 인도네시아 회사 설립·투자(PMDN/PMA, OSS·KBLI), 유통, 전자상거래·플랫폼, 소비자보호, 금융(BI·OJK), 노동, 개인정보, 상표, 국제 계약·중재까지 전 분야를 맡습니다. 실제 사건·의뢰인·판결이나 과거 업무 사례를 지어내 경험담처럼 말하지 마세요. 근거가 되는 법령 이름을 밝히되, 조문 번호·관세율·최신 개정·시행 여부가 확실하지 않으면 '확인 필요'라고 말합니다. 당신의 답은 사내 검토용 법률 정보이며, 서명·설립·신고·통관·소송 같은 실행 전에는 인도네시아 현지 변호사(advokat)·공증인(notaris)·관세사 확인이 필요하다고 안내합니다. 위험만 말하지 말고, FTA 관세 혜택이나 수출 확대처럼 법을 활용해 사업을 키울 대안을 함께 제시합니다."}
 };
 const OFFICE = {
   musk:{room:"전략기획팀장실",no:"SH-01"},
@@ -503,7 +503,7 @@ const FACES = {
   musk:'<svg viewBox="0 0 64 64"><path d="M9 64c2-12 11-18 23-18s21 6 23 18z" fill="#22304D"/><rect x="28" y="37" width="8" height="10" rx="3" fill="#E8BD96"/><path d="M26 46l6 9 6-9z" fill="#F4F6F8"/><path d="M31 48.5h2l1.6 8.5-2.6 3-2.6-3z" fill="#C0453A"/><ellipse cx="20.3" cy="29.5" rx="2.3" ry="3.3" fill="#DDAE86"/><ellipse cx="43.7" cy="29.5" rx="2.3" ry="3.3" fill="#DDAE86"/><ellipse cx="32" cy="28" rx="12" ry="13.8" fill="#E8BD96"/><path d="M20 27c-1.4-10 4.6-15.6 12.4-15.6 8.4 0 13.4 5.6 11.8 15.6-1.2-4.6-3.6-7.4-7.4-8.2-5.4 2.4-11.8 1.6-16.8 8.2z" fill="#2A2019"/><path d="M25.4 25.2h4.8M33.8 25.2h4.8" stroke="#2A2019" stroke-width="1.5" stroke-linecap="round"/><circle cx="27.8" cy="29" r="1.5" fill="#2A2019"/><circle cx="36.2" cy="29" r="1.5" fill="#2A2019"/><path d="M28.2 35.2q3.8 2.8 7.6 0" stroke="#8A4B3A" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>',
   warren:'<svg viewBox="0 0 64 64"><path d="M9 64c2-12 11-18 23-18s21 6 23 18z" fill="#5B616B"/><rect x="28" y="37" width="8" height="10" rx="3" fill="#F1CDB0"/><path d="M26 46l6 9 6-9z" fill="#F4F6F8"/><path d="M28.6 50.2l3.4 1.6 3.4-1.6v3.6l-3.4-1.6-3.4 1.6z" fill="#2F5C8F"/><ellipse cx="20.3" cy="29.5" rx="2.3" ry="3.3" fill="#E6BC9B"/><ellipse cx="43.7" cy="29.5" rx="2.3" ry="3.3" fill="#E6BC9B"/><ellipse cx="32" cy="28" rx="12" ry="13.8" fill="#F1CDB0"/><path d="M20.2 30c-2.4-9.6 2.6-16.4 11.8-16.4s14.2 6.8 11.8 16.4c-.8-3.4-1.8-5.6-3-6.8.2-3-3.8-5.2-8.8-5.2s-9 2.2-8.8 5.2c-1.2 1.2-2.2 3.4-3 6.8z" fill="#E9E6E0"/><path d="M25.2 24.6q2.4-1 4.8 0M34 24.6q2.4-1 4.8 0" stroke="#B9B4AC" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="27.6" cy="29.2" r="3.9" fill="none" stroke="#A9864F" stroke-width="1.1"/><circle cx="36.4" cy="29.2" r="3.9" fill="none" stroke="#A9864F" stroke-width="1.1"/><path d="M31.5 29h1" stroke="#A9864F" stroke-width="1.1"/><circle cx="27.6" cy="29.4" r="1.3" fill="#2A2019"/><circle cx="36.4" cy="29.4" r="1.3" fill="#2A2019"/><path d="M27 35q5 4 10 0" stroke="#8A4B3A" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M24.8 34.2q-.6 1.4.4 2.6M39.2 34.2q.6 1.4-.4 2.6" stroke="#D9A98A" stroke-width="1" fill="none" stroke-linecap="round"/></svg>',
   jobs:'<svg viewBox="0 0 64 64"><path d="M8 64c2-13 12-19 24-19s22 6 24 19z" fill="#2F3A56"/><rect x="28" y="37" width="8" height="10" rx="3" fill="#D6A57E"/><path d="M20 47.5c3 5.6 7 7.6 12 7.6s9-2 12-7.6c-3-1.8-7-2.8-12-2.8s-9 1-12 2.8z" fill="#253049"/><path d="M29 53v6M35 53v6" stroke="#E9E6E0" stroke-width="1.3" stroke-linecap="round"/><ellipse cx="20.3" cy="29.5" rx="2.3" ry="3.3" fill="#C99672"/><ellipse cx="43.7" cy="29.5" rx="2.3" ry="3.3" fill="#C99672"/><ellipse cx="32" cy="28" rx="12" ry="13.8" fill="#D6A57E"/><path d="M19.6 27.6c-2.2-9.4 3-16 10.2-16.6l2-3.2 3 3.2c7.4.2 12.4 6.4 11.4 16.4-1.8-4.8-3.8-7-5.8-8l-2 3-3-4-3 3-3-3-3 3-2-3c-2.2 2-3.4 4.4-3.8 9.2z" fill="#4E3321"/><rect x="23.4" y="26.2" width="8.2" height="6" rx="1.6" fill="none" stroke="#1D2433" stroke-width="1.4"/><rect x="32.4" y="26.2" width="8.2" height="6" rx="1.6" fill="none" stroke="#1D2433" stroke-width="1.4"/><path d="M31.6 28.6h.8" stroke="#1D2433" stroke-width="1.4"/><circle cx="27.5" cy="29.3" r="1.3" fill="#1D2433"/><circle cx="36.5" cy="29.3" r="1.3" fill="#1D2433"/><path d="M28.6 35.6q3.4 2.2 6.8 0" stroke="#7E4332" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>',
-  legal:'<svg viewBox="0 0 64 64"><path d="M9 64c2-12 11-18 23-18s21 6 23 18z" fill="#1F3B36"/><rect x="28" y="37" width="8" height="10" rx="3" fill="#EBC3A0"/><path d="M26 46l6 9 6-9z" fill="#F4F6F8"/><path d="M31 48.5h2l1.4 8-2.4 2.8-2.4-2.8z" fill="#2F6E5E"/><circle cx="22" cy="55" r="1.6" fill="#D2A24E"/><ellipse cx="20.3" cy="29.5" rx="2.3" ry="3.3" fill="#DFB28E"/><ellipse cx="43.7" cy="29.5" rx="2.3" ry="3.3" fill="#DFB28E"/><ellipse cx="32" cy="28" rx="12" ry="13.8" fill="#EBC3A0"/><path d="M19.8 28c-1.8-10.4 4.4-16.4 12.6-16.4 8.2 0 13.6 5.8 11.8 16.4-.8-4.4-2-7-3.6-8.4-6.4.4-12.8-.8-16.6-4-2.4 2.8-3.6 6.6-4.2 12.4z" fill="#1B1714"/><path d="M25.2 25.4h4.8M34 25.4h4.8" stroke="#1B1714" stroke-width="1.6" stroke-linecap="round"/><circle cx="27.6" cy="29.2" r="1.5" fill="#1B1714"/><circle cx="36.4" cy="29.2" r="1.5" fill="#1B1714"/><path d="M28.8 35.4q3.2 2 6.4 0" stroke="#8A4B3A" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>'
+  legal:'<svg viewBox="0 0 64 64"><path d="M9 64c2-12 11-18 23-18s21 6 23 18z" fill="#1E2A33"/><rect x="28" y="37" width="8" height="10" rx="3" fill="#E6BD99"/><path d="M26 46l6 9 6-9z" fill="#F4F6F8"/><path d="M31 48.5h2l1.4 8-2.4 2.8-2.4-2.8z" fill="#2F6E5E"/><circle cx="21.5" cy="55" r="1.6" fill="#D2A24E"/><ellipse cx="20.3" cy="29.5" rx="2.3" ry="3.3" fill="#D9AC87"/><ellipse cx="43.7" cy="29.5" rx="2.3" ry="3.3" fill="#D9AC87"/><ellipse cx="32" cy="28" rx="12" ry="13.8" fill="#E6BD99"/><path d="M20 28c-1.6-10.2 4.2-16.2 12.2-16.2 8.4 0 13.6 5.8 11.8 16.2-.6-4.8-2.2-7.6-4.4-8.8-5.6.8-11.4-.2-15.2-3.2-2.2 2.8-3.6 6.4-4.4 12z" fill="#2B2622"/><path d="M20.2 27.6c-.6-2.6-.4-5 .4-7.2.8 1.6 1.4 3.8 1.4 6.6zM43.8 27.6c.6-2.6.4-5-.4-7.2-.8 1.6-1.4 3.8-1.4 6.6z" fill="#B8B2AA"/><path d="M25.2 24.8h4.8M34 24.8h4.8" stroke="#2B2622" stroke-width="1.5" stroke-linecap="round"/><rect x="23.6" y="26.4" width="8" height="5.6" rx="2.2" fill="none" stroke="#6B5A45" stroke-width="1.1"/><rect x="32.4" y="26.4" width="8" height="5.6" rx="2.2" fill="none" stroke="#6B5A45" stroke-width="1.1"/><path d="M31.6 28.6h.8" stroke="#6B5A45" stroke-width="1.1"/><circle cx="27.6" cy="29.2" r="1.3" fill="#2B2622"/><circle cx="36.4" cy="29.2" r="1.3" fill="#2B2622"/><path d="M26.4 34.4q1.2.6 2 .2M37.6 34.4q-1.2.6-2 .2" stroke="#C99A77" stroke-width=".9" fill="none" stroke-linecap="round"/><path d="M28.8 35.6q3.2 1.8 6.4 0" stroke="#8A4B3A" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>'
 };
 /* Profile photos supplied by the chairman (AI-generated). Take precedence over the illustrations. */
 const PHOTOS = {
@@ -524,8 +524,8 @@ const DECISION_RE = /^\s*#결정/;
 const LEAD_RE = /^\s*#(지시|결정)\s*/;
 const DECISION_LABEL = {"접수":"접수 · 본부 기록 대기","기록완료":"공식 기록 완료","보류":"보류 · 회장님 확인 필요"};
 const ORDER_LABEL = {"접수":"접수 · 본부 확인 대기","처리중":"본부 처리 중","완료":"처리 완료","보류":"보류 · 회장님 확인 필요"};
-const MENTION_RE = /@(머스크|버핏|워론|잡스|정도윤)/g; // 워론: 이전 이름(호환용)
-const NAME_TO_AGENT = {"머스크":"musk","버핏":"warren","워론":"warren","잡스":"jobs","정도윤":"legal"};
+const MENTION_RE = /@(머스크|버핏|워론|잡스|강현석|정도윤)/g; // 워론·정도윤: 이전 이름(호환용)
+const NAME_TO_AGENT = {"머스크":"musk","버핏":"warren","워론":"warren","잡스":"jobs","강현석":"legal","정도윤":"legal"};
 
 /* ---------- State ---------- */
 const S = {
@@ -586,7 +586,7 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.hidden=false; clea
 function dmId(agent){ return "dm-"+agent+(S.uid?"-"+S.uid:""); }
 function rooms(){
   return [
-    {id:GROUP_ID,name:"SH그룹 전체방",kind:"group",sub:"회장님 · 전략기획팀 머스크 · 감사팀 버핏 · 기술팀 잡스 · 법무팀 정도윤"},
+    {id:GROUP_ID,name:"SH그룹 전체방",kind:"group",sub:"회장님 · 전략기획팀 머스크 · 감사팀 버핏 · 기술팀 잡스 · 법무팀 강현석"},
     {id:dmId("musk"),name:AGENTS.musk.label,kind:"dm",agent:"musk",sub:AGENTS.musk.role},
     {id:dmId("warren"),name:AGENTS.warren.label,kind:"dm",agent:"warren",sub:AGENTS.warren.role},
     {id:dmId("jobs"),name:AGENTS.jobs.label,kind:"dm",agent:"jobs",sub:AGENTS.jobs.role},
@@ -641,7 +641,7 @@ function seedLocal(){
       {room:"dm-musk-"+me,sender:"musk",senderType:"agent",agent:"musk",text:"(예시) 회장님, 일정표 문서 기준으로 정리해 드리겠습니다. 새로 잡을 일정이 있으면 날짜와 시간을 알려 주십시오.",createdAt:t(60*24+21)}
     ],
     notices:[
-      {title:"SH톡 오픈 안내",body:"SH그룹 사내 메신저 SH톡을 시작합니다.\n· 전체방: 그룹 공유사항\n· 1:1 방: 머스크, 버핏, 잡스, 정도윤과 개별 협의\n· 전체방에서 @버핏, @잡스, @머스크, @정도윤으로 담당 임원을 부를 수 있습니다.",createdAt:base,pinned:true},
+      {title:"SH톡 오픈 안내",body:"SH그룹 사내 메신저 SH톡을 시작합니다.\n· 전체방: 그룹 공유사항\n· 1:1 방: 머스크, 버핏, 잡스, 강현석과 개별 협의\n· 전체방에서 @버핏, @잡스, @머스크, @강현석으로 담당 임원을 부를 수 있습니다.",createdAt:base,pinned:true},
       {title:"보고 원칙",body:"수치·시장 정보·비용이 들어간 보고는 버핏 감사팀장의 크로스체크를 거쳐 회장님께 올립니다.",createdAt:base+3600000,pinned:false}
     ]
   };
@@ -825,7 +825,7 @@ function meetRoom(){
   if(unreadHere(r)) b.append(span("badge","N"));
   const art=[span("fscreen"), span("ftable")];
   const top=span("frow top"), bot=span("frow bot");
-  // 정도윤 takes the middle seat across the table so the near side keeps its order.
+  // 강현석 takes the middle seat across the table so the near side keeps its order.
   for(let i=0;i<5;i++){ const c=span(); if(S.meeting && i===2) c.append(fface("legal")); top.append(c); }
   // Leaders take the near side of the table when the meeting is on.
   const seatsFor=["", "musk", "warren", "jobs", ""];
@@ -834,7 +834,7 @@ function meetRoom(){
   art.push(top, bot, head, fplant("a"), fplant("b"));
   for(const a of art){ a.setAttribute("aria-hidden","true"); b.append(a); }
   b.append(span("fdoor top"));
-  b.setAttribute("aria-label","대회의실, SH그룹 전체방"+(S.meeting?" (회의 중: 회장님, 머스크, 버핏, 잡스, 정도윤)":" (비어 있음)")+(unreadHere(r)?", 새 메시지":"")+". 문 열고 들어가기");
+  b.setAttribute("aria-label","대회의실, SH그룹 전체방"+(S.meeting?" (회의 중: 회장님, 머스크, 버핏, 잡스, 강현석)":" (비어 있음)")+(unreadHere(r)?", 새 메시지":"")+". 문 열고 들어가기");
   b.addEventListener("click",()=>enterOffice(b, r.id));
   return b;
 }
@@ -948,7 +948,7 @@ function renderNotices(){
   }
   let list=S.notices.slice().sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0) || (b.createdAt||0)-(a.createdAt||0));
   if(!list.length){
-    list=[{title:"SH톡 사용 안내",body:"· 전체방: 그룹 공유사항을 나눕니다. @버핏, @잡스, @머스크, @정도윤으로 담당 임원을 부를 수 있습니다.\n· 1:1 방: 임원과 개별로 협의합니다.\n· 공지는 회장님만 작성할 수 있습니다.",pinned:true,createdAt:null,_builtin:true}];
+    list=[{title:"SH톡 사용 안내",body:"· 전체방: 그룹 공유사항을 나눕니다. @버핏, @잡스, @머스크, @강현석으로 담당 임원을 부를 수 있습니다.\n· 1:1 방: 임원과 개별로 협의합니다.\n· 공지는 회장님만 작성할 수 있습니다.",pinned:true,createdAt:null,_builtin:true}];
   }
   for(const n of list){
     const c=el("article","notice"+(n.pinned?" pinned":""));
@@ -984,7 +984,7 @@ function openRoom(id){
   // Every room is shown as a room in the office: the leader's own office, or the 대회의실.
   $("roomName").textContent = r.kind==="group" ? "대회의실 ("+(MEETING_ORDER.length+1)+")" : OFFICE[r.agent].room;
   $("roomName").className = "n";
-  $("roomSub").textContent = r.kind==="group" ? "SH그룹 전체방 · 회장님 · 머스크 · 버핏 · 잡스 · 정도윤" : AGENTS[r.agent].name+" · "+AGENTS[r.agent].title+" · "+(S.meeting?"대회의실 회의 중":"재실");
+  $("roomSub").textContent = r.kind==="group" ? "SH그룹 전체방 · 회장님 · 머스크 · 버핏 · 잡스 · 강현석" : AGENTS[r.agent].name+" · "+AGENTS[r.agent].title+" · "+(S.meeting?"대회의실 회의 중":"재실");
   $("roomScreen").className = "screen room office who-"+(r.kind==="group"?"group":r.agent);
   $("backBtn").setAttribute("aria-label", S.tab==="office" ? "사무실로 나가기" : "채팅 목록으로");
   $("chips").classList.toggle("dm", r.kind!=="group");
@@ -1053,7 +1053,7 @@ $("conveneBtn").addEventListener("click", ()=>{
       renderSeats(k);
       meetLine(AGENTS[k].name+" 팀장이 입장했습니다.");
       if(last){
-        meetLine("회의 모드: 메시지를 보내면 머스크 → 잡스 → 정도윤 순서로 답하고, 마지막에 버핏이 감사합니다. @이름으로 부르면 그 팀장이 답하고 버핏이 감사합니다.");
+        meetLine("회의 모드: 메시지를 보내면 머스크 → 잡스 → 강현석 순서로 답하고, 마지막에 버핏이 감사합니다. @이름으로 부르면 그 팀장이 답하고 버핏이 감사합니다.");
       }
     }, step*(i+1));
   });
@@ -1080,7 +1080,7 @@ async function renderRoom(forceBottom){
   const list = S.room===GROUP_ID && S.meetLines.length ? sortAsc(S.roomMsgs.concat(S.meetLines)) : S.roomMsgs;
   if(!list.length){
     const r=roomById(S.room);
-    frag.append(el("div","sysline", r&&r.kind==="dm" ? OFFICE[r.agent].room+"입니다. "+AGENTS[r.agent].name+" 팀장과 1:1로 대화합니다." : "대회의실(SH그룹 전체방)입니다. @버핏, @정도윤처럼 담당 임원을 부르거나, 팀장 소집으로 팀장들을 함께 부를 수 있습니다."));
+    frag.append(el("div","sysline", r&&r.kind==="dm" ? OFFICE[r.agent].room+"입니다. "+AGENTS[r.agent].name+" 팀장과 1:1로 대화합니다." : "대회의실(SH그룹 전체방)입니다. @버핏, @강현석처럼 담당 임원을 부르거나, 팀장 소집으로 팀장들을 함께 부를 수 있습니다."));
   }
   const who=(m)=>m.senderType==="agent" ? "a:"+m.agent : "h:"+m.sender;
   const sameMin=(a,b)=>Math.floor((a.createdAt||0)/60000)===Math.floor((b.createdAt||0)/60000);
@@ -1236,7 +1236,7 @@ async function send(){
   }
   if(S.mode==="local" || !S.sample){
     if(S.mode==="local") toast(r.kind==="group" && S.meeting && agents.length>1
-      ? "미리보기에서는 AI 임원이 답하지 않습니다. 게시된 SH톡에서는 머스크 → 잡스 → 정도윤 순서로 답하고 버핏이 마지막에 감사합니다."
+      ? "미리보기에서는 AI 임원이 답하지 않습니다. 게시된 SH톡에서는 머스크 → 잡스 → 강현석 순서로 답하고 버핏이 마지막에 감사합니다."
       : "미리보기에서는 AI 임원이 답하지 않습니다. 게시된 SH톡에서는 답변마다 버핏이 자동 감사합니다.");
     return;
   }
@@ -1266,8 +1266,8 @@ function runAgents(room, agents, context){
 }
 function buildPrompt(room, agent, transcript, opts){
   const r=roomById(room); const a=AGENTS[agent];
-  let where = r.kind==="group" ? "SH그룹 전체방 = 대회의실 (참여자: 회장님, 머스크, 버핏, 잡스, 정도윤)" : (r.agent===agent ? a.name+"와 1:1 대화방 ("+OFFICE[agent].room+")" : "회장님과 "+AGENTS[r.agent].name+"의 1:1 대화방 ("+OFFICE[r.agent].room+") — 당신은 자동 감사를 위해 이 방에 들어왔습니다");
-  if(r.kind==="group" && S.meeting) where += "\n[회의 중] 회장님이 대회의실에 팀장들을 소집했습니다. 머스크 → 잡스 → 정도윤 순서로 한 명씩 이 채팅창에 글로 답하고, 마지막에 감사팀장 버핏이 앞 답변을 감사합니다. 앞 팀장의 답을 볼 수 있습니다. 2~4문장으로 짧게, 앞 팀장과 겹치지 않게 당신 역할의 의견만 말하세요.";
+  let where = r.kind==="group" ? "SH그룹 전체방 = 대회의실 (참여자: 회장님, 머스크, 버핏, 잡스, 강현석)" : (r.agent===agent ? a.name+"와 1:1 대화방 ("+OFFICE[agent].room+")" : "회장님과 "+AGENTS[r.agent].name+"의 1:1 대화방 ("+OFFICE[r.agent].room+") — 당신은 자동 감사를 위해 이 방에 들어왔습니다");
+  if(r.kind==="group" && S.meeting) where += "\n[회의 중] 회장님이 대회의실에 팀장들을 소집했습니다. 머스크 → 잡스 → 강현석 순서로 한 명씩 이 채팅창에 글로 답하고, 마지막에 감사팀장 버핏이 앞 답변을 감사합니다. 앞 팀장의 답을 볼 수 있습니다. 2~4문장으로 짧게, 앞 팀장과 겹치지 않게 당신 역할의 의견만 말하세요.";
   const lines=transcript.slice(-HISTORY_N).map(m=>{
     let n=speakerName(m);
     if(m.senderType==="human" && !isOwnerId(m.sender)) n="구성원 "+(n==="구성원"?"":n);
