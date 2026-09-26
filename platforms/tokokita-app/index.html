@@ -145,6 +145,8 @@ h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
 .btn.sm{padding:8px 12px;font-size:13.5px;border-radius:11px}
 .btn:disabled{opacity:.45;cursor:default}
 .row2{display:flex;gap:8px;flex-wrap:wrap}
+.mapnote{display:block;font-size:12px;color:var(--muted)}
+.maplinks{display:flex;gap:8px;flex-wrap:wrap}.maplinks .btn{text-decoration:none;flex:1 1 auto}
 .form{display:flex;flex-direction:column;gap:14px;margin-top:10px}
 .field{display:flex;flex-direction:column;gap:6px}
 .field>span{font-size:13px;font-weight:800;color:var(--ink-2)}
@@ -163,10 +165,10 @@ h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
 .stepper b{font-size:20px;min-width:2ch;text-align:center;font-variant-numeric:tabular-nums}
 
 /* slot editor */
-.slotrow{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr) minmax(0,.9fr) minmax(0,1.3fr) auto;gap:6px;align-items:center}
+.slotrow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr) auto;gap:6px;align-items:center}
 .slotrow .input{padding:8px;font-size:14px}
 .slotrow .x{border:0;background:none;color:var(--bad);font-size:20px;cursor:pointer;padding:4px}
-.slothead{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr) minmax(0,.9fr) minmax(0,1.3fr) 28px;gap:6px;font-size:11.5px;font-weight:800;color:var(--muted)}
+.slothead{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr) 28px;gap:6px;font-size:11.5px;font-weight:800;color:var(--muted)}
 
 /* bookings */
 .bk{background:var(--surface);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 var(--line)}
@@ -217,7 +219,7 @@ const L={
   cat_cafe:"카페",cat_eatery:"식당·와룽",cat_bakery:"빵집·디저트",cat_salon:"미용실",cat_barber:"이발소",
   seats:"{n}석",left:"남은 자리 {n}",full:"마감",past:"지남",upTo:"최대",today:"오늘",tomorrow:"내일",
   tag_s3:"야간조 퇴근",tag_s1:"1조 퇴근",tag_s2:"2조 퇴근",tag_quiet:"한가한 시간",tag_none:"",
-  hours:"영업시간",address:"주소",wa:"WhatsApp",about:"소개",reviews:"평점",noRating:"아직 평가 없음",nReviews:"평가 {n}개",
+  hours:"영업시간",address:"주소",mapView:"Google 지도에서 보기",mapDir:"길찾기",mapNote:"Google 지도 앱이나 새 탭에서 열립니다.",mapsLink:"Google 지도 링크 (선택)",mapsHint:"Google 지도에서 가게를 찾아 \u2018공유 → 링크 복사\u2019한 주소를 붙여 넣으면 손님이 정확한 위치로 찾아옵니다. 비워 두면 가게 이름과 주소로 검색합니다.",wa:"WhatsApp",about:"소개",reviews:"평점",noRating:"아직 평가 없음",nReviews:"평가 {n}개",
   pickSlot:"시간을 골라 주세요",party:"인원",bookBtn:"{t} 예약 · {o}% 할인",howTitle:"이렇게 할인돼요",
   how:"① 원하는 시간을 골라 예약 → ② 예약 코드를 받음 → ③ 가게에서 계산할 때 코드를 보여 주면 그 자리에서 할인. 미리 돈을 내지 않아요.",
   fine:"할인은 매장 정가 기준 음식·서비스 금액에 적용됩니다. 주류·담배·일부 세일 상품은 가게 사정에 따라 제외될 수 있어요.",
@@ -227,7 +229,7 @@ const L={
   needCust:"예약하려면 손님 등록이 필요해요",needCustS:"이름만 넣으면 바로 예약할 수 있어요. 둘러보기는 계속 가능해요.",goCust:"손님으로 등록",later:"나중에",
   joinCust:"손님 등록 (B그룹)",joinShop:"가게 등록 (A그룹)",joinShopS:"가게 정보와 시간대별 할인을 올리면 동네 손님이 예약할 수 있어요.",
   name:"이름 (닉네임)",shopName:"가게 이름",addrPh:"예: Jl. Niaga Raya No. 12, Jababeka",waPh:"예: 0812-xxxx-xxxx",aboutPh:"예: 공단 정문 앞 20년 된 와룽. 소토 아얌이 대표 메뉴.",
-  slotsTitle:"시간대별 할인",slotsHint:"한가한 시간일수록 할인을 크게 걸면 자리가 채워져요. 최대 70%.",addSlot:"+ 시간대 추가",preset:"공장 3교대 추천 세트",
+  slotsTitle:"시간대별 할인",slotsHint:"한가한 시간일수록 할인을 크게 걸면 자리가 채워져요. 최대 70%.",addSlot:"+ 시간대 추가",preset:"추천 시간표 불러오기",
   colTime:"시간",colOff:"할인 %",colSeats:"자리",colTag:"표시",
   consent:"사내 비공개 테스트용입니다. 입력한 정보는 테스트 참가자에게만 보이며 테스트 후 삭제됩니다.",register:"등록하기",save:"저장",saved:"저장했어요.",registered:"등록했어요.",
   dash:"오늘 가게 현황",stBook:"오늘 예약",stVisit:"방문",stNoshow:"노쇼",stRate:"평점",verifyTitle:"손님 코드 확인",verifyPh:"예: TK-7F3K",verifyBtn:"확인",
@@ -247,7 +249,7 @@ const L={
   cat_cafe:"Kafe",cat_eatery:"Warung·Resto",cat_bakery:"Roti·Dessert",cat_salon:"Salon",cat_barber:"Pangkas rambut",
   seats:"{n} kursi",left:"Sisa {n}",full:"Penuh",past:"Lewat",upTo:"s.d.",today:"Hari ini",tomorrow:"Besok",
   tag_s3:"Pulang shift malam",tag_s1:"Pulang shift 1",tag_s2:"Pulang shift 2",tag_quiet:"Jam sepi",tag_none:"",
-  hours:"Jam buka",address:"Alamat",wa:"WhatsApp",about:"Tentang",reviews:"Rating",noRating:"Belum ada rating",nReviews:"{n} ulasan",
+  hours:"Jam buka",address:"Alamat",mapView:"Lihat di Google Maps",mapDir:"Petunjuk arah",mapNote:"Terbuka di aplikasi Google Maps atau tab baru.",mapsLink:"Link Google Maps (opsional)",mapsHint:"Cari toko Anda di Google Maps, pilih \u2018Bagikan → Salin link\u2019, lalu tempel di sini agar pelanggan menemukan lokasi yang tepat. Jika kosong, dicari dari nama dan alamat toko.",wa:"WhatsApp",about:"Tentang",reviews:"Rating",noRating:"Belum ada rating",nReviews:"{n} ulasan",
   pickSlot:"Pilih jamnya dulu",party:"Jumlah orang",bookBtn:"Pesan {t} · diskon {o}%",howTitle:"Cara dapat diskon",
   how:"① Pilih jam lalu pesan → ② Dapat kode pesanan → ③ Tunjukkan kode saat bayar di toko, diskon langsung dipotong. Tanpa bayar di muka.",
   fine:"Diskon berlaku untuk harga normal makanan/layanan di toko. Rokok, minuman beralkohol, dan produk promo tertentu bisa dikecualikan.",
@@ -257,7 +259,7 @@ const L={
   needCust:"Daftar sebagai pelanggan untuk memesan",needCustS:"Cukup isi nama, lalu langsung pesan. Kamu tetap bisa lihat-lihat.",goCust:"Daftar pelanggan",later:"Nanti",
   joinCust:"Daftar pelanggan (Grup B)",joinShop:"Daftar toko (Grup A)",joinShopS:"Isi info toko dan diskon per jam agar pelanggan sekitar bisa memesan.",
   name:"Nama (panggilan)",shopName:"Nama toko",addrPh:"Contoh: Jl. Niaga Raya No. 12, Jababeka",waPh:"Contoh: 0812-xxxx-xxxx",aboutPh:"Contoh: Warung 20 tahun di depan gerbang pabrik. Andalan: soto ayam.",
-  slotsTitle:"Diskon per jam",slotsHint:"Makin sepi jamnya, makin besar diskonnya — kursi jadi terisi. Maks. 70%.",addSlot:"+ Tambah jam",preset:"Paket 3 shift pabrik",
+  slotsTitle:"Diskon per jam",slotsHint:"Makin sepi jamnya, makin besar diskonnya — kursi jadi terisi. Maks. 70%.",addSlot:"+ Tambah jam",preset:"Pakai jadwal contoh",
   colTime:"Jam",colOff:"Diskon %",colSeats:"Kursi",colTag:"Label",
   consent:"Untuk uji coba internal. Data hanya terlihat oleh peserta uji dan dihapus setelah uji selesai.",register:"Daftar",save:"Simpan",saved:"Tersimpan.",registered:"Terdaftar.",
   dash:"Kondisi toko hari ini",stBook:"Pesanan",stVisit:"Datang",stNoshow:"Tidak datang",stRate:"Rating",verifyTitle:"Cek kode pelanggan",verifyPh:"Contoh: TK-7F3K",verifyBtn:"Cek",
@@ -277,7 +279,7 @@ const L={
   cat_cafe:"Café",cat_eatery:"Warung·Eatery",cat_bakery:"Bakery·Dessert",cat_salon:"Hair salon",cat_barber:"Barber",
   seats:"{n} seats",left:"{n} left",full:"Full",past:"Past",upTo:"up to",today:"Today",tomorrow:"Tomorrow",
   tag_s3:"Night shift out",tag_s1:"Shift 1 out",tag_s2:"Shift 2 out",tag_quiet:"Quiet hour",tag_none:"",
-  hours:"Hours",address:"Address",wa:"WhatsApp",about:"About",reviews:"Rating",noRating:"No ratings yet",nReviews:"{n} reviews",
+  hours:"Hours",address:"Address",mapView:"View on Google Maps",mapDir:"Directions",mapNote:"Opens in the Google Maps app or a new tab.",mapsLink:"Google Maps link (optional)",mapsHint:"Find your shop on Google Maps, tap \u2018Share → Copy link\u2019 and paste it here so customers reach the exact spot. Left empty, we search by shop name and address.",wa:"WhatsApp",about:"About",reviews:"Rating",noRating:"No ratings yet",nReviews:"{n} reviews",
   pickSlot:"Pick a time first",party:"Party size",bookBtn:"Book {t} · {o}% off",howTitle:"How the discount works",
   how:"① Pick a time and book → ② Get a booking code → ③ Show the code when you pay at the shop and the discount comes off right there. Nothing to pay upfront.",
   fine:"The discount applies to the shop's regular menu or service price. Tobacco, alcohol and some promo items may be excluded.",
@@ -287,7 +289,7 @@ const L={
   needCust:"Sign up as a customer to book",needCustS:"Just enter a name and book right away. You can keep browsing either way.",goCust:"Sign up as customer",later:"Later",
   joinCust:"Customer sign-up (Group B)",joinShop:"Shop sign-up (Group A)",joinShopS:"Add your shop details and hourly discounts so neighbors can book.",
   name:"Name (nickname)",shopName:"Shop name",addrPh:"e.g. Jl. Niaga Raya No. 12, Jababeka",waPh:"e.g. 0812-xxxx-xxxx",aboutPh:"e.g. 20-year-old warung at the factory gate. Known for soto ayam.",
-  slotsTitle:"Hourly discounts",slotsHint:"Bigger discounts in quiet hours fill empty seats. Up to 70%.",addSlot:"+ Add a time",preset:"Factory 3-shift set",
+  slotsTitle:"Hourly discounts",slotsHint:"Bigger discounts in quiet hours fill empty seats. Up to 70%.",addSlot:"+ Add a time",preset:"Use suggested schedule",
   colTime:"Time",colOff:"Off %",colSeats:"Seats",colTag:"Label",
   consent:"For internal testing only. Your details are visible only to test participants and deleted after the test.",register:"Sign up",save:"Save",saved:"Saved.",registered:"You're in.",
   dash:"Today at your shop",stBook:"Bookings",stVisit:"Visited",stNoshow:"No-show",stRate:"Rating",verifyTitle:"Check a customer code",verifyPh:"e.g. TK-7F3K",verifyBtn:"Check",
@@ -438,9 +440,14 @@ function strip(shop,date,opts){opts=opts||{};const d=el("div","strip"+(opts.big?
   for(const sl of list){const st=slotState(shop,sl,date);const b=el(opts.pick?"button":"div","slot"+(sl.off===top&&top>0?" hot":"")+(st.past?" past":"")+(st.full&&!st.past?" full":""));
     if(opts.pick){b.type="button";b.setAttribute("aria-pressed",String(opts.sel===sl.t));b.disabled=st.past||st.full;b.addEventListener("click",()=>opts.pick(sl));}else b.setAttribute("role","listitem");
     b.append(el("span","t",sl.t),el("span","o","−"+(sl.off||0)+"%"),el("span","s",st.past?T("past"):st.full?T("full"):T("left",{n:st.left})));
-    if(sl.tag&&sl.tag!=="none")b.append(el("span","tag",T("tag_"+sl.tag)));
     b.setAttribute("aria-label",sl.t+", "+(sl.off||0)+"%, "+(st.past?T("past"):st.full?T("full"):T("left",{n:st.left})));d.append(b);}
   return d;}
+function mapQ(s){return [s.name,s.address,s.area,"Bekasi"].filter(Boolean).join(", ");}
+function mapUrl(s){return okMaps(s.maps)?s.maps:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(mapQ(s));}
+function dirUrl(s){return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(mapQ(s));}
+function okMaps(u){return typeof u==="string"&&/^https:\/\/(maps\.app\.goo\.gl|goo\.gl\/maps|(www\.)?google\.[a-z.]+\/maps)\//.test(u.trim());}
+function mapLinks(s,only){const r=el("div","maplinks");const a=(cls,txt,href)=>{const x=el("a","btn sm "+cls,txt);x.href=href;x.target="_blank";x.rel="noopener";return x;};
+  if(only!=="dir")r.append(a("ghost","📍 "+T("mapView"),mapUrl(s)));r.append(a(only==="dir"?"ghost":"dark","🧭 "+T("mapDir"),dirUrl(s)));return r;}
 function shopCard(s){
   const c=btn("shopcard",null,()=>go("shop",{id:s.id}));const hd=el("div","hd");const tx=el("div","tx");const st=shopStats(s.id);
   const nm=el("b",null,s.name);if(s.sample)nm.append(el("span","samp",T("sample")));
@@ -455,7 +462,7 @@ function viewHome(){
   const bests=S.shops.map(s=>({s,b:bestNow(s)})).filter(x=>x.b).sort((a,b)=>b.b.off-a.b.off).slice(0,3);
   if(!bests.length)now.append(el("p",null,S.loaded?T("noNow"):"…"));
   bests.forEach(({s,b})=>{const x=btn("best",null,()=>go("shop",{id:s.id}));const tx=el("div","tx");const dm=mins(b.t)-nm;
-    tx.append(el("b",null,s.name),el("small",null,b.t+" · "+(dm<=5?T("now"):dm<60?T("minutes",{n:dm}):T("hoursMin",{h:Math.floor(dm/60),m:dm%60}))+(b.tag&&b.tag!=="none"?" · "+T("tag_"+b.tag):"")));
+    tx.append(el("b",null,s.name),el("small",null,b.t+" · "+(dm<=5?T("now"):dm<60?T("minutes",{n:dm}):T("hoursMin",{h:Math.floor(dm/60),m:dm%60}))));
     const o=el("div","topoff");o.append(el("b",null,"−"+b.off+"%"));x.append(cover(s),tx,o);now.append(x);});
   g.append(now);
   const sec=el("section","section");const h=el("div","shead");h.append(el("h2",null,T("nearby")),el("small",null,T("shopsN",{n:S.shops.length})));
@@ -493,7 +500,7 @@ function viewShop(id){
   sec.append(hd,dt,stripBox,pf);drawStrip();updBtn();
   const how=el("div","box");how.append(el("b",null,T("howTitle")),el("div",null,T("how")),el("div","fine",T("fine")));
   const info=el("div","box");const kv=(k,v)=>{const r=el("div","kv");r.append(el("span",null,k),el("b",null,v||"—"));return r;};
-  info.append(kv(T("hours"),s.hours),kv(T("address"),s.address),kv(T("wa"),s.wa));if(s.about)info.append(el("div",null,s.about));
+  info.append(kv(T("hours"),s.hours),kv(T("address"),s.address),mapLinks(s),el("small","mapnote",T("mapNote")),kv(T("wa"),s.wa));if(s.about)info.append(el("div",null,s.about));
   g.append(sec,el("div","section"),how,el("div","section"),info);
   const revs=S.bookings.filter(b=>b.shopUid===id&&b.rating).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).slice(0,8);
   if(revs.length){const rs=el("section","section");const rh=el("div","shead");rh.append(el("h2",null,T("reviews")));const bx=el("div","box");
@@ -524,7 +531,7 @@ function bookingCard(b,side){
   tx.append(el("b",null,side==="cust"?b.shopName:b.custName),el("small",null,b.date+" · "+b.slot+" · "+T("peopleN",{n:b.party})+" · −"+b.off+"%"));
   hd.append(side==="cust"?cover(shop):el("span","topoff",b.slot),tx,el("span","st st-"+b.status,T("s_"+b.status)));c.append(hd);
   const upd=async p=>{if(!guard())return;try{await S.db.doc("bookings/"+b.id).update(Object.assign(p,{updatedAt:Date.now()}));}catch(e){toast(werr(e));}};
-  if(side==="cust"&&b.status==="booked"){c.append(el("small",null,T("showCode")),el("div","code",b.code));const r=el("div","row2");r.append(btn("btn sm ghost",T("cancel"),()=>{upd({status:"cancelled"});toast(T("cancelled"));}));c.append(r);}
+  if(side==="cust"&&b.status==="booked"){c.append(el("small",null,T("showCode")),el("div","code",b.code));const r=el("div","row2");if(shop.id)r.append(mapLinks(shop,"dir"));r.append(btn("btn sm ghost",T("cancel"),()=>{upd({status:"cancelled"});toast(T("cancelled"));}));c.append(r);}
   if(side==="cust"&&b.status==="visited"&&!b.rating){let rt=5;const rr=el("div","rate");rr.setAttribute("role","radiogroup");rr.setAttribute("aria-label",T("rateIt"));
     const paint=()=>[...rr.children].forEach((x,i)=>{x.classList.toggle("on",i<rt);x.setAttribute("aria-checked",String(i+1===rt));});
     for(let i=1;i<=5;i++){const x=btn(null,"★",()=>{rt=i;paint();});x.setAttribute("role","radio");x.setAttribute("aria-label",String(i));rr.append(x);}paint();
@@ -571,25 +578,24 @@ const PRESET=[{t:"07:30",off:30,seats:8,tag:"s3"},{t:"10:00",off:20,seats:8,tag:
 function viewJoinShop(){
   const cur=myShop()||{};const g=el("div","gutter");g.append(el("h1","pagetitle",T("joinShop")),el("p","lead",T("joinShopS")));const f=el("form","form");
   const nm=inp("s-name",cur.name,{maxLength:50,required:true});const ct=sel("s-cat",CATS.map(c=>[c,T("cat_"+c)]),cur.cat||"eatery");const ar=sel("s-area",AREAS.map(a=>[a,a]),cur.area||AREAS[0]);
-  const ad=inp("s-addr",cur.address,{maxLength:120,placeholder:T("addrPh")});const wa=inp("s-wa",cur.wa,{maxLength:20,placeholder:T("waPh"),inputMode:"tel"});
+  const ad=inp("s-addr",cur.address,{maxLength:120,placeholder:T("addrPh")});const mp=inp("s-maps",cur.maps,{maxLength:300,placeholder:"https://maps.app.goo.gl/…",inputMode:"url"});const wa=inp("s-wa",cur.wa,{maxLength:20,placeholder:T("waPh"),inputMode:"tel"});
   const h1=inp("s-open",(cur.hours||"07:00–23:30").split("–")[0],{type:"time"});const h2=inp("s-close",(cur.hours||"07:00–23:30").split("–")[1],{type:"time"});
   const hw=el("div","row2");hw.append(h1,el("span",null,"–"),h2);h1.style.flex=h2.style.flex="1";
   const ab=el("textarea","input");ab.id="s-about";ab.maxLength=300;ab.value=cur.about||"";ab.placeholder=T("aboutPh");
   let slots=(cur.slots&&cur.slots.length?cur.slots:PRESET).map(x=>Object.assign({},x));
   const sb2=el("div","box");const rows=el("div");rows.style.cssText="display:flex;flex-direction:column;gap:6px";
-  const drawRows=()=>{rows.replaceChildren();const hd=el("div","slothead");[T("colTime"),T("colOff"),T("colSeats"),T("colTag"),""].forEach(x=>hd.append(el("span",null,x)));rows.append(hd);
+  const drawRows=()=>{rows.replaceChildren();const hd=el("div","slothead");[T("colTime"),T("colOff"),T("colSeats"),""].forEach(x=>hd.append(el("span",null,x)));rows.append(hd);
     slots.forEach((x,i)=>{const r=el("div","slotrow");const t=inp("sl-t-"+i,x.t,{type:"time"});const o=inp("sl-o-"+i,x.off,{type:"number",min:5,max:70,step:5,inputMode:"numeric"});const se=inp("sl-s-"+i,x.seats,{type:"number",min:1,max:99,inputMode:"numeric"});
-      const tg=sel("sl-g-"+i,TAGS.map(k=>[k,k==="none"?"—":T("tag_"+k)]),x.tag||"none");
-      t.addEventListener("change",()=>x.t=t.value);o.addEventListener("input",()=>x.off=Math.min(70,Math.max(0,Math.round(+o.value||0))));se.addEventListener("input",()=>x.seats=Math.max(1,Math.round(+se.value||1)));tg.addEventListener("change",()=>x.tag=tg.value);
-      [t,o,se,tg].forEach((e,k)=>e.setAttribute("aria-label",[T("colTime"),T("colOff"),T("colSeats"),T("colTag")][k]+" "+(i+1)));
-      const xb=btn("x","×",()=>{slots.splice(i,1);drawRows();});xb.setAttribute("aria-label","remove "+(i+1));r.append(t,o,se,tg,xb);rows.append(r);});};
+      t.addEventListener("change",()=>x.t=t.value);o.addEventListener("input",()=>x.off=Math.min(70,Math.max(0,Math.round(+o.value||0))));se.addEventListener("input",()=>x.seats=Math.max(1,Math.round(+se.value||1)));
+      [t,o,se].forEach((e,k)=>e.setAttribute("aria-label",[T("colTime"),T("colOff"),T("colSeats")][k]+" "+(i+1)));
+      const xb=btn("x","×",()=>{slots.splice(i,1);drawRows();});xb.setAttribute("aria-label","remove "+(i+1));r.append(t,o,se,xb);rows.append(r);});};
   drawRows();const acts=el("div","row2");acts.append(btn("btn sm ghost",T("addSlot"),()=>{slots.push({t:"12:00",off:10,seats:6,tag:"none"});drawRows();}),btn("btn sm ghost",T("preset"),()=>{slots=PRESET.map(x=>Object.assign({},x));drawRows();}));
   sb2.append(el("b",null,T("slotsTitle")),el("small",null,T("slotsHint")),rows,acts);
-  f.append(field(T("shopName"),nm),field(T("cat"),ct),field(T("area"),ar),field(T("address"),ad),field(T("wa"),wa),field(T("hours"),hw),field(T("about"),ab),sb2);
+  f.append(field(T("shopName"),nm),field(T("cat"),ct),field(T("area"),ar),field(T("address"),ad),field(T("mapsLink"),mp),el("div","fine",T("mapsHint")),field(T("wa"),wa),field(T("hours"),hw),field(T("about"),ab),sb2);
   if(!cur.name)f.append(consent());const sb=el("button","btn block",cur.name?T("save"):T("register"));sb.type="submit";f.append(sb);
   f.addEventListener("submit",async e=>{e.preventDefault();if(!guard())return;if(!nm.value.trim()){nm.focus();return;}
     const clean=slots.filter(x=>/^\d\d:\d\d$/.test(x.t)).map(x=>({t:x.t,off:Math.min(70,Math.max(0,+x.off||0)),seats:Math.max(1,+x.seats||1),tag:x.tag||"none"}));sb.disabled=true;
-    try{await S.db.doc("shops/"+S.uid).set({name:nm.value.trim(),cat:ct.value,area:ar.value,address:ad.value.trim(),wa:wa.value.trim(),hours:h1.value+"–"+h2.value,about:ab.value.trim(),slots:clean,uid:S.uid,createdAt:cur.createdAt||Date.now(),updatedAt:Date.now()});
+    try{await S.db.doc("shops/"+S.uid).set({name:nm.value.trim(),cat:ct.value,area:ar.value,address:ad.value.trim(),maps:okMaps(mp.value)?mp.value.trim():"",wa:wa.value.trim(),hours:h1.value+"–"+h2.value,about:ab.value.trim(),slots:clean,uid:S.uid,createdAt:cur.createdAt||Date.now(),updatedAt:Date.now()});
       S.as="shop";lsSet("tk.as","shop");toast(cur.name?T("saved"):T("registered"));S.stack=[];tab("bookings");}catch(err){toast(werr(err));sb.disabled=false;}});
   g.append(f);return g;
 }

@@ -14,7 +14,7 @@
 |------|------|------|------|----------|
 | SSN 로드맵 | 2호 프로젝트 설립·출시 일정 추적 (단계·기한·담당·상태) | `platforms/ssn-roadmap/` | v1 게시 (비공개) | https://claude.ai/artifact/7jpVYBhsgWDgk1UcUKjxwZ |
 | SalamSeleb 앱 시제품 | 2호 SSN 핸드폰 앱 사내 비공개 시제품 (둘러보기·Seleb(A)·팬(B) 등록, 영상 신청, 수락→전달→만족·정산 흐름, 결제 없음, 한국어/인니어) | `platforms/salamseleb-app/` | v0.8.2 게시 (비공개, 샘플 Seleb 17명 + 회장님 Seleb, 예시 사진 18장 모두 다르게, 댄서/마술사/셰프 분야, Seleb 영상 첨부·팬 워터마크 저화질 미리보기·정산 후 원본 다운로드, 팬·Seleb 로그인/로그아웃 전환, 샘플 Seleb 10명, 별점·등급·평점순 정렬·Seleb 답글·예시 프로필 사진·8개 언어: 한국어·인니어·영어·중국어·일본어·독일어·스페인어·아랍어) | https://claude.ai/artifact/BccBepXFvxprvK6dRvE4g8 |
-| Tokokita 앱 MVP | 3호 가게(A)·손님(B) 등록·로그인 전환, 가게 대표 음식 사진(자동 배정), 첫 화면 "동네 가게 살리는 할인 쿠폰" 소개(사진·할인 배지), 시간대별 할인표, 예약 코드, 사장님 코드 확인·노쇼, 3교대 할인 세트, 별점, 한/인니/영 | `platforms/tokokita-app/` | v0.2 게시 (비공개) | https://claude.ai/artifact/F7uLjuAQiiX9bLKfKdUge3 |
+| Tokokita 앱 MVP | 3호 가게(A)·손님(B) 등록·로그인 전환, 가게 대표 음식 사진(자동 배정), 첫 화면 "동네 가게 살리는 할인 쿠폰" 소개(사진·할인 배지), 시간대별 할인표, 예약 코드, 사장님 코드 확인·노쇼, 추천 시간표, Google 지도 보기·길찾기, 별점, 한/인니/영 | `platforms/tokokita-app/` | v0.2 게시 (비공개) | https://claude.ai/artifact/F7uLjuAQiiX9bLKfKdUge3 |
 | SH톡 | 그룹 구성원 정보 공유·대화용 메신저 (휴대폰형, AI 임원 답장, `#지시` 처리 — `sh-talk-orders.md`, 음성 입력, 사무실 복도·팀장실·대회의실 입장 화면, 팀장 답변마다 버핏 자동 감사, 법무팀장실 추가) | `platforms/sh-talk/` | v1 게시 (비공개) | https://claude.ai/artifact/KMj3x3LBCMtvuEw1ep1wkc |
 
 ## 기존 자산 (그룹 출범 전)
