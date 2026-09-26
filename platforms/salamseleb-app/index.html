@@ -1,7 +1,7 @@
 <title>SalamSeleb</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap">
 <style>
 :root{
   --bg:#F2F5F3; --surface:#FFFFFF; --surface-2:#E8EEEA; --line:#D8E0DB;
@@ -10,7 +10,7 @@
   --deep:#0F3B33; --deep-ink:#F1F7F4; --gold:#D98E1E; --gold-soft:#FBEBD1;
   --ok:#1F8A5B; --ok-soft:#DDF2E7; --warn:#B26A00; --warn-soft:#FBEBD2; --bad:#C0392B; --bad-soft:#F9DEDB;
   --shadow:0 10px 30px -12px rgba(15,59,51,.28);
-  --font:"Plus Jakarta Sans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --font:"Plus Jakarta Sans","Noto Sans KR","Noto Sans SC","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){color-scheme:dark;
@@ -44,6 +44,10 @@ h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
 .brand b{color:var(--accent);font-weight:800}
 .top .sp{flex:1}
 .iconbtn{border:0;background:var(--surface);width:38px;height:38px;border-radius:12px;display:grid;place-items:center;cursor:pointer;box-shadow:0 1px 0 var(--line)}
+.langrow{align-items:center}
+.langrow .flag{font-size:26px;line-height:1;flex:none}
+.langrow[aria-pressed="true"]{background:var(--accent-soft)}
+.langrow .chk{color:var(--accent);font-weight:800;font-size:18px}
 .lang{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 11px;font-size:12.5px;font-weight:700;cursor:pointer}
 .testtag{font-size:11px;font-weight:700;color:var(--warn);background:var(--warn-soft);border-radius:99px;padding:3px 8px;white-space:nowrap}
 
@@ -246,7 +250,7 @@ const L={
   f_join:"님이 Seleb으로 합류했어요",f_req:"에게 {o} 영상 신청이 들어왔어요",f_done:"의 {o} 영상이 전달 완료됐어요",
   from:"보낸 사람",to:"받는 사람",asOf:"요청일",sampleNote:"샘플 Seleb은 실제로 응답하지 않아요.",
   noWrite:"이 화면에서는 저장할 수 없어요. 회장님이 SalamSeleb을 공유할 때 '참여자' 권한을 주세요.",noDb:"데이터에 연결할 수 없어요. claude.ai에서 열어 주세요.",
-  back:"뒤로",resultN:"명",sortPrice:"가격 낮은 순",sortNew:"새로운 순",about2:"SalamSeleb 시제품 v0.4 · SH그룹 기술팀 · 프로필 사진은 AI로 만든 예시 이미지이며 실제 인물이 아닙니다",
+  back:"뒤로",resultN:"명",sortPrice:"가격 낮은 순",sortNew:"새로운 순",about2:"SalamSeleb 시제품 v0.5 · SH그룹 기술팀 · 프로필 사진은 AI로 만든 예시 이미지이며 실제 인물이 아닙니다",
   cat_mc:"MC·사회자",cat_singer:"가수",cat_comedian:"코미디언",cat_creator:"크리에이터",cat_actor:"배우",cat_athlete:"운동선수",
   oc_birthday:"생일",oc_wedding:"결혼",oc_baby:"돌잔치·출산",oc_company:"회사 행사",oc_cheer:"응원",oc_other:"기타",
   lg_id:"인도네시아어",lg_en:"영어",lg_ko:"한국어",lg_jv:"자바어",newbie:"신규",noRating:"아직 평가 없음",nReviews:"평가 {n}개",reviewPh:"후기 (선택): 어떤 점이 좋았나요?",sampleReview:"샘플 평가",rateHint:"거래가 끝나면 팬(B그룹)이 별 1~5개로 평가합니다.",sortRating:"평점 높은 순",sortRec:"추천 순",
@@ -254,7 +258,8 @@ const L={
   tierBody:"등급은 완료한 영상 수와 팬 평균 별점으로 자동으로 정해집니다. 등급이 높을수록 홈과 추천 순에서 위쪽에 보입니다.",
   tierRule_top:"완료 15건 이상 · 평균 4.7 이상",tierRule_gold:"완료 5건 이상 · 평균 4.5 이상",tierRule_silver:"완료 2건 이상 · 평균 4.0 이상",tierRule_rising:"그 밖의 모든 Seleb",
   tierNext:"다음 단계에서는 유료 구독으로 노출을 더 높이는 기능(회장님 구상)을 붙일 수 있어요.",close:"닫기",
-  replyLbl:"Seleb 답글",replyPh:"후기에 답글 달기 (감사 인사 등)",replyBtn:"답글 달기",replied:"답글을 달았어요."},
+  replyLbl:"Seleb 답글",replyPh:"후기에 답글 달기 (감사 인사 등)",replyBtn:"답글 달기",replied:"답글을 달았어요.",
+  justNow:"방금",minAgo:"{n}분 전",hrAgo:"{n}시간 전",dayAgo:"{n}일 전",dayUnit:"{n}일",respLbl:"응답",saveFail:"저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.",bioPh:"예: 찌까랑 결혼식 MC 8년 차. 분위기를 확 띄우는 축하 멘트 전문!",recPh:"예: 사리 (엄마)",viewMySeleb:"내 Seleb 페이지 보기",showWelcome:"시작 화면 다시 보기",langTitle:"언어 선택",lg_zh:"중국어"},
  id:{tagline:"Seleb favoritmu merayakan harimu",hello:"Tempat Seleb dan fans bertemu",helloSub:"Dapatkan video ucapan dari Seleb untuk ulang tahun, pernikahan, syukuran, dan acara kantor.",
   asSeleb:"Mulai sebagai Seleb",asSelebSub:"Pasang profil dan terima permintaan video (Grup A)",asFan:"Mulai sebagai Fans",asFanSub:"Pilih Seleb dan pesan video ucapan (Grup B)",browse:"Lihat-lihat dulu tanpa daftar",
   testNote:"Prototipe internal · tanpa pembayaran sungguhan",test:"Prototipe",home:"Beranda",find:"Cari",activity:"Aktivitas",me:"Saya",
@@ -279,7 +284,7 @@ const L={
   f_join:" bergabung sebagai Seleb",f_req:" menerima pesanan video {o}",f_done:" mengirim video {o}",
   from:"Dari",to:"Untuk",asOf:"Tanggal pesan",sampleNote:"Seleb contoh tidak membalas pesanan.",
   noWrite:"Tidak bisa menyimpan di tampilan ini. Minta akses 'Kontributor' dari pemilik.",noDb:"Data tidak terhubung. Buka di claude.ai.",
-  back:"Kembali",resultN:"orang",sortPrice:"Harga terendah",sortNew:"Terbaru",about2:"Prototipe SalamSeleb v0.4 · Tim Teknologi SH Group · Foto profil adalah contoh buatan AI, bukan orang sungguhan",
+  back:"Kembali",resultN:"orang",sortPrice:"Harga terendah",sortNew:"Terbaru",about2:"Prototipe SalamSeleb v0.5 · Tim Teknologi SH Group · Foto profil adalah contoh buatan AI, bukan orang sungguhan",
   cat_mc:"MC",cat_singer:"Penyanyi",cat_comedian:"Komedian",cat_creator:"Kreator",cat_actor:"Aktor",cat_athlete:"Atlet",
   oc_birthday:"Ulang tahun",oc_wedding:"Pernikahan",oc_baby:"Syukuran bayi",oc_company:"Acara kantor",oc_cheer:"Semangat",oc_other:"Lainnya",
   lg_id:"Indonesia",lg_en:"Inggris",lg_ko:"Korea",lg_jv:"Jawa",newbie:"Baru",noRating:"Belum ada rating",nReviews:"{n} ulasan",reviewPh:"Ulasan (opsional): apa yang kamu suka?",sampleReview:"Ulasan contoh",rateHint:"Setelah transaksi, fans (Grup B) memberi 1–5 bintang.",sortRating:"Rating tertinggi",sortRec:"Rekomendasi",
@@ -287,13 +292,89 @@ const L={
   tierBody:"Level ditentukan otomatis dari jumlah video selesai dan rata-rata bintang dari fans. Makin tinggi level, makin atas posisinya di Beranda dan Rekomendasi.",
   tierRule_top:"≥15 selesai · rata-rata ≥4,7",tierRule_gold:"≥5 selesai · rata-rata ≥4,5",tierRule_silver:"≥2 selesai · rata-rata ≥4,0",tierRule_rising:"Semua Seleb lainnya",
   tierNext:"Tahap berikutnya: langganan berbayar untuk menaikkan posisi.",close:"Tutup",
-  replyLbl:"Balasan Seleb",replyPh:"Balas ulasan (ucapan terima kasih, dll.)",replyBtn:"Balas",replied:"Balasan terkirim."}
+  replyLbl:"Balasan Seleb",replyPh:"Balas ulasan (ucapan terima kasih, dll.)",replyBtn:"Balas",replied:"Balasan terkirim.",
+  justNow:"baru saja",minAgo:"{n} mnt lalu",hrAgo:"{n} jam lalu",dayAgo:"{n} hari lalu",dayUnit:"{n} hari",respLbl:"Respons",saveFail:"Gagal menyimpan. Coba lagi sebentar.",bioPh:"Contoh: MC pernikahan 8 tahun di Cikarang.",recPh:"Contoh: Sari (Ibu)",viewMySeleb:"Lihat halaman Seleb saya",showWelcome:"Lihat layar awal",langTitle:"Pilih bahasa",lg_zh:"Mandarin"},
+ en:{tagline:"Your favorite Seleb celebrates your day",hello:"Where Selebs and fans meet",helloSub:"Get a personal video greeting from a Seleb for birthdays, weddings, baby celebrations and company events.",
+  asSeleb:"Start as a Seleb",asSelebSub:"Post your profile and receive video requests (Group A)",asFan:"Start as a fan",asFanSub:"Pick a Seleb and request a video greeting (Group B)",browse:"Just look around first",
+  testNote:"Internal prototype · no real payments",test:"Prototype",home:"Home",find:"Search",activity:"Activity",me:"Me",
+  heroT:"Who will you send a greeting to this week?",heroS:"MCs, singers and creators from Cikarang are ready.",heroCta:"Find a Seleb",
+  searchPh:"Search by name or category",featured:"Selebs active now",seeAll:"See all",feed:"Recent activity",all:"All",
+  sample:"Sample",days:"days",video:"Video",reviews:"Rating",done:"Done",requestBtn:"Request a video greeting",
+  about:"About",langs:"Languages",city:"City",noSeleb:"No Selebs registered yet.",noFeed:"No activity yet. Make the first request!",
+  joinA:"Join as a Seleb (Group A)",joinAS:"Post your profile so fans can request videos.",joinB:"Join as a fan (Group B)",joinBS:"Once you join, you can request video greetings.",
+  stageName:"Stage name",category:"Category",bio:"About you",price:"Price per video (Rp)",resp:"Response time (days)",nick:"Name (nickname)",
+  consent:"For internal testing only. Your details are visible only to test participants and will be deleted after the test.",register:"Join",
+  needFan:"Join as a fan to request",needFanS:"Just enter a name and you can request right away. You can keep browsing either way.",goJoinB:"Join as a fan",later:"Later",
+  reqTitle:"Request a video greeting",forWhom:"Who is this video for?",forMe:"For me",forOther:"For someone else",recipient:"Recipient's name",occasion:"What's the occasion?",
+  note:"Your message to the Seleb",notePh:"e.g. It's my mom's 60th birthday. Please say 'We love you, Mom!'",wantDate:"Preferred date",lang:"Video language",
+  total:"Total",escrow:"The platform holds your payment and releases it to the Seleb only after you tap 'Satisfied'. This is a prototype, so no real payment is made.",
+  submitReq:"Request (payment held)",sent:"Request sent. We'll let you know when the Seleb accepts.",
+  myReqs:"My requests",inbox:"Incoming requests",noReqs:"No requests yet.",noInbox:"No incoming requests yet.",
+  accept:"Accept",decline:"Decline",deliver:"Mark video delivered",deliverPh:"Delivery note (prototype: video upload comes next)",confirm:"Satisfied · release payment",rateIt:"Leave a rating",
+  s_requested:"Requested",s_accepted:"In progress",s_delivered:"Video arrived",s_done:"Completed",s_declined:"Declined",
+  st1:"Request",st2:"Accept",st3:"Deliver",st4:"Paid",
+  guest:"Browsing",guestS:"You can see every Seleb and all activity without joining.",mySeleb:"My Seleb profile",myFan:"My fan profile",notYet:"Not joined yet",
+  edit:"Edit",registered:"You're in.",saved:"Saved.",roleA:"Seleb (Group A)",roleB:"Fan (Group B)",
+  f_join:" joined as a Seleb",f_req:" received a {o} video request",f_done:" delivered a {o} video",
+  from:"From",to:"For",asOf:"Requested on",sampleNote:"Sample Selebs don't respond to requests.",
+  noWrite:"You can't save from this view. Ask the owner for 'Contributor' access.",noDb:"Can't connect to the data. Open this in claude.ai.",
+  back:"Back",resultN:"Selebs",sortPrice:"Lowest price",sortNew:"Newest",about2:"SalamSeleb prototype v0.5 · SH Group Tech Team · Profile photos are AI-generated examples, not real people",
+  cat_mc:"MC / Host",cat_singer:"Singer",cat_comedian:"Comedian",cat_creator:"Creator",cat_actor:"Actor",cat_athlete:"Athlete",
+  oc_birthday:"Birthday",oc_wedding:"Wedding",oc_baby:"Baby celebration",oc_company:"Company event",oc_cheer:"Encouragement",oc_other:"Other",
+  lg_id:"Indonesian",lg_en:"English",lg_ko:"Korean",lg_zh:"Chinese",lg_jv:"Javanese",newbie:"New",noRating:"No ratings yet",nReviews:"{n} reviews",reviewPh:"Review (optional): what did you like?",sampleReview:"Sample review",rateHint:"After each order, fans (Group B) rate the Seleb from 1 to 5 stars.",sortRating:"Highest rated",sortRec:"Recommended",
+  tier_top:"Top",tier_gold:"Gold",tier_silver:"Silver",tier_rising:"New",tierTitle:"Seleb tiers",
+  tierBody:"Tiers are set automatically from completed videos and the average star rating from fans. Higher tiers appear higher on Home and in Recommended.",
+  tierRule_top:"15+ completed · average 4.7+",tierRule_gold:"5+ completed · average 4.5+",tierRule_silver:"2+ completed · average 4.0+",tierRule_rising:"All other Selebs",
+  tierNext:"Next step: a paid subscription to boost visibility.",close:"Close",
+  replyLbl:"Seleb reply",replyPh:"Reply to this review (a thank-you, etc.)",replyBtn:"Reply",replied:"Reply posted.",
+  justNow:"just now",minAgo:"{n} min ago",hrAgo:"{n} hr ago",dayAgo:"{n} days ago",dayUnit:"{n} days",respLbl:"Response",saveFail:"Couldn't save. Please try again in a moment.",bioPh:"e.g. Wedding MC in Cikarang for 8 years.",recPh:"e.g. Sari (Mom)",viewMySeleb:"View my Seleb page",showWelcome:"Show the start screen",langTitle:"Choose language"},
+ zh:{tagline:"你喜爱的明星为你的日子送上祝福",hello:"明星与粉丝相遇的地方",helloSub:"生日、婚礼、满月宴、公司活动，都能收到明星的专属祝福视频。",
+  asSeleb:"以明星身份开始",asSelebSub:"发布个人资料，接收视频请求（A组）",asFan:"以粉丝身份开始",asFanSub:"挑选明星，申请祝福视频（B组）",browse:"先随便看看，不用注册",
+  testNote:"内部原型 · 不产生真实付款",test:"原型",home:"首页",find:"搜索",activity:"动态",me:"我的",
+  heroT:"这周，你想给谁送祝福？",heroS:"芝卡朗的主持人、歌手和创作者正在等你。",heroCta:"寻找明星",
+  searchPh:"按名字或类别搜索",featured:"正在活跃的明星",seeAll:"查看全部",feed:"最新动态",all:"全部",
+  sample:"示例",days:"天",video:"视频",reviews:"评分",done:"完成",requestBtn:"申请祝福视频",
+  about:"简介",langs:"可用语言",city:"城市",noSeleb:"还没有注册的明星。",noFeed:"还没有动态，来发起第一个申请吧！",
+  joinA:"注册明星（A组）",joinAS:"发布资料后，粉丝就可以向你申请视频。",joinB:"注册粉丝（B组）",joinBS:"注册后即可向明星申请祝福视频。",
+  stageName:"艺名",category:"类别",bio:"自我介绍",price:"每个视频价格（Rp）",resp:"回复时间（天）",nick:"名字（昵称）",
+  consent:"仅用于内部测试。你填写的信息只有测试参与者可见，测试结束后将被删除。",register:"注册",
+  needFan:"申请前需要注册为粉丝",needFanS:"只需填写名字即可立即申请。不注册也可以继续浏览。",goJoinB:"注册为粉丝",later:"以后再说",
+  reqTitle:"申请祝福视频",forWhom:"这个视频是给谁的？",forMe:"给我自己",forOther:"给别人",recipient:"收件人姓名",occasion:"是什么场合？",
+  note:"想对明星说的话",notePh:"例：今天是我妈妈60岁生日，请一定说一句“妈妈我爱你”！",wantDate:"希望收到的日期",lang:"视频语言",
+  total:"支付金额",escrow:"款项由平台代为保管，你点击“满意”后才会支付给明星。这是原型，不会产生真实付款。",
+  submitReq:"提交申请（款项托管）",sent:"申请已发送，明星接受后会通知你。",
+  myReqs:"我发出的申请",inbox:"收到的请求",noReqs:"还没有申请。",noInbox:"还没有收到请求。",
+  accept:"接受",decline:"拒绝",deliver:"标记视频已交付",deliverPh:"交付备注（原型：视频上传将在下一阶段加入）",confirm:"满意 · 结算",rateIt:"请留下评分",
+  s_requested:"已申请",s_accepted:"制作中",s_delivered:"视频已送达",s_done:"已完成",s_declined:"已拒绝",
+  st1:"申请",st2:"接受",st3:"交付",st4:"结算",
+  guest:"浏览中",guestS:"不注册也能查看所有明星和动态。",mySeleb:"我的明星资料",myFan:"我的粉丝资料",notYet:"尚未注册",
+  edit:"修改",registered:"注册成功。",saved:"已保存。",roleA:"明星（A组）",roleB:"粉丝（B组）",
+  f_join:" 以明星身份加入",f_req:" 收到了一个{o}视频申请",f_done:" 交付了{o}视频",
+  from:"发件人",to:"收件人",asOf:"申请日期",sampleNote:"示例明星不会回复申请。",
+  noWrite:"此页面无法保存。请向所有者申请“参与者”权限。",noDb:"无法连接数据，请在 claude.ai 中打开。",
+  back:"返回",resultN:"位",sortPrice:"价格从低到高",sortNew:"最新",about2:"SalamSeleb 原型 v0.5 · SH集团技术团队 · 头像为AI生成的示例图片，并非真实人物",
+  cat_mc:"主持人",cat_singer:"歌手",cat_comedian:"喜剧演员",cat_creator:"创作者",cat_actor:"演员",cat_athlete:"运动员",
+  oc_birthday:"生日",oc_wedding:"婚礼",oc_baby:"满月·添丁",oc_company:"公司活动",oc_cheer:"加油鼓励",oc_other:"其他",
+  lg_id:"印尼语",lg_en:"英语",lg_ko:"韩语",lg_zh:"中文",lg_jv:"爪哇语",newbie:"新人",noRating:"暂无评分",nReviews:"{n}条评价",reviewPh:"评价（选填）：你喜欢哪一点？",sampleReview:"示例评价",rateHint:"交易完成后，粉丝（B组）会给明星打1到5颗星。",sortRating:"评分最高",sortRec:"推荐",
+  tier_top:"顶级",tier_gold:"金牌",tier_silver:"银牌",tier_rising:"新人",tierTitle:"明星等级标准",
+  tierBody:"等级根据完成的视频数量和粉丝平均星级自动评定。等级越高，在首页和推荐排序中越靠前。",
+  tierRule_top:"完成15单以上 · 平均4.7以上",tierRule_gold:"完成5单以上 · 平均4.5以上",tierRule_silver:"完成2单以上 · 平均4.0以上",tierRule_rising:"其他所有明星",
+  tierNext:"下一阶段：可加入付费订阅以提高曝光。",close:"关闭",
+  replyLbl:"明星回复",replyPh:"回复这条评价（感谢等）",replyBtn:"回复",replied:"回复已发布。",
+  justNow:"刚刚",minAgo:"{n}分钟前",hrAgo:"{n}小时前",dayAgo:"{n}天前",dayUnit:"{n}天",respLbl:"回复",saveFail:"保存失败，请稍后再试。",bioPh:"例：在芝卡朗做婚礼主持8年。",recPh:"例：Sari（妈妈）",viewMySeleb:"查看我的明星主页",showWelcome:"重新查看开始页面",langTitle:"选择语言"}
 };
 const CATS=["mc","singer","comedian","creator","actor","athlete"];
 const OCCS=["birthday","wedding","baby","company","cheer","other"];
-const LANGS=["id","en","ko","jv"];
+const LANGS=["id","en","ko","zh","jv"];
+// 언어 선택: 국가명을 그 나라 말로 크게, 영어 국가명을 작게 함께 표시
+const LANG_INFO={
+  ko:{flag:"🇰🇷",code:"KO",country:"대한민국",native:"한국어",en:"Republic of Korea · Korean",html:"ko"},
+  id:{flag:"🇮🇩",code:"ID",country:"Republik Indonesia",native:"Bahasa Indonesia",en:"Republic of Indonesia · Indonesian",html:"id"},
+  en:{flag:"🇺🇸",code:"EN",country:"United States of America",native:"English",en:"United States of America · English",html:"en"},
+  zh:{flag:"🇨🇳",code:"CH",country:"中华人民共和国",native:"中文（简体）",en:"People's Republic of China · Chinese",html:"zh-Hans"}
+};
 const STEP={requested:1,accepted:2,delivered:3,done:4,declined:0};
-let lang=lsGet("ss.lang","ko"); if(!L[lang]) lang="ko";
+let lang=lsGet("ss.lang","ko"); if(!L[lang]) lang="ko"; try{document.documentElement.lang={ko:"ko",id:"id",en:"en",zh:"zh-Hans"}[lang];}catch(e){}
 const T=k=>(L[lang][k]!=null?L[lang][k]:(L.ko[k]!=null?L.ko[k]:k));
 
 /* ---------- 시제품용 예시 사진 (회장님 제공, AI 생성 이미지 · 실제 인물 아님) ---------- */
@@ -338,9 +419,20 @@ function hue(s){let h=0;for(const c of String(s))h=(h*31+c.codePointAt(0))>>>0;r
 function grad(s){const h=hue(s);return "linear-gradient(145deg,hsl("+h+" 62% 52%),hsl("+((h+40)%360)+" 70% 38%))";}
 function initials(n){n=String(n||"?").trim();const p=n.split(/\s+/);return (p.length>1?p[0][0]+p[1][0]:n.slice(0,2)).toUpperCase();}
 function avatar(name,seed,cls){const a=el("div","av"+(cls?" "+cls:""),initials(name));a.style.background=grad(seed||name);a.setAttribute("aria-hidden","true");return a;}
-function ago(ts){if(!ts)return "";const d=(Date.now()-ts)/1000;if(d<60)return lang==="ko"?"방금":"baru saja";if(d<3600)return Math.floor(d/60)+(lang==="ko"?"분 전":" mnt lalu");if(d<86400)return Math.floor(d/3600)+(lang==="ko"?"시간 전":" jam lalu");return Math.floor(d/86400)+(lang==="ko"?"일 전":" hari lalu");}
+function ago(ts){if(!ts)return "";const d=(Date.now()-ts)/1000;if(d<60)return T("justNow");if(d<3600)return T("minAgo").replace("{n}",Math.floor(d/60));if(d<86400)return T("hrAgo").replace("{n}",Math.floor(d/3600));return T("dayAgo").replace("{n}",Math.floor(d/86400));}
 function today(){try{return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Jakarta"}).format(new Date());}catch(e){return new Date().toISOString().slice(0,10);}}
 function addDays(s,n){const d=new Date(s+"T00:00:00Z");d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
+function setLang(k){lang=k;lsSet("ss.lang",k);document.documentElement.lang=LANG_INFO[k].html;render();}
+function sheetLang(){
+  const bg=el("div","sheet-bg");const sh=el("div","sheet");sh.setAttribute("role","dialog");sh.setAttribute("aria-modal","true");sh.setAttribute("aria-label",T("langTitle"));
+  const close=()=>{bg.remove();document.removeEventListener("keydown",esc);};const esc=e=>{if(e.key==="Escape")close();};
+  const l=el("div","list");
+  for(const k of ["ko","id","en","zh"]){const i=LANG_INFO[k];const b=btn("item langrow",null,()=>{close();setLang(k);});b.setAttribute("aria-pressed",String(k===lang));b.setAttribute("lang",i.html);
+    const f=el("span","flag",i.flag);f.setAttribute("aria-hidden","true");const tx=el("div","tx");tx.append(el("div","t1",i.country+" · "+i.native),el("div","t3",i.en));
+    b.append(f,tx);if(k===lang)b.append(el("span","chk","✓"));l.append(b);}
+  sh.append(el("h3",null,"🌐 "+T("langTitle")),l);
+  bg.addEventListener("click",e=>{if(e.target===bg)close();});document.addEventListener("keydown",esc);bg.append(sh);document.body.append(bg);(sh.querySelector('[aria-pressed="true"]')||sh.querySelector("button")).focus();
+}
 let toastT; function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2800);}
 
 /* ---------- state ---------- */
@@ -396,7 +488,7 @@ function topbar(withBack){
   const t=el("header","top");
   if(withBack){const b=btn("iconbtn",null,back);b.setAttribute("aria-label",T("back"));b.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';t.append(b);}
   const br=el("div","brand");br.append(document.createTextNode("Salam"),el("b",null,"Seleb"));t.append(br,el("span","testtag",T("test")),el("span","sp"));
-  const lg=btn("lang",lang==="ko"?"ID":"한국어",()=>{lang=lang==="ko"?"id":"ko";lsSet("ss.lang",lang);render();});lg.setAttribute("aria-label",lang==="ko"?"Bahasa Indonesia":"한국어로 보기");t.append(lg);
+  const lg=btn("lang",LANG_INFO[lang].flag+" "+LANG_INFO[lang].code+" ▾",sheetLang);lg.setAttribute("aria-label",T("langTitle")+": "+LANG_INFO[lang].native);lg.setAttribute("aria-haspopup","dialog");t.append(lg);
   return t;
 }
 const ICONS={home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',find:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',activity:'<path d="M3 12h4l3-8 4 16 3-8h4"/>',me:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>'};
@@ -420,7 +512,7 @@ function viewWelcome(){
   ch.append(mk("primary","B",T("asFan"),T("asFanSub"),()=>{lsSet("ss.seen",true);S.route={v:"home"};myFan()?render():go("joinB",{},true);}),
             mk("","A",T("asSeleb"),T("asSelebSub"),()=>{lsSet("ss.seen",true);S.route={v:"home"};mySeleb()?render():go("joinA",{},true);}));
   const br2=btn("linkbtn",T("browse"),()=>{lsSet("ss.seen",true);S.route={v:"home"};render();});
-  const lg=btn("linkbtn",lang==="ko"?"Bahasa Indonesia":"한국어",()=>{lang=lang==="ko"?"id":"ko";lsSet("ss.lang",lang);render();});
+  const lg=btn("linkbtn",LANG_INFO[lang].flag+" "+LANG_INFO[lang].country+" · "+LANG_INFO[lang].native+" ▾",sheetLang);lg.setAttribute("aria-haspopup","dialog");
   h.append(ch,br2,lg,el("div","note",T("testNote")));
   w.append(h);return w;
 }
@@ -508,7 +600,7 @@ function viewSeleb(id){
   if(s.sample)p.append(el("span","badge sample",T("sample")));
   const facts=el("div","facts");
   const f=(v,k)=>{const d=el("div","fact");d.append(el("b",null,v),el("small",null,k));return d;};
-  facts.append(f(rp(s.price),T("video")),f(st.rating?"★ "+st.rating.toFixed(1):"—",T("reviews")),f((s.days||3)+(lang==="ko"?"일":" "+T("days")),lang==="ko"?"응답":"Respons"));
+  facts.append(f(rp(s.price),T("video")),f(st.rating?"★ "+st.rating.toFixed(1):"—",T("reviews")),f(T("dayUnit").replace("{n}",s.days||3),T("respLbl")));
   const sec=el("section","section");const hb=el("div","shead");hb.append(el("h2",null,T("about")));
   sec.append(hb,el("div","bio",s.bio||"—"));
   const sec2=el("section","section");const h2=el("div","shead");h2.append(el("h2",null,T("langs")));
@@ -548,7 +640,7 @@ function seg(name,opts,cur,multi){const d=el("div","seg");d.setAttribute("role",
 function segVal(form,name,multi){const els=[...form.querySelectorAll('input[name="'+name+'"]')].filter(i=>i.checked).map(i=>i.value);return multi?els:els[0];}
 function consentBox(){const l=el("label","check");const i=el("input");i.type="checkbox";i.id="consent";i.required=true;l.append(i,el("span",null,T("consent")));return l;}
 function guardWrite(){if(!S.db){toast(T("noDb"));return false;}if(!S.uid){toast(T("noWrite"));return false;}if(S.canWrite===false){toast(T("noWrite"));return false;}return true;}
-function writeErr(e){const c=e&&e.code;if(c==="invalid_argument"||c==="not_granted"){S.canWrite=false;return T("noWrite");}return (lang==="ko"?"저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.":"Gagal menyimpan. Coba lagi sebentar.");}
+function writeErr(e){const c=e&&e.code;if(c==="invalid_argument"||c==="not_granted"){S.canWrite=false;return T("noWrite");}return T("saveFail");}
 
 function viewJoinA(){
   const cur=mySeleb()||{};const g=el("div","gutter");
@@ -556,7 +648,7 @@ function viewJoinA(){
   const f=el("form","form");
   const nm=inputEl("a-name",cur.name,{maxLength:40,required:true,autocomplete:"nickname"});
   const city=inputEl("a-city",cur.city||"Cikarang",{maxLength:40});
-  const bio=el("textarea","input");bio.id="a-bio";bio.maxLength=400;bio.value=cur.bio||"";bio.placeholder=lang==="ko"?"예: 찌까랑 결혼식 MC 8년 차. 분위기를 확 띄우는 축하 멘트 전문!":"Contoh: MC pernikahan 8 tahun di Cikarang.";
+  const bio=el("textarea","input");bio.id="a-bio";bio.maxLength=400;bio.value=cur.bio||"";bio.placeholder=T("bioPh");
   const price=inputEl("a-price",cur.price||150000,{type:"number",min:10000,step:5000,inputMode:"numeric",required:true});
   const days=inputEl("a-days",cur.days||3,{type:"number",min:1,max:14,inputMode:"numeric"});
   f.append(field(T("stageName"),nm),field(T("category"),seg("a-cat",CATS.map(c=>[c,T("cat_"+c)]),cur.category||"mc")),field(T("city"),city),field(T("bio"),bio),
@@ -601,7 +693,7 @@ function viewRequest(id){
   g.append(el("h1","pagetitle",T("reqTitle")),head);
   const f=el("form","form");
   const who=seg("r-who",[["me",T("forMe")],["other",T("forOther")]],"other");
-  const rec=inputEl("r-rec","",{maxLength:40,placeholder:lang==="ko"?"예: 사리 (엄마)":"Contoh: Sari (Ibu)"});
+  const rec=inputEl("r-rec","",{maxLength:40,placeholder:T("recPh")});
   const recF=field(T("recipient"),rec);
   const occ=seg("r-occ",OCCS.map(o=>[o,T("oc_"+o)]),"birthday");
   const note=el("textarea","input");note.id="r-note";note.maxLength=500;note.placeholder=T("notePh");note.required=true;
@@ -688,9 +780,9 @@ function viewMe(){
     if(doc&&doc.price)tx.append(el("small",null,T("cat_"+doc.category)+" · "+rp(doc.price)));
     c.append(doc?(doc.price?photoAvatar(doc):avatar(doc.name,seed)):avatar("?","x"),tx,btn("btn sm"+(doc?" ghost":""),doc?T("edit"):cta,fn));return c;};
   s.append(card(T("roleB"),fan,T("register"),()=>go("joinB"),S.uid+"f"),card(T("roleA"),sel,T("register"),()=>go("joinA"),S.uid));
-  if(sel)s.append(btn("btn ghost block",lang==="ko"?"내 Seleb 페이지 보기":"Lihat halaman Seleb saya",()=>go("seleb",{id:sel.id})));
+  if(sel)s.append(btn("btn ghost block",T("viewMySeleb"),()=>go("seleb",{id:sel.id})));
   g.append(s);
-  const s2=el("section","section");s2.append(btn("btn ghost block",lang==="ko"?"시작 화면 다시 보기":"Lihat layar awal",()=>{S.stack=[];S.route={v:"welcome"};render();}));
+  const s2=el("section","section");s2.append(btn("btn ghost block",T("showWelcome"),()=>{S.stack=[];S.route={v:"welcome"};render();}));
   g.append(s2,el("div","foot",T("testNote")+" · "+T("about2")));
   return g;
 }
