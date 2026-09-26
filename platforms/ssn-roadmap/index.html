@@ -1,7 +1,7 @@
 <title>SSN 로드맵</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
 :root{
   --bg:#F3F5F7; --surface:#FFFFFF; --surface-2:#EAEEF2; --line:#D9DFE6;
@@ -9,6 +9,7 @@
   --accent:#C8305E; --accent-soft:#F8E3EA;
   --c-chairman:#A87A2A; --c-musk:#34598F; --c-buffett:#A3365A; --c-jobs:#5A4C8C; --c-external:#5E6C78;
   --ok:#23835A; --ok-soft:#DDF1E7; --warn:#B36A00; --warn-soft:#FBEBD2; --bad:#B8322F; --bad-soft:#F8DEDD; --idle:#6B7684; --idle-soft:#E6EAEE;
+  --plan-font:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; /* 세부계획: 굵은 고딕 */
   --font:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
@@ -86,9 +87,10 @@ section.card h2{font-size:17px;font-weight:700;margin-bottom:10px}
 
 .row{display:grid;grid-template-columns:118px minmax(0,1fr) 150px 108px;gap:12px;align-items:start;padding:11px 4px;border-bottom:1px solid var(--line);cursor:pointer}
 .row:hover{background:color-mix(in srgb,var(--surface-2) 55%,transparent)}
-.row .t{font-weight:600;font-size:15px}
-.row .d{font-size:13px;color:var(--ink-2);margin-top:2px}
-.row .n{font-size:12.5px;color:var(--muted);margin-top:4px;white-space:pre-wrap}
+.row{font-family:var(--plan-font)}
+.row .t{font-weight:800;font-size:15.5px;letter-spacing:-.01em}
+.row .d{font-size:13.5px;font-weight:700;color:var(--ink-2);margin-top:2px}
+.row .n{font-size:13px;font-weight:600;color:var(--muted);margin-top:4px;white-space:pre-wrap}
 .row .n::before{content:"메모 · ";font-weight:600}
 .row .due{text-align:right;font-family:var(--mono);font-size:13px}
 .row .due small{display:block;font-size:11.5px;color:var(--muted)}
